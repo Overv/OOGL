@@ -1,0 +1,15 @@
+# Visual Studio files
+
+build/vs2010/ipch/
+*.sdf
+*.opensdf
+*.lastbuildstate
+*.log
+*.tlog
+*.idb
+*.pdb
+
+# Binaries
+
+*.obj
+*.lib
