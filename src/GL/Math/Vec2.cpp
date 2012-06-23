@@ -22,7 +22,7 @@
 #include <Math/Vec2.hpp>
 #include <cmath>
 
-namespace OOGL
+namespace GL
 {
 	Vec2& Vec2::operator+=( const Vec2& v )
 	{

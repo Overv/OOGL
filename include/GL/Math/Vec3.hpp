@@ -24,7 +24,7 @@
 #ifndef OOGL_VEC3_HPP
 #define OOGL_VEC3_HPP
 
-namespace OOGL
+namespace GL
 {
 	/*
 		3D vector

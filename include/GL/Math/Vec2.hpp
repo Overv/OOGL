@@ -24,7 +24,7 @@
 #ifndef OOGL_VEC2_HPP
 #define OOGL_VEC2_HPP
 
-namespace OOGL
+namespace GL
 {
 	/*
 		2D vector
