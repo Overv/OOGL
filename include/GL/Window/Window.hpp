@@ -66,7 +66,7 @@ namespace GL
 
 		void Close();
 
-		bool GetEvent( Event& event );
+		bool GetEvent( Event& ev );
 
 #ifdef OOGL_PLATFORM_WINDOWS
 		LRESULT WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam );

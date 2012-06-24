@@ -128,7 +128,7 @@ namespace GL
 		open = false;
 	}
 
-	bool Window::GetEvent( Event& event )
+	bool Window::GetEvent( Event& ev )
 	{
 		// Fetch new events
 		MSG msg;
@@ -141,7 +141,7 @@ namespace GL
 		// Return oldest event - if available
 		if ( events.empty() ) return false;
 		
-		event = events.front();
+		ev = events.front();
 		events.pop();
 
 		return true;
@@ -149,8 +149,8 @@ namespace GL
 
 	LRESULT Window::WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam )
 	{
-		Event windowEvent;
-		windowEvent.Type = 0;
+		Event ev;
+		ev.Type = 0;
 
 		// Translate message to Event
 		switch ( msg )
@@ -158,56 +158,95 @@ namespace GL
 		case WM_CLOSE:
 			open = false;
 			DestroyWindow( window );
+
+			ev.Type = Event::Close;
 			break;
 
 		case WM_SIZE:
-			if ( events.empty() || events.back().Type != EventType::Resize )
-				windowEvent.Type = EventType::Resize;
+			if ( events.empty() ) {
+				ev.Type = Event::Resize;
+				ev.Window.Width = GET_X_LPARAM( lParam );
+				ev.Window.Height = GET_Y_LPARAM( lParam );
+			} else if ( events.back().Type == Event::Resize ) {
+				events.back().Window.Width = GET_X_LPARAM( lParam );
+				events.back().Window.Height = GET_Y_LPARAM( lParam );
+			}
 			break;
 
 		case WM_MOVE:
-			if ( events.empty() || events.back().Type != EventType::Move )
-				windowEvent.Type = EventType::Move;
+			if ( events.empty() ) {
+				ev.Type = Event::Move;
+				ev.Window.X = GET_X_LPARAM( lParam );
+				ev.Window.Y = GET_Y_LPARAM( lParam );
+			} else if ( events.back().Type == Event::Move ) {
+				events.back().Window.X = GET_X_LPARAM( lParam );
+				events.back().Window.Y = GET_Y_LPARAM( lParam );
+			}
 			break;
 
 		case WM_ACTIVATE:
 			if ( wParam == WA_INACTIVE ) {
-				windowEvent.Type = EventType::Blur;
+				ev.Type = Event::Blur;
 				focus = false;
 			} else {
-				windowEvent.Type = EventType::Focus;
+				ev.Type = Event::Focus;
 				focus = true;
 			}
 			break;
 
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
-			windowEvent.Type = EventType::KeyDown;
+			ev.Type = Event::KeyDown;
+			ev.Key.Code = wParam;
+			ev.Key.Alt = HIWORD( GetAsyncKeyState( VK_MENU ) ) != 0;
+			ev.Key.Control = HIWORD( GetAsyncKeyState( VK_CONTROL ) ) != 0;
+			ev.Key.Shift = HIWORD( GetAsyncKeyState( VK_SHIFT ) ) != 0;
 			break;
 
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
-			windowEvent.Type = EventType::KeyUp;
+			ev.Type = Event::KeyUp;
+			ev.Key.Code = wParam;
+			ev.Key.Alt = HIWORD( GetAsyncKeyState( VK_MENU ) ) != 0;
+			ev.Key.Control = HIWORD( GetAsyncKeyState( VK_CONTROL ) ) != 0;
+			ev.Key.Shift = HIWORD( GetAsyncKeyState( VK_SHIFT ) ) != 0;
 			break;
 
 		case WM_LBUTTONDOWN:
 		case WM_RBUTTONDOWN:
 		case WM_MBUTTONDOWN:
-			windowEvent.Type = EventType::MouseDown;
+			if ( msg == WM_LBUTTONDOWN ) ev.Mouse.Button = MouseButton::Left;
+			else if ( msg == WM_RBUTTONDOWN ) ev.Mouse.Button = MouseButton::Right;
+			else if ( msg == WM_MBUTTONDOWN ) ev.Mouse.Button = MouseButton::Middle;
+
+			ev.Type = Event::MouseDown;
+			ev.Mouse.X = GET_X_LPARAM( lParam );
+			ev.Mouse.Y = GET_Y_LPARAM( lParam );
 			break;
 
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
 		case WM_MBUTTONUP:
-			windowEvent.Type = EventType::MouseUp;
+			if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Left;
+			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Right;
+			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Middle;
+
+			ev.Type = Event::MouseUp;
+			ev.Mouse.X = GET_X_LPARAM( lParam );
+			ev.Mouse.Y = GET_Y_LPARAM( lParam );
 			break;
 
 		case WM_MOUSEWHEEL:
-			windowEvent.Type = EventType::MouseWheel;
+			ev.Type = Event::MouseWheel;
+			ev.Mouse.Delta = GET_WHEEL_DELTA_WPARAM( wParam );
+			ev.Mouse.X = GET_X_LPARAM( lParam );
+			ev.Mouse.Y = GET_Y_LPARAM( lParam );
 			break;
 
 		case WM_MOUSEMOVE:
-			windowEvent.Type = EventType::MouseMove;
+			ev.Type = Event::MouseMove;
+			ev.Mouse.X = GET_X_LPARAM( lParam );
+			ev.Mouse.Y = GET_Y_LPARAM( lParam );
 			break;
 
 		default:
@@ -215,8 +254,8 @@ namespace GL
 		}
 
 		// Add event to internal queue
-		if ( windowEvent.Type != 0 )
-			events.push( windowEvent );
+		if ( ev.Type != 0 )
+			events.push( ev );
 
 		return 0;
 	}

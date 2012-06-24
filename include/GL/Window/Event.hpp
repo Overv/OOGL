@@ -29,9 +29,55 @@
 namespace GL
 {
 	/*
-		Event type
+		Mouse button
 	*/
-	namespace EventType
+	namespace MouseButton
+	{
+		enum
+		{
+			Left,
+			Right,
+			Middle
+		};
+	}
+
+	/*
+		Mouse event
+	*/
+	struct MouseEvent
+	{
+		uint X, Y;
+		union
+		{
+			int Delta;
+			uint Button;
+		};
+	};
+
+	/*
+		Keyboard event
+	*/
+	struct KeyEvent
+	{
+		uint Code;
+		bool Alt;
+		bool Control;
+		bool Shift;
+	};
+
+	/*
+		Window event
+	*/
+	struct WindowEvent
+	{
+		union { int X; uint Width; };
+		union { int Y; uint Height; };
+	};
+
+	/*
+		Event
+	*/
+	struct Event
 	{
 		enum
 		{
@@ -47,14 +93,15 @@ namespace GL
 			MouseWheel,
 			MouseMove
 		};
-	}
 
-	/*
-		Window event
-	*/
-	struct Event
-	{
 		uint Type;
+
+		union
+		{
+			MouseEvent Mouse;
+			KeyEvent Key;
+			WindowEvent Window;
+		};
 	};
 }
 
