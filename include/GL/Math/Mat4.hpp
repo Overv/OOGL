@@ -51,6 +51,7 @@ namespace GL
 		Mat4& RotateX( float ang );
 		Mat4& RotateY( float ang );
 		Mat4& RotateZ( float ang );
+		Mat4& Rotate( const Vec3& axis, float ang );
 
 		Mat4 Transpose() const;
 

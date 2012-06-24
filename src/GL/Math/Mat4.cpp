@@ -111,6 +111,21 @@ namespace GL
 		);
 	}
 
+	Mat4& Mat4::Rotate( const Vec3& axis, float ang )
+	{
+		float s = sin( ang );
+		float c = cos( ang );
+		float t = 1 - c;
+		Vec3 a = axis.Normal();
+
+		return *this = *this * Mat4(
+			a.X * a.X * t + c, a.X * a.Y * t - a.Z * s, a.X * a.Z * t + a.Y * s, 0,
+			a.Y * a.X * t + a.Z * s, a.Y * a.Y * t + c, a.Y * a.Z * t - a.X * s, 0,
+			a.Z * a.X * t - a.Y * s, a.Z * a.Y * t + a.X * s, a.Z * a.Z * t + c, 0,
+			0, 0, 0, 1
+		);
+	}
+
 	Mat4 Mat4::Transpose() const
 	{
 		Mat4 res;
