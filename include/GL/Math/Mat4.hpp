@@ -52,10 +52,15 @@ namespace GL
 		Mat4& RotateY( float ang );
 		Mat4& RotateZ( float ang );
 
-		Mat4 Transpose();
+		Mat4 Transpose() const;
 
-		float Determinant();
-		Mat4 Inverse();
+		float Determinant() const;
+		Mat4 Inverse() const;
+
+		static Mat4 Frustum( float left, float right, float bottom, float top, float near, float far );
+		static Mat4 Perspective( float fovy, float aspect, float near, float far );
+		static Mat4 Ortho( float left, float right, float bottom, float top, float near, float far );
+		static Mat4 LookAt( const Vec3& eye, const Vec3& center, const Vec3& up );
 
 	private:
 		float m[16];

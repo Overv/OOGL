@@ -84,7 +84,7 @@ namespace GL
 		);
 	}
 
-	Mat3 Mat3::Transpose()
+	Mat3 Mat3::Transpose() const
 	{
 		Mat3 res;
 
@@ -103,12 +103,12 @@ namespace GL
 		return res;
 	}
 
-	float Mat3::Determinant()
+	float Mat3::Determinant() const
 	{
 		return m[0] * ( m[8] * m[4] - m[5] * m[7] ) + m[1] * ( -m[8] * m[3] + m[5] * m[6] ) + m[2] * ( m[7] * m[3] - m[4] * m[6] );
 	}
 
-	Mat3 Mat3::Inverse()
+	Mat3 Mat3::Inverse() const
 	{
 		float det = Determinant();
 

@@ -111,7 +111,7 @@ namespace GL
 		);
 	}
 
-	Mat4 Mat4::Transpose()
+	Mat4 Mat4::Transpose() const
 	{
 		Mat4 res;
 
@@ -138,7 +138,7 @@ namespace GL
 		return res;
 	}
 
-	float Mat4::Determinant()
+	float Mat4::Determinant() const
 	{
 		return m[12] * m[9] * m[6] * m[3] - m[8] * m[13] * m[6] * m[3] - m[12] * m[5] * m[10] * m[3] + m[4] * m[13] * m[10] * m[3] +
                m[8] * m[5] * m[14] * m[3] - m[4] * m[9] * m[14] * m[3] - m[12] * m[9] * m[2] * m[7] + m[8] * m[13] * m[2] * m[7] +
@@ -148,7 +148,7 @@ namespace GL
                m[8] * m[1] * m[6] * m[15] - m[0] * m[9] * m[6] * m[15] - m[4] * m[1] * m[10] * m[15] + m[0] * m[5] * m[10] * m[15];
 	}
 
-	Mat4 Mat4::Inverse()
+	Mat4 Mat4::Inverse() const
 	{
 		float det = Determinant();
 
@@ -183,6 +183,77 @@ namespace GL
         res.m[13] = ( m[0] * t9 - m[1] * t7 + m[2] * t6 ) / det;
         res.m[14] = ( -m[12] * t3 + m[13] * t1 - m[14] * t0 ) / det;
         res.m[15] = ( m[8] * t3 - m[9] * t1 + m[10] * t0 ) / det;
+
+		return res;
+	}
+
+	Mat4 Mat4::Frustum( float left, float right, float bottom, float top, float near, float far )
+	{
+		Mat4 res;
+
+		res.m[0] = near * 2.0f / ( right - left );
+		res.m[5] = near * 2.0f / ( top - bottom );
+		res.m[8] = ( right + left ) / ( right - left );
+		res.m[9] = ( top + bottom ) / ( top - bottom );
+		res.m[10] = ( -far - near ) / ( far - near );
+		res.m[11] = -1;
+		res.m[14] = -2.0f * far * near / ( far - near );
+		res.m[15] = 0;
+
+		return res;
+	}
+
+	Mat4 Mat4::Perspective( float fovy, float aspect, float near, float far )
+	{
+		float top = near * tan( fovy );
+		float right = top * aspect;
+		return Frustum( -right, right, -top, top, near, far );
+	}
+
+	Mat4 Mat4::Ortho( float left, float right, float bottom, float top, float near, float far )
+	{
+		Mat4 res;
+
+		res.m[0] = 2 / ( right - left );
+		res.m[5] = 2 / ( top - bottom );
+		res.m[10] = -2 / ( far - near );
+		res.m[12] = -( left + right ) / ( right - left );
+		res.m[13] = -( top + bottom ) / ( top - bottom );
+		res.m[14] = -( far + near ) / ( far - near );
+
+		return res;
+	}
+
+	Mat4 Mat4::LookAt( const Vec3& eye, const Vec3& center, const Vec3& up )
+	{
+		Mat4 res;
+
+		Vec3 Z = ( eye - center ).Normal();
+
+		Vec3 X = Vec3(
+			up.Y * Z.Z - up.Z * Z.Y,
+			up.Z * Z.X - up.X * Z.Z,
+			up.X * Z.Y - up.Y * Z.X
+		).Normal();
+
+		Vec3 Y = Vec3(
+			Z.Y * X.Z - Z.Z * X.Y,
+			Z.Z * X.X - Z.X * X.Z,
+			Z.X * X.Y - Z.Y * X.X
+		).Normal();
+
+		res.m[0] = X.X;
+        res.m[1] = Y.X;
+        res.m[2] = Z.X;
+        res.m[4] = X.Y;
+        res.m[5] = Y.Y;
+        res.m[6] = Z.Y;
+        res.m[8] = X.Z;
+        res.m[9] = Y.Z;
+        res.m[10] = Z.Z;
+        res.m[12] = -( X.X * eye.X + X.Y * eye.Y + X.Z * eye.Z );
+        res.m[13] = -( Y.X * eye.X + Y.Y * eye.Y + Y.Z * eye.Z );
+        res.m[14] = -( Z.X * eye.X + Z.Y * eye.Y + Z.Z * eye.Z );
 
 		return res;
 	}
