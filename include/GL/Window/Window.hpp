@@ -68,11 +68,6 @@ namespace GL
 
 		bool GetEvent( Event& ev );
 
-#ifdef OOGL_PLATFORM_WINDOWS
-		LRESULT WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam );
-		static LRESULT CALLBACK WindowEventHandler( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
-#endif
-
 	private:
 		uint width, height;
 		bool open, focus;
@@ -81,6 +76,9 @@ namespace GL
 #ifdef OOGL_PLATFORM_WINDOWS
 		HWND window;
 		DWORD style;
+
+		LRESULT WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam );
+		static LRESULT CALLBACK WindowEventHandler( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 #endif
 	};
 }
