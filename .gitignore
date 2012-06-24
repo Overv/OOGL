@@ -1,6 +1,6 @@
 # Visual Studio files
 
-build/vs2010/ipch/
+*.ipch
 *.sdf
 *.opensdf
 *.lastbuildstate
