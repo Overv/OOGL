@@ -42,8 +42,8 @@ namespace GL
 			float v30, float v31, float v32, float v33
 		);
 
-		const Mat4 operator*( const Mat4& mat );
-		const Vec3 operator*( const Vec3& v );
+		const Mat4 operator*( const Mat4& mat ) const;
+		const Vec3 operator*( const Vec3& v ) const;
 
 		Mat4& Translate( const Vec3& v );
 		Mat4& Scale( const Vec3& v );
@@ -55,6 +55,9 @@ namespace GL
 
 		Mat4 Transpose() const;
 
+		// The implementation of the functions below is based on the awesome
+		// glMatrix library developed by Brandon Jones and Colin MacKenzie IV
+
 		float Determinant() const;
 		Mat4 Inverse() const;
 
@@ -62,6 +65,8 @@ namespace GL
 		static Mat4 Perspective( float fovy, float aspect, float near, float far );
 		static Mat4 Ortho( float left, float right, float bottom, float top, float near, float far );
 		static Mat4 LookAt( const Vec3& eye, const Vec3& center, const Vec3& up );
+
+		static Vec3 UnProject( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] );
 
 	private:
 		float m[16];

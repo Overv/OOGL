@@ -42,7 +42,7 @@ namespace GL
 		m[3] = v30; m[7] = v31; m[11] = v32; m[15] = v33;
 	}
 
-	const Mat4 Mat4::operator*( const Mat4& mat )
+	const Mat4 Mat4::operator*( const Mat4& mat ) const
 	{
 		return Mat4(
 			m[0]*mat.m[0]+m[4]*mat.m[1]+m[8]*mat.m[2]+m[12]*mat.m[3], m[0]*mat.m[4]+m[4]*mat.m[5]+m[8]*mat.m[6]+m[12]*mat.m[7], m[0]*mat.m[8]+m[4]*mat.m[9]+m[8]*mat.m[10]+m[12]*mat.m[11], m[0]*mat.m[12]+m[4]*mat.m[13]+m[8]*mat.m[14]+m[12]*mat.m[15],
@@ -52,7 +52,7 @@ namespace GL
 		);
 	}
 
-	const Vec3 Mat4::operator*( const Vec3& v )
+	const Vec3 Mat4::operator*( const Vec3& v ) const
 	{
 		return Vec3(
 			m[0]*v.X + m[4]*v.Y + m[8]*v.Z + m[12],
@@ -220,7 +220,7 @@ namespace GL
 
 	Mat4 Mat4::Perspective( float fovy, float aspect, float near, float far )
 	{
-		float top = near * tan( fovy );
+		float top = near * tan( fovy / 2.0f );
 		float right = top * aspect;
 		return Frustum( -right, right, -top, top, near, far );
 	}
@@ -266,10 +266,25 @@ namespace GL
         res.m[8] = X.Z;
         res.m[9] = Y.Z;
         res.m[10] = Z.Z;
-        res.m[12] = -( X.X * eye.X + X.Y * eye.Y + X.Z * eye.Z );
-        res.m[13] = -( Y.X * eye.X + Y.Y * eye.Y + Y.Z * eye.Z );
-        res.m[14] = -( Z.X * eye.X + Z.Y * eye.Y + Z.Z * eye.Z );
+		res.m[12] = -X.Dot( eye );
+		res.m[13] = -Y.Dot( eye );
+		res.m[14] = -Z.Dot( eye );
 
 		return res;
+	}
+
+	Vec3 Mat4::UnProject( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] )
+	{
+		Mat4 inv = ( proj * view ).Inverse();
+		Vec3 v(
+			( vec.X - viewport[0] ) * 2.0f / viewport[2] - 1.0f,
+			( vec.Y - viewport[1] ) * 2.0f / viewport[3] - 1.0f,
+			2.0f * vec.Z - 1.0f
+		);
+
+		Vec3 res = inv * v;
+		float w = inv.m[3] * v.X + inv.m[7] * v.Y + inv.m[11] * v.Z + inv.m[15];
+
+		return res / w;
 	}
 }

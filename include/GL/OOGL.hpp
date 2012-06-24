@@ -28,5 +28,6 @@
 #include <GL/Math/Vec3.hpp>
 #include <GL/Math/Mat3.hpp>
 #include <GL/Math/Mat4.hpp>
+#include <GL/Math/Util.hpp>
 
 #endif

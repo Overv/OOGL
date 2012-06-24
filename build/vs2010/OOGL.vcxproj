@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\GL\Math\Mat3.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Mat4.hpp" />
+    <ClInclude Include="..\..\include\GL\Math\Util.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec2.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec3.hpp" />
     <ClInclude Include="..\..\include\GL\OOGL.hpp" />
