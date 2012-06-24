@@ -21,12 +21,40 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_MAT4_HPP
+#define OOGL_MAT4_HPP
 
-#include <GL/Math/Vec2.hpp>
 #include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
+
+namespace GL
+{
+	/*
+		4-by-4 Matrix
+	*/
+	class Mat4
+	{
+	public:
+		Mat4();
+		Mat4(
+			float v00, float v01, float v02, float v03,
+			float v10, float v11, float v12, float v13,
+			float v20, float v21, float v22, float v23,
+			float v30, float v31, float v32, float v33
+		);
+
+		const Mat4 operator*( const Mat4& mat );
+		const Vec3 operator*( const Vec3& v );
+
+		Mat4& Translate( const Vec3& v );
+		Mat4& Scale( const Vec3& v );
+
+		Mat4& RotateX( float ang );
+		Mat4& RotateY( float ang );
+		Mat4& RotateZ( float ang );
+
+	private:
+		float m[16];
+	};
+}
 
 #endif

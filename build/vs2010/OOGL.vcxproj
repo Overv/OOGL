@@ -11,11 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\GL\Math\Mat3.hpp" />
+    <ClInclude Include="..\..\include\GL\Math\Mat4.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec2.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec3.hpp" />
     <ClInclude Include="..\..\include\GL\OOGL.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\GL\Math\Mat3.cpp" />
+    <ClCompile Include="..\..\src\GL\Math\Mat4.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec3.cpp" />
   </ItemGroup>
@@ -62,7 +66,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\GL\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -78,7 +82,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\GL\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

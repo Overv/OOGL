@@ -30,12 +30,24 @@
     <ClInclude Include="..\..\include\GL\Math\Vec3.hpp">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\Math\Mat3.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GL\Math\Mat4.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\GL\Math\Vec3.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Math\Mat3.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Math\Mat4.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>

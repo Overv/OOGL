@@ -21,12 +21,36 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_MAT3_HPP
+#define OOGL_MAT3_HPP
 
 #include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
+
+namespace GL
+{
+	/*
+		3-by-3 Matrix
+	*/
+	class Mat3
+	{
+	public:
+		Mat3();
+		Mat3(
+			float v00, float v01, float v02,
+			float v10, float v11, float v12,
+			float v20, float v21, float v22
+		);
+
+		const Mat3 operator*( const Mat3& mat );
+		const Vec2 operator*( const Vec2& v );
+
+		Mat3& Translate( const Vec2& v );
+		Mat3& Scale( const Vec2& v );
+		Mat3& Rotation( float ang );
+
+	private:
+		float m[9];
+	};
+}
 
 #endif

@@ -19,7 +19,7 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#include <Math/Vec2.hpp>
+#include <GL/Math/Vec2.hpp>
 #include <cmath>
 
 namespace GL
