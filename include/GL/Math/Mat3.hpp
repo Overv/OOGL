@@ -48,6 +48,11 @@ namespace GL
 		Mat3& Scale( const Vec2& v );
 		Mat3& Rotation( float ang );
 
+		Mat3 Transpose();
+
+		float Determinant();
+		Mat3 Inverse();
+
 	private:
 		float m[9];
 	};

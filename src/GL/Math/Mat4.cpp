@@ -110,4 +110,80 @@ namespace GL
 			0, 0, 0, 1
 		);
 	}
+
+	Mat4 Mat4::Transpose()
+	{
+		Mat4 res;
+
+		res.m[0] = m[0];
+		res.m[1] = m[4];
+		res.m[2] = m[8];
+		res.m[3] = m[12];
+
+		res.m[4] = m[1];
+		res.m[5] = m[5];
+		res.m[6] = m[9];
+		res.m[7] = m[13];
+
+		res.m[8] = m[2];
+		res.m[9] = m[6];
+		res.m[10] = m[10];
+		res.m[11] = m[14];
+
+		res.m[12] = m[3];
+		res.m[13] = m[7];
+		res.m[14] = m[11];
+		res.m[15] = m[15];
+
+		return res;
+	}
+
+	float Mat4::Determinant()
+	{
+		return m[12] * m[9] * m[6] * m[3] - m[8] * m[13] * m[6] * m[3] - m[12] * m[5] * m[10] * m[3] + m[4] * m[13] * m[10] * m[3] +
+               m[8] * m[5] * m[14] * m[3] - m[4] * m[9] * m[14] * m[3] - m[12] * m[9] * m[2] * m[7] + m[8] * m[13] * m[2] * m[7] +
+               m[12] * m[1] * m[10] * m[7] - m[0] * m[13] * m[10] * m[7] - m[8] * m[1] * m[14] * m[7] + m[0] * m[9] * m[14] * m[7] +
+               m[12] * m[5] * m[2] * m[11] - m[4] * m[13] * m[2] * m[11] - m[12] * m[1] * m[6] * m[11] + m[0] * m[13] * m[6] * m[11] +
+               m[4] * m[1] * m[14] * m[11] - m[0] * m[5] * m[14] * m[11] - m[8] * m[5] * m[2] * m[15] + m[4] * m[9] * m[2] * m[15] +
+               m[8] * m[1] * m[6] * m[15] - m[0] * m[9] * m[6] * m[15] - m[4] * m[1] * m[10] * m[15] + m[0] * m[5] * m[10] * m[15];
+	}
+
+	Mat4 Mat4::Inverse()
+	{
+		float det = Determinant();
+
+		Mat4 res;
+
+		float t0 = m[0] * m[5] - m[1] * m[4];
+        float t1 = m[0] * m[6] - m[2] * m[4];
+        float t2 = m[0] * m[7] - m[3] * m[4];
+        float t3 = m[1] * m[6] - m[2] * m[5];
+        float t4 = m[1] * m[7] - m[3] * m[5];
+        float t5 = m[2] * m[7] - m[3] * m[6];
+        float t6 = m[8] * m[13] - m[9] * m[12];
+        float t7 = m[8] * m[14] - m[10] * m[12];
+        float t8 = m[8] * m[15] - m[11] * m[12];
+        float t9 = m[9] * m[14] - m[10] * m[13];
+        float t10 = m[9] * m[15] - m[11] * m[13];
+        float t11 = m[10] * m[15] - m[11] * m[14];
+
+		res.m[0] = ( m[5] * t11 - m[6] * t10 + m[7] * t9 ) / det;
+        res.m[1] = ( -m[1] * t11 + m[2] * t10 - m[3] * t9 ) / det;
+        res.m[2] = ( m[13] * t5 - m[14] * t4 + m[15] * t3 ) / det;
+        res.m[3] = ( -m[9] * t5 + m[10] * t4 - m[11] * t3 ) / det;
+        res.m[4] = ( -m[4] * t11 + m[6] * t8 - m[7] * t7 ) / det;
+        res.m[5] = ( m[0] * t11 - m[2] * t8 + m[3] * t7 ) / det;
+        res.m[6] = ( -m[12] * t5 + m[14] * t2 - m[15] * t1 ) / det;
+        res.m[7] = ( m[8] * t5 - m[10] * t2 + m[11] * t1 ) / det;
+        res.m[8] = ( m[4] * t10 - m[5] * t8 + m[7] * t6 ) / det;
+        res.m[9] = ( -m[0] * t10 + m[1] * t8 - m[3] * t6 ) / det;
+        res.m[10] = ( m[12] * t4 - m[13] * t2 + m[15] * t0 ) / det;
+        res.m[11] = ( -m[8] * t4 + m[9] * t2 - m[11] * t0 ) / det;
+        res.m[12] = ( -m[4] * t9 + m[5] * t7 - m[6] * t6 ) / det;
+        res.m[13] = ( m[0] * t9 - m[1] * t7 + m[2] * t6 ) / det;
+        res.m[14] = ( -m[12] * t3 + m[13] * t1 - m[14] * t0 ) / det;
+        res.m[15] = ( m[8] * t3 - m[9] * t1 + m[10] * t0 ) / det;
+
+		return res;
+	}
 }

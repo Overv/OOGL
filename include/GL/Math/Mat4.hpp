@@ -52,6 +52,11 @@ namespace GL
 		Mat4& RotateY( float ang );
 		Mat4& RotateZ( float ang );
 
+		Mat4 Transpose();
+
+		float Determinant();
+		Mat4 Inverse();
+
 	private:
 		float m[16];
 	};

@@ -83,4 +83,47 @@ namespace GL
 			0, 0, 1
 		);
 	}
+
+	Mat3 Mat3::Transpose()
+	{
+		Mat3 res;
+
+		res.m[0] = m[0];
+		res.m[1] = m[3];
+		res.m[2] = m[6];
+
+		res.m[3] = m[1];
+		res.m[4] = m[4];
+		res.m[5] = m[7];
+
+		res.m[6] = m[2];
+		res.m[7] = m[5];
+		res.m[8] = m[8];
+
+		return res;
+	}
+
+	float Mat3::Determinant()
+	{
+		return m[0] * ( m[8] * m[4] - m[5] * m[7] ) + m[1] * ( -m[8] * m[3] + m[5] * m[6] ) + m[2] * ( m[7] * m[3] - m[4] * m[6] );
+	}
+
+	Mat3 Mat3::Inverse()
+	{
+		float det = Determinant();
+
+		Mat3 res;
+
+		res.m[0] = ( m[8] * m[4] - m[5] * m[7] ) / det;
+        res.m[1] = ( -m[8] * m[1] + m[2] * m[7] ) / det;
+        res.m[2] = ( m[5] * m[1] - m[2] * m[4] ) / det;
+        res.m[3] = ( -m[8] * m[3] + m[5] * m[6] ) / det;
+        res.m[4] = ( m[8] * m[0] - m[2] * m[6] ) / det;
+        res.m[5] = ( -m[5] * m[0] + m[2] * m[3] ) / det;
+        res.m[6] = ( m[7] * m[3] - m[4] * m[6] ) / det;
+        res.m[7] = ( -m[7] * m[0] + m[1] * m[6] ) / det;
+        res.m[8] = ( m[4] * m[0] - m[1] * m[3] ) / det;
+
+		return res;
+	}
 }
