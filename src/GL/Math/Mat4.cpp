@@ -287,4 +287,19 @@ namespace GL
 
 		return res / w;
 	}
+
+	Vec3 Mat4::Project( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] )
+	{
+		Mat4 trans = proj * view;
+		Vec3 v = trans * vec;
+
+		float w = trans.m[3] * vec.X + trans.m[7] * vec.Y + trans.m[11] * vec.Z + trans.m[15];
+		v = v / w;
+
+		return Vec3(
+			viewport[0] + viewport[2] * ( v.X + 1.0f ) / 2.0f,
+			viewport[1] + viewport[3] * ( v.Y + 1.0f ) / 2.0f,
+			( v.Z + 1.0f ) / 2.0f
+		);
+	}
 }

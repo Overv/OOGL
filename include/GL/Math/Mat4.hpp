@@ -67,6 +67,7 @@ namespace GL
 		static Mat4 LookAt( const Vec3& eye, const Vec3& center, const Vec3& up );
 
 		static Vec3 UnProject( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] );
+		static Vec3 Project( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] );
 
 	private:
 		float m[16];
