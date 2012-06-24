@@ -19,49 +19,27 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform identification
-*/
-
-#ifdef _WIN32
-	#define OOGL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <WindowsX.h>
-#elif __LINUX__
-	#define OOGL_PLATFORM_LINUX
-#elif __APPLE__
-	#define OOGL_PLATFORM_OSX
-#endif
-
-/*
-	Types
-*/
-
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
 #include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
 
-#endif
+namespace GL
+{
+	uint Window::GetWidth()
+	{
+		return width;
+	}
+
+	uint Window::GetHeight()
+	{
+		return height;
+	}
+
+	bool Window::IsOpen()
+	{
+		return open;
+	}
+
+	bool Window::HasFocus()
+	{
+		return focus;
+	}
+}

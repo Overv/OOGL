@@ -17,12 +17,16 @@
     <ClInclude Include="..\..\include\GL\Math\Vec2.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec3.hpp" />
     <ClInclude Include="..\..\include\GL\OOGL.hpp" />
+    <ClInclude Include="..\..\include\GL\Window\Event.hpp" />
+    <ClInclude Include="..\..\include\GL\Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Mat3.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat4.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec3.cpp" />
+    <ClCompile Include="..\..\src\GL\Window\Window.cpp" />
+    <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{703B0D81-C965-404C-B62F-71B617D293B4}</ProjectGuid>
@@ -33,13 +37,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

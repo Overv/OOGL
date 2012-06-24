@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{da60f632-2ced-4606-a01b-9c24195d2285}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Window">
+      <UniqueIdentifier>{02440307-c66a-4f9a-aabd-cad79a818220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{54ba179a-df70-4eff-98d0-eb29c9ef328f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\GL\OOGL.hpp">
@@ -39,6 +45,12 @@
     <ClInclude Include="..\..\include\GL\Math\Util.hpp">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\Window\Window.hpp">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GL\Window\Event.hpp">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
@@ -52,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GL\Math\Mat4.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Window\Window.cpp">
+      <Filter>Source Files\Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

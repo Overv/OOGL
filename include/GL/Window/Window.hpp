@@ -21,47 +21,68 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_WINDOW_HPP
+#define OOGL_WINDOW_HPP
 
-/*
-	Platform identification
-*/
+#include <GL/OOGL.hpp>
+#include <GL/Window/Event.hpp>
+#include <string>
+#include <queue>
 
-#ifdef _WIN32
-	#define OOGL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <WindowsX.h>
-#elif __LINUX__
-	#define OOGL_PLATFORM_LINUX
-#elif __APPLE__
-	#define OOGL_PLATFORM_OSX
+namespace GL
+{
+	/*
+		Window properties
+	*/
+	namespace WindowStyle
+	{
+		const ulong Base = 0;
+		const ulong Resize = 1;
+		const ulong Close = 2;
+		const ulong Fullscreen = 4;
+	}
+
+	/*
+		Window
+	*/
+	class Window
+	{
+	public:
+		Window( uint width = 800, uint height = 600, const std::string& title = "Window", uint style = WindowStyle::Close );
+		~Window();
+
+		uint GetWidth();
+		uint GetHeight();
+
+		bool IsOpen();
+		bool HasFocus();
+
+		void SetPos( int x, int y );
+
+		void SetSize( uint width, uint height );
+		void SetTitle( const std::string& title );
+
+		void SetVisible( bool visible );
+
+		void Close();
+
+		bool GetEvent( Event& event );
+
+#ifdef OOGL_PLATFORM_WINDOWS
+		LRESULT WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam );
+		static LRESULT CALLBACK WindowEventHandler( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 #endif
 
-/*
-	Types
-*/
+	private:
+		uint width, height;
+		bool open, focus;
+		std::queue<Event> events;
 
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
+#ifdef OOGL_PLATFORM_WINDOWS
+		HWND window;
+		DWORD style;
+#endif
+	};
+}
 
 #endif

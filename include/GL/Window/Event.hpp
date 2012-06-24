@@ -21,47 +21,41 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_EVENT_HPP
+#define OOGL_EVENT_HPP
 
-/*
-	Platform identification
-*/
+#include <GL/OOGL.hpp>
 
-#ifdef _WIN32
-	#define OOGL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <WindowsX.h>
-#elif __LINUX__
-	#define OOGL_PLATFORM_LINUX
-#elif __APPLE__
-	#define OOGL_PLATFORM_OSX
-#endif
+namespace GL
+{
+	/*
+		Event type
+	*/
+	namespace EventType
+	{
+		enum
+		{
+			Close,
+			Resize,
+			Move,
+			Focus,
+			Blur,
+			KeyDown,
+			KeyUp,
+			MouseDown,
+			MouseUp,
+			MouseWheel,
+			MouseMove
+		};
+	}
 
-/*
-	Types
-*/
-
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
+	/*
+		Window event
+	*/
+	struct Event
+	{
+		uint Type;
+	};
+}
 
 #endif
