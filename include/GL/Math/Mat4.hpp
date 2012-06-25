@@ -55,7 +55,7 @@ namespace GL
 
 		Mat4 Transpose() const;
 
-		// The implementation of the functions below is based on the awesome
+		// The implementations of the functions below are based on the awesome
 		// glMatrix library developed by Brandon Jones and Colin MacKenzie IV
 
 		float Determinant() const;

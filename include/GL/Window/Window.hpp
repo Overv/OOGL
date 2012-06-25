@@ -68,6 +68,13 @@ namespace GL
 
 		bool GetEvent( Event& ev );
 
+		// TODO: Implement
+		int GetMouseX();
+		int GetMouseY();
+
+		bool IsMouseButtonDown( uint button );
+		bool IsKeyDown( uint key );
+
 	private:
 		uint width, height;
 		bool open, focus;
@@ -80,6 +87,8 @@ namespace GL
 		LRESULT WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam );
 		static LRESULT CALLBACK WindowEventHandler( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 #endif
+
+		uint TranslateKey( uint code );
 	};
 }
 

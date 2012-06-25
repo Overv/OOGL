@@ -1,6 +1,8 @@
 # OOGL
 
-OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of the OpenGL API in a more object-oriented package. In doing that, it also takes away the need for all sorts of libraries that are normally needed to facilitate tasks. It provides functions for 3D math, loading textures and creating an OpenGL context without depending on any other libraries.
+OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of the OpenGL API in a more object-oriented package. It additionally includes various classes and functions for 3D math, loading models and textures and creating a window and OpenGL context.
+
+**Disclaimer:** This library is currently not ready to be used in a real project.
 
 ## License
 

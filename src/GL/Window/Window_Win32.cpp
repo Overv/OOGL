@@ -33,7 +33,7 @@ namespace GL
 		wc.hIcon = LoadIcon( NULL, IDI_APPLICATION );
 		wc.hCursor = LoadCursor( NULL, IDC_ARROW );
 		wc.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
-		wc.lpszClassName = "OGLWINDOW";
+		wc.lpszClassName = "OOGL_WINDOW";
 		RegisterClass( &wc );
 		
 		ulong windowStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_VISIBLE;
@@ -58,7 +58,7 @@ namespace GL
 		}
 
 		// Create window
-		HWND window = CreateWindow( "OGLWINDOW", title.c_str(), windowStyle, x, y, width, height, NULL, NULL, GetModuleHandle( NULL ), this );
+		HWND window = CreateWindow( "OOGL_WINDOW", title.c_str(), windowStyle, x, y, width, height, NULL, NULL, GetModuleHandle( NULL ), this );
 
 		if ( style & WindowStyle::Fullscreen )
 		{
@@ -197,7 +197,7 @@ namespace GL
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
 			ev.Type = Event::KeyDown;
-			ev.Key.Code = wParam;
+			ev.Key.Code = TranslateKey( wParam );
 			ev.Key.Alt = HIWORD( GetAsyncKeyState( VK_MENU ) ) != 0;
 			ev.Key.Control = HIWORD( GetAsyncKeyState( VK_CONTROL ) ) != 0;
 			ev.Key.Shift = HIWORD( GetAsyncKeyState( VK_SHIFT ) ) != 0;
@@ -206,7 +206,7 @@ namespace GL
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
 			ev.Type = Event::KeyUp;
-			ev.Key.Code = wParam;
+			ev.Key.Code = TranslateKey( wParam );
 			ev.Key.Alt = HIWORD( GetAsyncKeyState( VK_MENU ) ) != 0;
 			ev.Key.Control = HIWORD( GetAsyncKeyState( VK_CONTROL ) ) != 0;
 			ev.Key.Shift = HIWORD( GetAsyncKeyState( VK_SHIFT ) ) != 0;
@@ -277,6 +277,59 @@ namespace GL
 		
 			return window->WindowEvent( msg, wParam, lParam );
 		}
+	}
+
+	uint Window::TranslateKey( uint code )
+	{
+		switch ( code )
+		{
+		case VK_SHIFT: return Key::Shift;
+		case VK_MENU: return Key::Alt;
+		case VK_CONTROL: return Key::Control;
+		case VK_OEM_1: return Key::Semicolon;
+		case VK_OEM_2: return Key::Slash;
+		case VK_OEM_PLUS: return Key::Equals;
+		case VK_OEM_MINUS: return Key::Hyphen;
+		case VK_OEM_4: return Key::LeftBracket;
+		case VK_OEM_6: return Key::RightBracket;
+		case VK_OEM_COMMA: return Key::Comma;
+		case VK_OEM_PERIOD: return Key::Period;
+		case VK_OEM_7: return Key::Quote;
+		case VK_OEM_5: return Key::Backslash;
+		case VK_OEM_3: return Key::Tilde;
+		case VK_ESCAPE: return Key::Escape;
+		case VK_SPACE: return Key::Space;
+		case VK_RETURN: return Key::Enter;
+		case VK_BACK: return Key::Backspace;
+		case VK_TAB: return Key::Tab;
+		case VK_PRIOR: return Key::PageUp;
+		case VK_NEXT: return Key::PageDown;
+		case VK_END: return Key::End;
+		case VK_HOME: return Key::Home;
+		case VK_INSERT: return Key::Insert;
+		case VK_DELETE: return Key::Delete;
+		case VK_ADD: return Key::Add;
+		case VK_SUBTRACT: return Key::Subtract;
+		case VK_MULTIPLY: return Key::Multiply;
+		case VK_DIVIDE: return Key::Divide;
+		case VK_PAUSE: return Key::Pause;
+		case VK_LEFT: return Key::Left;
+		case VK_RIGHT: return Key::Right;
+		case VK_UP: return Key::Up;
+		case VK_DOWN: return Key::Down;
+
+		default:
+			if ( code >= VK_F1 && code <= VK_F12 )
+				return Key::F1 + code - VK_F1;
+			else if ( code >= VK_NUMPAD0 && code <= VK_NUMPAD9 )
+				return Key::Numpad0 + code - VK_NUMPAD0;
+			else if ( code >= 'A' && code <= 'Z' )
+				return Key::A + code - 'A';
+			else if ( code >= '0' && code <= '9' )
+				return Key::Num0 + code - '0';
+		}
+
+		return 0;
 	}
 }
 
