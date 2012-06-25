@@ -68,7 +68,7 @@ namespace GL
 			Escape, Control, Shift, Alt, Space, Enter, Backspace, Tab, PageUp, PageDown, End, Home, Insert, Delete, Pause,
 			Left, Right, Up, Down,
 			Numpad0, Numpad1, Numpad2, Numpad3, Numpad4, Numpad5, Numpad6, Numpad7, Numpad8, Numpad9,
-			Add, Subtract, Multiply, Divide,
+			Add, Subtract, Multiply, Divide
 		};
 	}
 

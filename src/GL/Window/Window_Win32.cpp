@@ -78,14 +78,23 @@ namespace GL
 			ShowWindow( window, SW_SHOW );
 		}
 
-		// Retrieve final window size
+		// Initialize window properties
 		RECT rect;
+		GetWindowRect( window, &rect );
+
+		this->x = rect.left;
+		this->y = rect.top;
+
 		GetClientRect( window, &rect );
 
 		this->width = rect.right - rect.left;
 		this->height = rect.bottom - rect.top;
 		this->open = true;
 		this->style = windowStyle;
+		this->mousex = 0;
+		this->mousey = 0;
+		memset( this->mouse, 0, sizeof( this->mouse ) );
+		memset( this->keys, 0, sizeof( this->keys ) );
 	}
 
 	Window::~Window()
@@ -163,24 +172,32 @@ namespace GL
 			break;
 
 		case WM_SIZE:
+			width = GET_X_LPARAM( lParam );
+			height = GET_Y_LPARAM( lParam );
+
 			if ( events.empty() ) {
 				ev.Type = Event::Resize;
-				ev.Window.Width = GET_X_LPARAM( lParam );
-				ev.Window.Height = GET_Y_LPARAM( lParam );
+				ev.Window.Width = width;
+				ev.Window.Height = height;
 			} else if ( events.back().Type == Event::Resize ) {
-				events.back().Window.Width = GET_X_LPARAM( lParam );
-				events.back().Window.Height = GET_Y_LPARAM( lParam );
+				events.back().Window.Width = width;
+				events.back().Window.Height = height;
 			}
 			break;
 
 		case WM_MOVE:
+			RECT rect;
+			GetWindowRect( window, &rect );
+			x = rect.left;
+			y = rect.top;
+
 			if ( events.empty() ) {
 				ev.Type = Event::Move;
-				ev.Window.X = GET_X_LPARAM( lParam );
-				ev.Window.Y = GET_Y_LPARAM( lParam );
+				ev.Window.X = x;
+				ev.Window.Y = y;
 			} else if ( events.back().Type == Event::Move ) {
-				events.back().Window.X = GET_X_LPARAM( lParam );
-				events.back().Window.Y = GET_Y_LPARAM( lParam );
+				events.back().Window.X = x;
+				events.back().Window.Y = y;
 			}
 			break;
 
@@ -201,6 +218,8 @@ namespace GL
 			ev.Key.Alt = HIWORD( GetAsyncKeyState( VK_MENU ) ) != 0;
 			ev.Key.Control = HIWORD( GetAsyncKeyState( VK_CONTROL ) ) != 0;
 			ev.Key.Shift = HIWORD( GetAsyncKeyState( VK_SHIFT ) ) != 0;
+
+			keys[ev.Key.Code] = true;
 			break;
 
 		case WM_KEYUP:
@@ -210,43 +229,61 @@ namespace GL
 			ev.Key.Alt = HIWORD( GetAsyncKeyState( VK_MENU ) ) != 0;
 			ev.Key.Control = HIWORD( GetAsyncKeyState( VK_CONTROL ) ) != 0;
 			ev.Key.Shift = HIWORD( GetAsyncKeyState( VK_SHIFT ) ) != 0;
+
+			keys[ev.Key.Code] = false;
 			break;
 
 		case WM_LBUTTONDOWN:
 		case WM_RBUTTONDOWN:
 		case WM_MBUTTONDOWN:
+			mousex = GET_X_LPARAM( lParam );
+			mousey = GET_Y_LPARAM( lParam );
+
 			if ( msg == WM_LBUTTONDOWN ) ev.Mouse.Button = MouseButton::Left;
 			else if ( msg == WM_RBUTTONDOWN ) ev.Mouse.Button = MouseButton::Right;
 			else if ( msg == WM_MBUTTONDOWN ) ev.Mouse.Button = MouseButton::Middle;
 
 			ev.Type = Event::MouseDown;
-			ev.Mouse.X = GET_X_LPARAM( lParam );
-			ev.Mouse.Y = GET_Y_LPARAM( lParam );
+			ev.Mouse.X = mousex;
+			ev.Mouse.Y = mousey;
+
+			mouse[ev.Mouse.Button] = true;
 			break;
 
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
 		case WM_MBUTTONUP:
+			mousex = GET_X_LPARAM( lParam );
+			mousey = GET_Y_LPARAM( lParam );
+
 			if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Left;
 			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Right;
 			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Middle;
 
 			ev.Type = Event::MouseUp;
-			ev.Mouse.X = GET_X_LPARAM( lParam );
-			ev.Mouse.Y = GET_Y_LPARAM( lParam );
+			ev.Mouse.X = mousex;
+			ev.Mouse.Y = mousey;
+
+			mouse[ev.Mouse.Button] = false;
 			break;
 
 		case WM_MOUSEWHEEL:
+			mousex = GET_X_LPARAM( lParam );
+			mousey = GET_Y_LPARAM( lParam );
+
 			ev.Type = Event::MouseWheel;
 			ev.Mouse.Delta = GET_WHEEL_DELTA_WPARAM( wParam );
-			ev.Mouse.X = GET_X_LPARAM( lParam );
-			ev.Mouse.Y = GET_Y_LPARAM( lParam );
+			ev.Mouse.X = mousex;
+			ev.Mouse.Y = mousey;
 			break;
 
 		case WM_MOUSEMOVE:
+			mousex = GET_X_LPARAM( lParam );
+			mousey = GET_Y_LPARAM( lParam );
+
 			ev.Type = Event::MouseMove;
-			ev.Mouse.X = GET_X_LPARAM( lParam );
-			ev.Mouse.Y = GET_Y_LPARAM( lParam );
+			ev.Mouse.X = mousex;
+			ev.Mouse.Y = mousey;
 			break;
 
 		default:

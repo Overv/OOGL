@@ -50,6 +50,9 @@ namespace GL
 	public:
 		Window( uint width = 800, uint height = 600, const std::string& title = "Window", uint style = WindowStyle::Close );
 		~Window();
+		
+		int GetX();
+		int GetY();
 
 		uint GetWidth();
 		uint GetHeight();
@@ -58,8 +61,8 @@ namespace GL
 		bool HasFocus();
 
 		void SetPos( int x, int y );
-
 		void SetSize( uint width, uint height );
+
 		void SetTitle( const std::string& title );
 
 		void SetVisible( bool visible );
@@ -77,8 +80,13 @@ namespace GL
 
 	private:
 		uint width, height;
+		int x, y;
 		bool open, focus;
 		std::queue<Event> events;
+
+		uint mousex, mousey;
+		bool mouse[3];
+		bool keys[100];
 
 #ifdef OOGL_PLATFORM_WINDOWS
 		HWND window;

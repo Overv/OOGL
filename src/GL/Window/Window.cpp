@@ -23,6 +23,16 @@
 
 namespace GL
 {
+	int Window::GetX()
+	{
+		return x;
+	}
+
+	int Window::GetY()
+	{
+		return y;
+	}
+
 	uint Window::GetWidth()
 	{
 		return width;
@@ -41,5 +51,27 @@ namespace GL
 	bool Window::HasFocus()
 	{
 		return focus;
+	}
+
+	int Window::GetMouseX()
+	{
+		return mousex;
+	}
+
+	int Window::GetMouseY()
+	{
+		return mousey;
+	}
+
+	bool Window::IsMouseButtonDown( uint button )
+	{
+		if ( button > sizeof( mouse ) ) return false;
+		return mouse[button];
+	}
+
+	bool Window::IsKeyDown( uint key )
+	{
+		if ( key > sizeof( keys ) ) return false;
+		return keys[key];
 	}
 }
