@@ -68,27 +68,27 @@ namespace GL
 		return Vec2( v.X / n, v.Y / n );
 	}
 
-	const float Vec2::Dot( const Vec2& v ) const
+	float Vec2::Dot( const Vec2& v ) const
 	{
 		return X * v.X + Y * v.Y;
 	}
 
-	const float Vec2::Angle( const Vec2& v ) const
+	float Vec2::Angle( const Vec2& v ) const
 	{
 		return acos( Dot( v ) / Length() / v.Length() );
 	}
 
-	const float Vec2::LengthSqr() const
+	float Vec2::LengthSqr() const
 	{
 		return X*X + Y*Y;
 	}
 
-	const float Vec2::Length() const
+	float Vec2::Length() const
 	{
 		return sqrt( X*X + Y*Y );
 	}
 
-	const float Vec2::Distance( const Vec2& v ) const
+	float Vec2::Distance( const Vec2& v ) const
 	{
 		return ( *this - v ).Length();
 	}

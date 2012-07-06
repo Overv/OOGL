@@ -32,7 +32,7 @@
 	#define OOGL_PLATFORM_WINDOWS
 	#include <Windows.h>
 	#include <WindowsX.h>
-#elif __LINUX__
+#elif __linux__
 	#define OOGL_PLATFORM_LINUX
 #elif __APPLE__
 	#define OOGL_PLATFORM_OSX

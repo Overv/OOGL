@@ -48,12 +48,12 @@ namespace GL
 
 		const Vec3 Cross( const Vec3& v );
 
-		const float Dot( const Vec3& v ) const;
-		const float Angle( const Vec3& v ) const;
+		float Dot( const Vec3& v ) const;
+		float Angle( const Vec3& v ) const;
 
-		const float LengthSqr() const;
-		const float Length() const;
-		const float Distance( const Vec3& v ) const;
+		float LengthSqr() const;
+		float Length() const;
+		float Distance( const Vec3& v ) const;
 
 		const Vec3 Normal() const;
 

@@ -46,12 +46,12 @@ namespace GL
 		friend Vec2 operator/( const Vec2& v, float n );
 		friend Vec2 operator/( float n, const Vec2& v );
 
-		const float Dot( const Vec2& v ) const;
-		const float Angle( const Vec2& v ) const;
+		float Dot( const Vec2& v ) const;
+		float Angle( const Vec2& v ) const;
 
-		const float LengthSqr() const;
-		const float Length() const;
-		const float Distance( const Vec2& v ) const;
+		float LengthSqr() const;
+		float Length() const;
+		float Distance( const Vec2& v ) const;
 
 		const Vec2 Normal() const;
 

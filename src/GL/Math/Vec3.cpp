@@ -75,27 +75,27 @@ namespace GL
 		return Vec3( Y*v.Z - Z*v.Y, Z*v.X - X*v.Z, X*v.Y - Y*v.X );
 	}
 
-	const float Vec3::Dot( const Vec3& v ) const
+	float Vec3::Dot( const Vec3& v ) const
 	{
 		return X * v.X + Y * v.Y + Z * v.Z;
 	}
 
-	const float Vec3::Angle( const Vec3& v ) const
+	float Vec3::Angle( const Vec3& v ) const
 	{
 		return acos( Dot( v ) / Length() / v.Length() );
 	}
 
-	const float Vec3::LengthSqr() const
+	float Vec3::LengthSqr() const
 	{
 		return X*X + Y*Y + Z*Z;
 	}
 
-	const float Vec3::Length() const
+	float Vec3::Length() const
 	{
 		return sqrt( X*X + Y*Y + Z*Z );
 	}
 
-	const float Vec3::Distance( const Vec3& v ) const
+	float Vec3::Distance( const Vec3& v ) const
 	{
 		return ( *this - v ).Length();
 	}
