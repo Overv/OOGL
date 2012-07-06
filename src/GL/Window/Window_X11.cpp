@@ -22,11 +22,14 @@
 // The X11 implementation of the window class is heavily inspired by the implementation in SFML 2.
 // A huge thanks goes to Laurent Gomila for developing that code.
 
-// TODO: Handle key events and window styles like fullscreen
+// TODO: Window styles like fullscreen
 
 #include <GL/Window/Window.hpp>
 
 #ifdef OOGL_PLATFORM_LINUX
+
+#include <X11/Xutil.h>
+#include <X11/keysym.h>
 
 namespace GL
 {
@@ -177,6 +180,9 @@ namespace GL
 
 		// Translate XEvent to Event
 		uint button = 0;
+		char buffer[32];
+		KeySym symbol;
+
 		switch ( event.type )
 		{
 			case ClientMessage:
@@ -226,7 +232,30 @@ namespace GL
 				focus = false;
 				break;
 
-			// TODO: KeyDown, KeyUp
+			case KeyPress:
+				static XComposeStatus keyboard;
+            	XLookupString( const_cast<XKeyEvent*>( &event.xkey ), buffer, sizeof( buffer ), &symbol, &keyboard );
+
+				ev.Type = Event::KeyDown;
+				ev.Key.Code = TranslateKey( symbol );
+				ev.Key.Alt = event.xkey.state & Mod1Mask;
+				ev.Key.Control = event.xkey.state & ControlMask;
+				ev.Key.Shift = event.xkey.state & ShiftMask;
+
+				keys[ev.Key.Code] = true;
+				break;
+
+			case KeyRelease:
+				XLookupString( const_cast<XKeyEvent*>( &event.xkey ), buffer, sizeof( buffer ), &symbol, &keyboard );
+
+				ev.Type = Event::KeyUp;
+				ev.Key.Code = TranslateKey( symbol );
+				ev.Key.Alt = event.xkey.state & Mod1Mask;
+				ev.Key.Control = event.xkey.state & ControlMask;
+				ev.Key.Shift = event.xkey.state & ShiftMask;
+
+				keys[ev.Key.Code] = false;
+				break;
 
 			case ButtonPress:
 				button = event.xbutton.button;
@@ -290,6 +319,65 @@ namespace GL
 	Bool Window::CheckEvent( Display*, XEvent* event, XPointer userData )
 	{
 		return event->xany.window == reinterpret_cast< ::Window >( userData );
+	}
+
+	uint Window::TranslateKey( uint code )
+	{
+		if ( code >= 'a' && code <= 'z' ) code -= 'a' - 'A';
+
+		switch ( code )
+		{
+		case XK_Shift_L: return Key::Shift;
+		case XK_Shift_R: return Key::Shift;
+		case XK_Alt_L: return Key::Alt;
+		case XK_Alt_R: return Key::Alt;
+		case XK_Control_L: return Key::Control;
+		case XK_Control_R: return Key::Control;
+		case XK_semicolon: return Key::Semicolon;
+		case XK_slash: return Key::Slash;
+		case XK_equal: return Key::Equals;
+		case XK_minus: return Key::Hyphen;
+		case XK_bracketleft: return Key::LeftBracket;
+		case XK_bracketright: return Key::RightBracket;
+		case XK_comma: return Key::Comma;
+		case XK_period: return Key::Period;
+		case XK_dead_acute: return Key::Quote;
+		case XK_backslash: return Key::Backslash;
+		case XK_dead_grave: return Key::Tilde;
+		case XK_Escape: return Key::Escape;
+		case XK_space: return Key::Space;
+		case XK_Return: return Key::Enter;
+		case XK_KP_Enter: return Key::Enter;
+		case XK_BackSpace: return Key::Backspace;
+		case XK_Tab: return Key::Tab;
+		case XK_Prior: return Key::PageUp;
+		case XK_Next: return Key::PageDown;
+		case XK_End: return Key::End;
+		case XK_Home: return Key::Home;
+		case XK_Insert: return Key::Insert;
+		case XK_Delete: return Key::Delete;
+		case XK_KP_Add: return Key::Add;
+		case XK_KP_Subtract: return Key::Subtract;
+		case XK_KP_Multiply: return Key::Multiply;
+		case XK_KP_Divide: return Key::Divide;
+		case XK_Pause: return Key::Pause;
+		case XK_Left: return Key::Left;
+		case XK_Right: return Key::Right;
+		case XK_Up: return Key::Up;
+		case XK_Down: return Key::Down;
+
+		default:
+			if ( code >= XK_F1 && code <= XK_F12 )
+				return Key::F1 + code - XK_F1;
+			else if ( code >= XK_KP_0 && code <= XK_KP_9 )
+				return Key::Numpad0 + code - XK_KP_0;
+			else if ( code >= 'A' && code <= 'Z' )
+				return Key::A + code - 'A';
+			else if ( code >= '0' && code <= '9' )
+				return Key::Num0 + code - '0';
+		}
+
+		return 0;
 	}
 }
 
