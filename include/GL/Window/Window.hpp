@@ -27,6 +27,7 @@
 #include <GL/OOGL.hpp>
 #include <GL/Window/Event.hpp>
 #include <string>
+#include <cstring>
 #include <queue>
 
 namespace GL
@@ -88,12 +89,19 @@ namespace GL
 		bool mouse[3];
 		bool keys[100];
 
-#ifdef OOGL_PLATFORM_WINDOWS
+#if defined( OOGL_PLATFORM_WINDOWS )
 		HWND window;
 		DWORD style;
 
 		LRESULT WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam );
 		static LRESULT CALLBACK WindowEventHandler( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+#elif defined( OOGL_PLATFORM_LINUX )
+		::Window window;
+		Display* display;
+		Atom close;
+
+		void WindowEvent( const XEvent& event );
+		static Bool CheckEvent( Display*, XEvent* event, XPointer userData );
 #endif
 
 		uint TranslateKey( uint code );

@@ -165,9 +165,7 @@ namespace GL
 		switch ( msg )
 		{
 		case WM_CLOSE:
-			open = false;
-			DestroyWindow( window );
-
+			Close();
 			ev.Type = Event::Close;
 			break;
 
@@ -272,7 +270,7 @@ namespace GL
 			mousey = GET_Y_LPARAM( lParam );
 
 			ev.Type = Event::MouseWheel;
-			ev.Mouse.Delta = GET_WHEEL_DELTA_WPARAM( wParam );
+			ev.Mouse.Delta = GET_WHEEL_DELTA_WPARAM( wParam ) > 0 ? 1 : -1;
 			ev.Mouse.X = mousex;
 			ev.Mouse.Y = mousey;
 			break;

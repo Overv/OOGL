@@ -28,13 +28,14 @@
 	Platform identification
 */
 
-#ifdef _WIN32
+#if defined( _WIN32 )
 	#define OOGL_PLATFORM_WINDOWS
 	#include <Windows.h>
 	#include <WindowsX.h>
-#elif __linux__
+#elif defined( __linux__ )
 	#define OOGL_PLATFORM_LINUX
-#elif __APPLE__
+	#include <X11/Xlib.h>
+#elif defined( __APPLE__ )
 	#define OOGL_PLATFORM_OSX
 #endif
 
