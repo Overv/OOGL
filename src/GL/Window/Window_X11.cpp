@@ -22,29 +22,36 @@
 // The X11 implementation of the window class is heavily inspired by the implementation in SFML 2.
 // A huge thanks goes to Laurent Gomila for developing that code.
 
-// TODO: Window styles like fullscreen
-
 #include <GL/Window/Window.hpp>
 
 #ifdef OOGL_PLATFORM_LINUX
 
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
+#include <X11/extensions/Xrandr.h>
 
 namespace GL
 {
 	Window::Window( uint width, uint height, const std::string& title, uint style )
 	{
 		display = XOpenDisplay( NULL );
-		int screen = DefaultScreen( display );
+		screen = DefaultScreen( display );
+		fullscreen = style & WindowStyle::Fullscreen;
 
 		XSetWindowAttributes attributes;
 		attributes.event_mask = FocusChangeMask | ButtonPressMask | ButtonReleaseMask | ButtonMotionMask | PointerMotionMask | KeyPressMask | KeyReleaseMask | StructureNotifyMask | EnterWindowMask | LeaveWindowMask;
-		attributes.override_redirect = 0;
+		attributes.override_redirect = fullscreen;
 
 		int x, y;
-		x = ( DisplayWidth( display, screen ) - width ) / 2;
-		y = ( DisplayHeight( display, screen ) - height ) / 2;
+		if ( fullscreen ) {
+			x = 0;
+			y = 0;
+
+			EnableFullscreen( true, width, height );
+		} else {
+			x = ( DisplayWidth( display, screen ) - width ) / 2;
+			y = ( DisplayHeight( display, screen ) - height ) / 2;
+		}
 
 		// Create window on server
 		::Window desktop = RootWindow( display, screen );
@@ -55,38 +62,49 @@ namespace GL
 		XStoreName( display, window, title.c_str() );
 
 		// Window style
-		Atom windowHints = XInternAtom( display, "_MOTIF_WM_HINTS", false );
-
-		struct WMHints
+		if ( !fullscreen )
 		{
-			unsigned long Flags;
-			unsigned long Functions;
-			unsigned long Decorations;
-			long InputMode;
-			unsigned long State;
-		};
+			Atom windowHints = XInternAtom( display, "_MOTIF_WM_HINTS", false );
 
-		static const unsigned long MWM_HINTS_FUNCTIONS = 1 << 0;
-		static const unsigned long MWM_HINTS_DECORATIONS = 1 << 1;
-		static const unsigned long MWM_DECOR_BORDER = 1 << 1;
-		static const unsigned long MWM_DECOR_TITLE = 1 << 3;
-		static const unsigned long MWM_DECOR_MENU = 1 << 4;
-		static const unsigned long MWM_DECOR_MINIMIZE = 1 << 5;
-		static const unsigned long MWM_FUNC_MOVE = 1 << 2;
-		static const unsigned long MWM_FUNC_MINIMIZE = 1 << 3;
-		static const unsigned long MWM_FUNC_CLOSE = 1 << 5;
+			struct WMHints
+			{
+				unsigned long Flags;
+				unsigned long Functions;
+				unsigned long Decorations;
+				long InputMode;
+				unsigned long State;
+			};
 
-		WMHints hints;
-		hints.Flags = MWM_HINTS_FUNCTIONS | MWM_HINTS_DECORATIONS;
-		hints.Decorations = 0;
-		hints.Functions = 0;
+			static const unsigned long MWM_HINTS_FUNCTIONS = 1 << 0;
+			static const unsigned long MWM_HINTS_DECORATIONS = 1 << 1;
+			static const unsigned long MWM_DECOR_BORDER = 1 << 1;
+			static const unsigned long MWM_DECOR_RESIZEH = 1 << 2;
+			static const unsigned long MWM_DECOR_TITLE = 1 << 3;
+			static const unsigned long MWM_DECOR_MENU = 1 << 4;
+			static const unsigned long MWM_DECOR_MINIMIZE = 1 << 5;
+			static const unsigned long MWM_DECOR_MAXIMIZE = 1 << 6;
+			static const unsigned long MWM_FUNC_RESIZE = 1 << 1;
+			static const unsigned long MWM_FUNC_MOVE = 1 << 2;
+			static const unsigned long MWM_FUNC_MINIMIZE = 1 << 3;
+			static const unsigned long MWM_FUNC_MAXIMIZE = 1 << 4;
+			static const unsigned long MWM_FUNC_CLOSE = 1 << 5;
 
-		hints.Decorations |= MWM_DECOR_BORDER | MWM_DECOR_TITLE | MWM_DECOR_MINIMIZE | MWM_DECOR_MENU;
-		hints.Functions |= MWM_FUNC_MOVE | MWM_FUNC_MINIMIZE;
-		hints.Functions |= MWM_FUNC_CLOSE;
+			WMHints hints;
+			hints.Flags = MWM_HINTS_FUNCTIONS | MWM_HINTS_DECORATIONS;
+			hints.Decorations = MWM_DECOR_BORDER | MWM_DECOR_TITLE | MWM_DECOR_MINIMIZE | MWM_DECOR_MENU;
+			hints.Functions = MWM_FUNC_MOVE | MWM_FUNC_MINIMIZE;
 
-		const unsigned char* ptr = reinterpret_cast<const unsigned char*>( &hints );
-		XChangeProperty( display, window, windowHints, windowHints, 32, PropModeReplace, ptr, 5 );
+			if ( ( style & WindowStyle::Close ) || ( style & WindowStyle::Resize ) ) {
+				hints.Functions |= MWM_FUNC_CLOSE;
+			}
+			if ( style & WindowStyle::Resize ) {
+				hints.Decorations |= MWM_DECOR_MAXIMIZE | MWM_DECOR_RESIZEH;
+				hints.Functions |= MWM_FUNC_MAXIMIZE | MWM_FUNC_RESIZE;
+			}
+
+			const unsigned char* ptr = reinterpret_cast<const unsigned char*>( &hints );
+			XChangeProperty( display, window, windowHints, windowHints, 32, PropModeReplace, ptr, 5 );
+		}
 
 		// Initialize input
 		close = XInternAtom( display, "WM_DELETE_WINDOW", false );
@@ -95,6 +113,13 @@ namespace GL
 		// Show window
 		XMapWindow( display, window );
 		XFlush( display );
+
+		// Handle fullscreen input
+		if ( fullscreen )
+		{
+			XGrabPointer( display, window, true, 0, GrabModeAsync, GrabModeAsync, window, None, CurrentTime );
+			XGrabKeyboard( display, window, true, GrabModeAsync, GrabModeAsync, CurrentTime );
+		}
 
 		// Initialize window properties
 		this->x = x;
@@ -152,6 +177,7 @@ namespace GL
 	{
 		XDestroyWindow( display, window );
 		XFlush( display );
+		if ( fullscreen ) EnableFullscreen( false );
 		open = false;
 	}
 
@@ -173,6 +199,36 @@ namespace GL
 		return true;
 	}
 
+	void Window::EnableFullscreen( bool enabled, int width, int height )
+	{
+		if ( enabled )
+		{
+			XRRScreenConfiguration* config = XRRGetScreenInfo( display, RootWindow( display, screen ) );
+
+			Rotation currentRotation;
+            oldVideoMode = XRRConfigCurrentConfiguration( config, &currentRotation );
+
+			int nbSizes;
+			XRRScreenSize* sizes = XRRConfigSizes( config, &nbSizes );
+			for ( int i = 0; i < nbSizes; i++ )
+			{
+				if ( sizes[i].width == width && sizes[i].height == height )
+				{
+					XRRSetScreenConfig( display, config, RootWindow( display, screen ), i, currentRotation, CurrentTime );
+					break;
+				}
+			}
+
+			XRRFreeScreenConfigInfo( config );
+		} else {
+			XRRScreenConfiguration* config = XRRGetScreenInfo( display, RootWindow( display, screen ) );
+			Rotation currentRotation;
+			XRRConfigCurrentConfiguration( config, &currentRotation );
+			XRRSetScreenConfig( display, config, RootWindow( display, screen ), oldVideoMode, currentRotation, CurrentTime );
+			XRRFreeScreenConfigInfo( config );
+		}
+	}
+
 	void Window::WindowEvent( const XEvent& event )
 	{
 		Event ev;
@@ -188,6 +244,7 @@ namespace GL
 			case ClientMessage:
 				if ( ( event.xclient.format == 32 ) && ( event.xclient.data.l[0] ) == static_cast<long>( close ) )
 				{
+					if ( fullscreen ) EnableFullscreen( false );
 					open = false;
 					ev.Type = Event::Close;
 				}

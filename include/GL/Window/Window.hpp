@@ -99,7 +99,11 @@ namespace GL
 		::Window window;
 		Display* display;
 		Atom close;
+		bool fullscreen;
+		int screen;
+		int oldVideoMode;
 
+		void EnableFullscreen( bool enabled, int width = 0, int height = 0 );
 		void WindowEvent( const XEvent& event );
 		static Bool CheckEvent( Display*, XEvent* event, XPointer userData );
 #endif
