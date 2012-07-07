@@ -71,8 +71,7 @@ namespace GL
 		void Close();
 
 		bool GetEvent( Event& ev );
-
-		// TODO: Implement
+		
 		int GetMouseX();
 		int GetMouseY();
 
