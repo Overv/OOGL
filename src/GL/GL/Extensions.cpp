@@ -19,39 +19,32 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
 #include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
 
+WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
+WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
+WGLSWAPINTERVALEXT wglSwapIntervalEXT;
+
+namespace GL
+{
+	bool extensionsLoaded = false;
+
+	inline void* LoadExtension( const char* name )
+	{
+#if defined( OOGL_PLATFORM_WINDOWS )
+		return wglGetProcAddress( name );
+#elif defined( OOGL_PLATFORM_LINUX )
+		return glxGetProcAddress( name );
 #endif
+	}
+
+	void LoadExtensions()
+	{
+		if ( extensionsLoaded ) return;
+		extensionsLoaded = true;
+
+		wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)LoadExtension( "wglCreateContextAttribsARB" );
+		wglChoosePixelFormatARB = (WGLCHOOSEPIXELFORMATARB)LoadExtension( "wglChoosePixelFormatARB" );
+		wglSwapIntervalEXT = (WGLSWAPINTERVALEXT)LoadExtension( "wglSwapIntervalEXT" );
+	}
+}

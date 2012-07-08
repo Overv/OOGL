@@ -52,9 +52,8 @@ namespace GL
 		glGetIntegerv( GL_MINOR_VERSION, &minor );
 		if ( major < 3 || ( major == 3 && minor < 2 ) ) throw VersionException();
 
-		// Load extensions
-		WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)wglGetProcAddress( "wglCreateContextAttribsARB" );
-		WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB = (WGLCHOOSEPIXELFORMATARB)wglGetProcAddress( "wglChoosePixelFormatARB" );
+		// Load OpenGL extensions
+		LoadExtensions();
 
 		// Choose final pixel format
 		const int pixelAttribs[] =
@@ -100,6 +99,16 @@ namespace GL
 	{
 		wglMakeCurrent( dc, NULL );
 		wglDeleteContext( context );
+	}
+
+	void Context::Activate()
+	{
+		wglMakeCurrent( dc, context );
+	}
+
+	void Context::SetVerticalSync( bool enabled )
+	{
+		wglSwapIntervalEXT( enabled ? 1 : 0 );
 	}
 }
 

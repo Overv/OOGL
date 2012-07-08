@@ -26,6 +26,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\GL\Context.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp" />
+    <ClCompile Include="..\..\src\GL\GL\Extensions.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat3.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat4.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />

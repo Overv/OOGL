@@ -92,5 +92,8 @@
     <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp">
       <Filter>Source Files\GL</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GL\GL\Extensions.cpp">
+      <Filter>Source Files\GL</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,39 +26,49 @@
 
 #include <GL/Platform.hpp>
 
-namespace GL
-{
-	/*
-		OpenGL context creation
-	*/
+/*
+	OpenGL context creation/configuration
+*/
 
 #if defined( OOGL_PLATFORM_WINDOWS )
-	const uint WGL_CONTEXT_MAJOR_VERSION_ARB = 0x2091;
-	const uint WGL_CONTEXT_MINOR_VERSION_ARB = 0x2092;
-	const uint WGL_CONTEXT_PROFILE_MASK_ARB = 0x9126;
-	const uint WGL_CONTEXT_CORE_PROFILE_BIT_ARB = 0x00000001;
+	const unsigned int WGL_CONTEXT_MAJOR_VERSION_ARB = 0x2091;
+	const unsigned int WGL_CONTEXT_MINOR_VERSION_ARB = 0x2092;
+	const unsigned int WGL_CONTEXT_PROFILE_MASK_ARB = 0x9126;
+	const unsigned int WGL_CONTEXT_CORE_PROFILE_BIT_ARB = 0x00000001;
 
-	const uint WGL_DRAW_TO_WINDOW_ARB = 0x2001;
-	const uint WGL_SUPPORT_OPENGL_ARB = 0x2010;
-	const uint WGL_DOUBLE_BUFFER_ARB = 0x2011;
-	const uint WGL_PIXEL_TYPE_ARB = 0x2013;
-	const uint WGL_COLOR_BITS_ARB = 0x2014;
-	const uint WGL_DEPTH_BITS_ARB = 0x2022;
-	const uint WGL_STENCIL_BITS_ARB = 0x2023;
-	const uint WGL_SAMPLE_BUFFERS_ARB = 0x2041;
-	const uint WGL_SAMPLES_ARB = 0x2042;
-	const uint WGL_TYPE_RGBA_ARB = 0x202B;
+	const unsigned int WGL_DRAW_TO_WINDOW_ARB = 0x2001;
+	const unsigned int WGL_SUPPORT_OPENGL_ARB = 0x2010;
+	const unsigned int WGL_DOUBLE_BUFFER_ARB = 0x2011;
+	const unsigned int WGL_PIXEL_TYPE_ARB = 0x2013;
+	const unsigned int WGL_COLOR_BITS_ARB = 0x2014;
+	const unsigned int WGL_DEPTH_BITS_ARB = 0x2022;
+	const unsigned int WGL_STENCIL_BITS_ARB = 0x2023;
+	const unsigned int WGL_SAMPLE_BUFFERS_ARB = 0x2041;
+	const unsigned int WGL_SAMPLES_ARB = 0x2042;
+	const unsigned int WGL_TYPE_RGBA_ARB = 0x202B;
 
 	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int* attribList );
-	typedef BOOL ( WINAPI * WGLCHOOSEPIXELFORMATARB ) ( HDC hdc, const int* intAttribs, const float* floatAttribs, uint maxFormats, int* formats, uint* formatCount );
+	extern WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
+	typedef int ( WINAPI * WGLCHOOSEPIXELFORMATARB ) ( HDC hdc, const int* intAttribs, const float* floatAttribs, unsigned int maxFormats, int* formats, unsigned int* formatCount );
+	extern WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
+	typedef int ( WINAPI * WGLSWAPINTERVALEXT ) ( int interval );
+	extern WGLSWAPINTERVALEXT wglSwapIntervalEXT;
 #endif
 
-	/*
-		Return values/parameters
-	*/
+/*
+	Return values/parameters
+*/
 
-	const uint GL_MAJOR_VERSION = 0x821B;
-	const uint GL_MINOR_VERSION = 0x821C;
+const unsigned int GL_MAJOR_VERSION = 0x821B;
+const unsigned int GL_MINOR_VERSION = 0x821C;
+
+/*
+	Extension loader
+*/
+
+namespace GL
+{
+	extern void LoadExtensions();
 }
 
 #endif
