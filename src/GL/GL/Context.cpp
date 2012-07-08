@@ -25,13 +25,11 @@ namespace GL
 {
 	void Context::ClearColor( float r, float g, float b, float a )
 	{
-		Activate();
 		glClearColor( r, g, b, a );
 	}
 
 	void Context::Clear( uint buffers )
 	{
-		Activate();
 		glClear( buffers );
 	}
 }
