@@ -51,6 +51,7 @@
 	OpenGL
 */
 
+#include <GL/GL/Color.hpp>
 #include <GL/GL/Extensions.hpp>
 #include <GL/GL/Context.hpp>
 
