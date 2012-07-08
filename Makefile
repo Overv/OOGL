@@ -5,8 +5,8 @@ CCFLAGS = -O3 -Wall -Wextra
 
 # Final library
 
-bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Context.o bin/Context_X11.o
-	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Context.o bin/Context_X11.o
+bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o
+	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o
 
 # 3D Math
 
@@ -31,6 +31,9 @@ bin/Window_X11.o: src/GL/Window/Window_X11.cpp
 	$(CC) $(CCFLAGS) -c src/GL/Window/Window_X11.cpp -o bin/Window_X11.o -I include
 
 # OpenGL
+
+bin/Extensions.o: src/GL/GL/Extensions.cpp
+	$(CC) $(CCFLAGS) -c src/GL/GL/Extensions.cpp -o bin/Extensions.o -I include
 
 bin/Context.o: src/GL/GL/Context.cpp
 	$(CC) $(CCFLAGS) -c src/GL/GL/Context.cpp -o bin/Context.o -I include

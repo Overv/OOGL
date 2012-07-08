@@ -56,6 +56,13 @@
 #elif defined( OOGL_PLATFORM_LINUX )
 	#define GLX_CONTEXT_MAJOR_VERSION_ARB 0x2091
 	#define GLX_CONTEXT_MINOR_VERSION_ARB 0x2092
+	#define GLX_CONTEXT_PROFILE_MASK_ARB 0x9126
+	#define GLX_CONTEXT_CORE_PROFILE_BIT_ARB 0x00000001
+
+	typedef GLXContext ( * GLXCREATECONTEXTATTRIBSARB ) ( Display* display, GLXFBConfig config, GLXContext share_context, Bool direct, const int* attribs );
+	extern GLXCREATECONTEXTATTRIBSARB glXCreateContextAttribsARB;
+	typedef int ( * GLXSWAPINTERVALSGI ) ( int interval );
+	extern GLXSWAPINTERVALSGI glXSwapIntervalSGI;
 #endif
 
 /*

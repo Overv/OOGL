@@ -25,6 +25,9 @@
 	WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
 	WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
 	WGLSWAPINTERVALEXT wglSwapIntervalEXT;
+#elif defined( OOGL_PLATFORM_LINUX )
+	GLXCREATECONTEXTATTRIBSARB glXCreateContextAttribsARB;
+	GLXSWAPINTERVALSGI glXSwapIntervalSGI;
 #endif
 
 namespace GL
@@ -36,7 +39,7 @@ namespace GL
 #if defined( OOGL_PLATFORM_WINDOWS )
 		return wglGetProcAddress( name );
 #elif defined( OOGL_PLATFORM_LINUX )
-		return glxGetProcAddress( name );
+		return (void*)glXGetProcAddress( (const GLubyte*)name );
 #endif
 	}
 
@@ -49,6 +52,9 @@ namespace GL
 		wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)LoadExtension( "wglCreateContextAttribsARB" );
 		wglChoosePixelFormatARB = (WGLCHOOSEPIXELFORMATARB)LoadExtension( "wglChoosePixelFormatARB" );
 		wglSwapIntervalEXT = (WGLSWAPINTERVALEXT)LoadExtension( "wglSwapIntervalEXT" );
+#elif defined( OOGL_PLATFORM_LINUX )
+		glXCreateContextAttribsARB = (GLXCREATECONTEXTATTRIBSARB)LoadExtension( "glXCreateContextAttribsARB" );
+		glXSwapIntervalSGI = (GLXSWAPINTERVALSGI)LoadExtension( "glXSwapIntervalSGI" );
 #endif
 	}
 }

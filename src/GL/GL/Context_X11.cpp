@@ -21,6 +21,7 @@
 
 #include <GL/GL/Context.hpp>
 #include <GL/GL/Extensions.hpp>
+#include <cstdio> // temp
 
 #ifdef OOGL_PLATFORM_LINUX
 
@@ -28,28 +29,63 @@ namespace GL
 {
 	Context::Context( uint color, uint depth, uint stencil, uint antialias, Display* display, int screen, ::Window window )
 	{
+		// Load OpenGL extensions
+		LoadExtensions();
+
 		// Choose an appropriate config
-		const int attribs[] = {
+		const int pixelAttribs[] = {
+			GLX_X_RENDERABLE, GL_TRUE,
+			GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT,
+			GLX_DOUBLEBUFFER, GL_TRUE,
+			GLX_RENDER_TYPE, GLX_RGBA_BIT,
+			GLX_X_VISUAL_TYPE, GLX_TRUE_COLOR,
+			GLX_BUFFER_SIZE, color,
+			GLX_DEPTH_SIZE, depth,
+			GLX_STENCIL_SIZE, stencil,
+			GLX_SAMPLE_BUFFERS, antialias > 1 ? GL_TRUE : GL_FALSE,
+			GLX_SAMPLES, antialias > 1 ? antialias : 0,
 			0
 		};
+
 		int configCount;
-		GLXFBConfig* configs = glXChooseFBConfig( display, screen, attribs, &configCount );
+		GLXFBConfig* configs = glXChooseFBConfig( display, screen, pixelAttribs, &configCount );
+		if ( configCount == 0 ) throw PixelFormatException();
+		GLXFBConfig config = configs[0];
 		XFree( configs );
+
+		// Create OpenGL 3.2 context
+		// TODO: Set X error handler or something
+		int attribs[] = {
+			GLX_CONTEXT_MAJOR_VERSION_ARB, 3,
+			GLX_CONTEXT_MINOR_VERSION_ARB, 2,
+			GLX_CONTEXT_PROFILE_MASK_ARB, GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
+			0
+		};
+		
+		context = glXCreateContextAttribsARB( display, config, NULL, GL_TRUE, attribs );
+		if ( !context ) throw VersionException();
+
+		glXMakeCurrent( display, window, context );
+
+		this->display = display;
+		this->window = window;
 	}
 
 	Context::~Context()
 	{
-		// TODO
+		glXMakeCurrent( display, 0, NULL );
+		glXDestroyContext( display, context );
 	}
 
 	void Context::Activate()
 	{
-		// TODO
+		if ( glXGetCurrentContext() != context ) glXMakeCurrent( display, window, context );
 	}
 
 	void Context::SetVerticalSync( bool enabled )
 	{
-		// TODO
+		Activate();
+		glXSwapIntervalSGI( enabled ? 1 : 0 );
 	}
 }
 

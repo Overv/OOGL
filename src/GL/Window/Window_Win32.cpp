@@ -175,6 +175,8 @@ namespace GL
 
 	void Window::Present()
 	{
+		if ( !context ) return;
+		context->Activate();
 		SwapBuffers( GetDC( window ) );
 	}
 

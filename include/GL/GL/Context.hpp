@@ -87,6 +87,8 @@ namespace GL
 
 		GLXWindow glxWindow;
 		GLXContext context;
+		Display* display;
+		::Window window;
 #endif
 	};
 }

@@ -248,7 +248,9 @@ namespace GL
 
 	void Window::Present()
 	{
-		// TODO
+		if ( !context ) return;
+		context->Activate();
+		glXSwapBuffers( display, window );
 	}
 
 	void Window::WindowEvent( const XEvent& event )
