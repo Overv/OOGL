@@ -52,6 +52,13 @@ namespace GL
 	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int* attribList );
 	typedef BOOL ( WINAPI * WGLCHOOSEPIXELFORMATARB ) ( HDC hdc, const int* intAttribs, const float* floatAttribs, uint maxFormats, int* formats, uint* formatCount );
 #endif
+
+	/*
+		Return values/parameters
+	*/
+
+	const uint GL_MAJOR_VERSION = 0x821B;
+	const uint GL_MINOR_VERSION = 0x821C;
 }
 
 #endif

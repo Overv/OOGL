@@ -27,6 +27,7 @@ namespace GL
 {
 	Window::Window( uint width, uint height, const std::string& title, uint style )
 	{
+		// Create class for OpenGL window
 		WNDCLASS wc = { 0 };
 		wc.lpfnWndProc = WindowEventHandler;
 		wc.hInstance = GetModuleHandle( NULL );
@@ -37,6 +38,7 @@ namespace GL
 		wc.style = CS_OWNDC;
 		RegisterClass( &wc );
 		
+		// Configure window style
 		ulong windowStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_VISIBLE;
 		if ( style & WindowStyle::Close ) windowStyle |= WS_SYSMENU;
 		if ( style & WindowStyle::Resize ) windowStyle |= WS_SYSMENU | WS_THICKFRAME | WS_MAXIMIZEBOX;
@@ -61,6 +63,7 @@ namespace GL
 		// Create window
 		HWND window = CreateWindow( "OOGL_WINDOW", title.c_str(), windowStyle, x, y, width, height, NULL, NULL, GetModuleHandle( NULL ), this );
 
+		// Initialize fullscreen mode
 		if ( style & WindowStyle::Fullscreen )
 		{
 			DEVMODE dm;
@@ -320,7 +323,8 @@ namespace GL
 
 		if ( msg == WM_NCCREATE )
 		{
-			window = reinterpret_cast<Window*>( ((LPCREATESTRUCT)lParam)->lpCreateParams );
+			// Store pointer to associated Window class as userdata in Win32 window
+			window = reinterpret_cast<Window*>( ( (LPCREATESTRUCT)lParam )->lpCreateParams );
 			window->window = hwnd;
 
 			SetWindowLong( hwnd, GWL_USERDATA, reinterpret_cast<long>( window ) );

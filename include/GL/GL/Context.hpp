@@ -25,6 +25,7 @@
 #define OOGL_CONTEXT_HPP
 
 #include <GL/Platform.hpp>
+#include <exception>
 
 namespace GL
 {
@@ -37,6 +38,24 @@ namespace GL
 		const uint Depth = GL_DEPTH_BUFFER_BIT;
 		const uint Stencil = GL_STENCIL_BUFFER_BIT;
 	}
+
+	/*
+		Exceptions
+	*/
+	class VersionException : public std::exception 
+	{
+		virtual const char* what() const throw()
+		{
+			return "OpenGL 3.2 not supported!";
+		}
+	};
+	class PixelFormatException : public std::exception
+	{
+		virtual const char* what() const throw()
+		{
+			return "No pixel format could be found with support for the specified buffer depths and anti-aliasing.";
+		}
+	};
 	
 	/*
 		OpenGL context

@@ -34,8 +34,11 @@ namespace GL
 {
 	Window::Window( uint width, uint height, const std::string& title, uint style )
 	{
+		// Connect to X server
 		display = XOpenDisplay( NULL );
 		screen = DefaultScreen( display );
+
+		// Configure window style
 		fullscreen = style & WindowStyle::Fullscreen;
 
 		XSetWindowAttributes attributes;
@@ -56,9 +59,8 @@ namespace GL
 		// Create window on server
 		::Window desktop = RootWindow( display, screen );
 		int depth = DefaultDepth( display, screen );
-		window = XCreateWindow( display, desktop, x, y, width, height, 0, depth, InputOutput, DefaultVisual( display, screen ), CWEventMask | CWOverrideRedirect, &attributes );
 
-		// Title
+		window = XCreateWindow( display, desktop, x, y, width, height, 0, depth, InputOutput, DefaultVisual( display, screen ), CWEventMask | CWOverrideRedirect, &attributes );
 		XStoreName( display, window, title.c_str() );
 
 		// Window style
@@ -66,6 +68,7 @@ namespace GL
 		{
 			Atom windowHints = XInternAtom( display, "_MOTIF_WM_HINTS", false );
 
+			// These are extensions, so they'll have to be manually defined
 			struct WMHints
 			{
 				unsigned long Flags;
@@ -106,7 +109,7 @@ namespace GL
 			XChangeProperty( display, window, windowHints, windowHints, 32, PropModeReplace, ptr, 5 );
 		}
 
-		// Initialize input
+		// Add input handler for close button
 		close = XInternAtom( display, "WM_DELETE_WINDOW", false );
 		XSetWMProtocols( display, window, &close, 1 );
 

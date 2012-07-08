@@ -21,7 +21,6 @@
 
 #include <GL/GL/Context.hpp>
 #include <GL/GL/Extensions.hpp>
-#include <cstdio> // tmp
 
 #ifdef OOGL_PLATFORM_WINDOWS
 
@@ -48,6 +47,11 @@ namespace GL
 		HGLRC dummyContext = wglCreateContext( dummyDC );
 		wglMakeCurrent( dummyDC, dummyContext );
 
+		int major, minor;
+		glGetIntegerv( GL_MAJOR_VERSION, &major );
+		glGetIntegerv( GL_MINOR_VERSION, &minor );
+		if ( major < 3 || ( major == 3 && minor < 2 ) ) throw VersionException();
+
 		// Load extensions
 		WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)wglGetProcAddress( "wglCreateContextAttribsARB" );
 		WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB = (WGLCHOOSEPIXELFORMATARB)wglGetProcAddress( "wglChoosePixelFormatARB" );
@@ -70,6 +74,7 @@ namespace GL
 		int pixelFormat;
 		uint formatCount;
 		wglChoosePixelFormatARB( dc, pixelAttribs, NULL, 1, &pixelFormat, &formatCount );
+		if ( formatCount == 0 ) throw PixelFormatException();
 		SetPixelFormat( dc, pixelFormat, &dummyFormatDescriptor );
 		
 		// Create OpenGL 3.2 context		
