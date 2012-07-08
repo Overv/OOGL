@@ -105,8 +105,6 @@ namespace GL
 	Window::~Window()
 	{
 		if ( !open ) return;
-
-		if ( context ) delete context;
 		
 		Close();
 	}
@@ -139,6 +137,8 @@ namespace GL
 
 	void Window::Close()
 	{
+		if ( context ) delete context;
+
 		DestroyWindow( window );
 
 		UnregisterClass( "OGLWINDOW", GetModuleHandle( NULL ) );

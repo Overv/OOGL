@@ -103,11 +103,12 @@ namespace GL
 
 	void Context::Activate()
 	{
-		wglMakeCurrent( dc, context );
+		if ( wglGetCurrentContext() != context ) wglMakeCurrent( dc, context );
 	}
 
 	void Context::SetVerticalSync( bool enabled )
 	{
+		Activate();
 		wglSwapIntervalEXT( enabled ? 1 : 0 );
 	}
 }
