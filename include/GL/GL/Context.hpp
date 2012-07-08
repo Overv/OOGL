@@ -72,13 +72,17 @@ namespace GL
 		void Clear( uint buffers = Buffer::Color | Buffer::Depth );
 
 	private:
-#if defined( OOGL_PLATFORM_WINDOWS )
 		friend class Window;
-		Context( uint color, uint depth, uint stencil, uint antialias, HDC dc );
+
+		Context( uint color, uint depth, uint stencil, uint antialias, const Window& window );
 		~Context();
-	
+
+#if defined( OOGL_PLATFORM_WINDOWS )
 		HDC dc;
 		HGLRC context;
+#elif defined( OOGL_PLATFORM_LINUX )
+		GLXWindow glxWindow;
+		GLXContext context;
 #endif
 	};
 }

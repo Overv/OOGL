@@ -74,4 +74,12 @@ namespace GL
 		if ( key > sizeof( keys ) ) return false;
 		return keys[key];
 	}
+
+	Context& Window::GetContext( uint color, uint depth, uint stencil, uint antialias )
+	{
+		if ( context )
+			return *context;
+		else
+			return *( context = new Context( color, depth, stencil, antialias, *this ) );
+	}
 }
