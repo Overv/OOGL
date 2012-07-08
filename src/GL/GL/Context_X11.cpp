@@ -21,12 +21,20 @@
 
 #include <GL/GL/Context.hpp>
 #include <GL/GL/Extensions.hpp>
-#include <cstdio> // temp
 
 #ifdef OOGL_PLATFORM_LINUX
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 namespace GL
 {
+	// Stub error handler for surpressing undesired Xlib errors
+	typedef int ( * XERRORHANDLER ) ( Display*, XErrorEvent* );
+	int XErrorSurpressor( Display* display, XErrorEvent* ev )
+	{
+		return 0;
+	}
+
 	Context::Context( uint color, uint depth, uint stencil, uint antialias, Display* display, int screen, ::Window window )
 	{
 		// Load OpenGL extensions
@@ -54,7 +62,6 @@ namespace GL
 		XFree( configs );
 
 		// Create OpenGL 3.2 context
-		// TODO: Set X error handler or something
 		int attribs[] = {
 			GLX_CONTEXT_MAJOR_VERSION_ARB, 3,
 			GLX_CONTEXT_MINOR_VERSION_ARB, 2,
@@ -62,9 +69,12 @@ namespace GL
 			0
 		};
 		
-		context = glXCreateContextAttribsARB( display, config, NULL, GL_TRUE, attribs );
-		if ( !context ) throw VersionException();
+		XERRORHANDLER oldHandler = XSetErrorHandler( &XErrorSurpressor );
+			context = glXCreateContextAttribsARB( display, config, NULL, GL_TRUE, attribs );
+			if ( !context ) throw VersionException();
+		XSetErrorHandler( oldHandler );
 
+		// Activate context
 		glXMakeCurrent( display, window, context );
 
 		this->display = display;
