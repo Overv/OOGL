@@ -28,6 +28,9 @@
 
 namespace GL
 {
+	/*
+		Buffer types
+	*/
 	namespace Buffer
 	{
 		const uint Color = GL_COLOR_BUFFER_BIT;
@@ -35,6 +38,9 @@ namespace GL
 		const uint Stencil = GL_STENCIL_BUFFER_BIT;
 	}
 	
+	/*
+		OpenGL context
+	*/
 	class Window;
 	class Context
 	{
@@ -45,7 +51,7 @@ namespace GL
 	private:
 #if defined( OOGL_PLATFORM_WINDOWS )
 		friend class Window;
-		Context( HDC dc );
+		Context( uint color, uint depth, uint stencil, uint antialias, HDC dc );
 		~Context();
 	
 		HDC dc;

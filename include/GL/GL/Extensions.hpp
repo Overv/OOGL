@@ -38,7 +38,19 @@ namespace GL
 	const uint WGL_CONTEXT_PROFILE_MASK_ARB = 0x9126;
 	const uint WGL_CONTEXT_CORE_PROFILE_BIT_ARB = 0x00000001;
 
-	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int *attribList );
+	const uint WGL_DRAW_TO_WINDOW_ARB = 0x2001;
+	const uint WGL_SUPPORT_OPENGL_ARB = 0x2010;
+	const uint WGL_DOUBLE_BUFFER_ARB = 0x2011;
+	const uint WGL_PIXEL_TYPE_ARB = 0x2013;
+	const uint WGL_COLOR_BITS_ARB = 0x2014;
+	const uint WGL_DEPTH_BITS_ARB = 0x2022;
+	const uint WGL_STENCIL_BITS_ARB = 0x2023;
+	const uint WGL_SAMPLE_BUFFERS_ARB = 0x2041;
+	const uint WGL_SAMPLES_ARB = 0x2042;
+	const uint WGL_TYPE_RGBA_ARB = 0x202B;
+
+	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int* attribList );
+	typedef BOOL ( WINAPI * WGLCHOOSEPIXELFORMATARB ) ( HDC hdc, const int* intAttribs, const float* floatAttribs, uint maxFormats, int* formats, uint* formatCount );
 #endif
 }
 

@@ -21,28 +21,57 @@
 
 #include <GL/GL/Context.hpp>
 #include <GL/GL/Extensions.hpp>
+#include <cstdio> // tmp
 
 #ifdef OOGL_PLATFORM_WINDOWS
 
 namespace GL
 {
-	Context::Context( HDC dc )
+	Context::Context( uint color, uint depth, uint stencil, uint antialias, HDC dc )
 	{
-		// Set pixel format
-		PIXELFORMATDESCRIPTOR formatDescriptor =
+		// Create dummy window
+		HWND dummyWindow = CreateWindowA( "STATIC", "", WS_POPUP | WS_DISABLED, 0, 0, 1, 1, NULL, NULL, GetModuleHandle( NULL ), NULL );
+		HDC dummyDC = GetDC( dummyWindow );
+
+		// Set dummy pixel format
+		PIXELFORMATDESCRIPTOR dummyFormatDescriptor =
 		{
-			sizeof( formatDescriptor ), 1, PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-			PFD_TYPE_RGBA, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 8, 0, PFD_MAIN_PLANE,
+			sizeof( dummyFormatDescriptor ), 1, PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
+			PFD_TYPE_RGBA, color, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, depth, stencil, 0, PFD_MAIN_PLANE,
 			0, 0, 0, 0
 		};
 
-		int pixelFormat = ChoosePixelFormat( dc, &formatDescriptor );
-		SetPixelFormat( dc, pixelFormat, &formatDescriptor );
+		int dummyPixelFormat = ChoosePixelFormat( dummyDC, &dummyFormatDescriptor );
+		SetPixelFormat( dummyDC, dummyPixelFormat, &dummyFormatDescriptor );
 
 		// Create dummy context
-		HGLRC dummyContext = wglCreateContext( dc );
-		wglMakeCurrent( dc, dummyContext );
+		HGLRC dummyContext = wglCreateContext( dummyDC );
+		wglMakeCurrent( dummyDC, dummyContext );
 
+		// Load extensions
+		WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)wglGetProcAddress( "wglCreateContextAttribsARB" );
+		WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB = (WGLCHOOSEPIXELFORMATARB)wglGetProcAddress( "wglChoosePixelFormatARB" );
+
+		// Choose final pixel format
+		const int pixelAttribs[] =
+		{
+			WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+			WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+			WGL_DOUBLE_BUFFER_ARB, GL_TRUE,
+			WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB,
+			WGL_COLOR_BITS_ARB, color,
+			WGL_DEPTH_BITS_ARB, depth,
+			WGL_STENCIL_BITS_ARB, stencil,
+			WGL_SAMPLE_BUFFERS_ARB, antialias > 1 ? GL_TRUE : GL_FALSE,
+			WGL_SAMPLES_ARB, antialias > 1 ? antialias : 0,
+			0, 0
+		};
+
+		int pixelFormat;
+		uint formatCount;
+		wglChoosePixelFormatARB( dc, pixelAttribs, NULL, 1, &pixelFormat, &formatCount );
+		SetPixelFormat( dc, pixelFormat, &dummyFormatDescriptor );
+		
 		// Create OpenGL 3.2 context		
 		int attribs[] = {
 			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
@@ -50,13 +79,14 @@ namespace GL
 			WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
 			0
 		};
-
-		WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)wglGetProcAddress( "wglCreateContextAttribsARB" );
+		
 		context = wglCreateContextAttribsARB( dc, NULL, attribs );
 
+		// Clean up
 		wglMakeCurrent( dc, NULL );
 		wglDeleteContext( dummyContext );
 		wglMakeCurrent( dc, context );
+		DestroyWindow( dummyWindow );
 
 		this->dc = dc;
 	}
