@@ -21,9 +21,11 @@
 
 #include <GL/GL/Extensions.hpp>
 
-WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
-WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
-WGLSWAPINTERVALEXT wglSwapIntervalEXT;
+#if defined( OOGL_PLATFORM_WINDOWS )
+	WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
+	WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
+	WGLSWAPINTERVALEXT wglSwapIntervalEXT;
+#endif
 
 namespace GL
 {
@@ -43,8 +45,10 @@ namespace GL
 		if ( extensionsLoaded ) return;
 		extensionsLoaded = true;
 
+#if defined( OOGL_PLATFORM_WINDOWS )
 		wglCreateContextAttribsARB = (WGLCREATECONTEXTATTRIBSARB)LoadExtension( "wglCreateContextAttribsARB" );
 		wglChoosePixelFormatARB = (WGLCHOOSEPIXELFORMATARB)LoadExtension( "wglChoosePixelFormatARB" );
 		wglSwapIntervalEXT = (WGLSWAPINTERVALEXT)LoadExtension( "wglSwapIntervalEXT" );
+#endif
 	}
 }
