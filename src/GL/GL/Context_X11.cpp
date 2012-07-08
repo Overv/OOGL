@@ -19,59 +19,38 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#include <GL/Window/Window.hpp>
+#include <GL/GL/Context.hpp>
+#include <GL/GL/Extensions.hpp>
+
+#ifdef OOGL_PLATFORM_LINUX
 
 namespace GL
 {
-	int Window::GetX()
+	Context::Context( uint color, uint depth, uint stencil, uint antialias, Display* display, int screen, ::Window window )
 	{
-		return x;
+		// Choose an appropriate config
+		const int attribs[] = {
+			0
+		};
+		int configCount;
+		GLXFBConfig* configs = glXChooseFBConfig( display, screen, attribs, &configCount );
+		XFree( configs );
 	}
 
-	int Window::GetY()
+	Context::~Context()
 	{
-		return y;
+		// TODO
 	}
 
-	uint Window::GetWidth()
+	void Context::Activate()
 	{
-		return width;
+		// TODO
 	}
 
-	uint Window::GetHeight()
+	void Context::SetVerticalSync( bool enabled )
 	{
-		return height;
-	}
-
-	bool Window::IsOpen()
-	{
-		return open;
-	}
-
-	bool Window::HasFocus()
-	{
-		return focus;
-	}
-
-	int Window::GetMouseX()
-	{
-		return mousex;
-	}
-
-	int Window::GetMouseY()
-	{
-		return mousey;
-	}
-
-	bool Window::IsMouseButtonDown( uint button )
-	{
-		if ( button > sizeof( mouse ) ) return false;
-		return mouse[button];
-	}
-
-	bool Window::IsKeyDown( uint key )
-	{
-		if ( key > sizeof( keys ) ) return false;
-		return keys[key];
+		// TODO
 	}
 }
+
+#endif

@@ -238,6 +238,19 @@ namespace GL
 		}
 	}
 
+	Context& Window::GetContext( uint color, uint depth, uint stencil, uint antialias )
+	{
+		if ( context )
+			return *context;
+		else
+			return *( context = new Context( color, depth, stencil, antialias, display, screen, window ) );
+	}
+
+	void Window::Present()
+	{
+		// TODO
+	}
+
 	void Window::WindowEvent( const XEvent& event )
 	{
 		Event ev;

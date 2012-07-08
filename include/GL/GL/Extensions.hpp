@@ -31,21 +31,21 @@
 */
 
 #if defined( OOGL_PLATFORM_WINDOWS )
-	const unsigned int WGL_CONTEXT_MAJOR_VERSION_ARB = 0x2091;
-	const unsigned int WGL_CONTEXT_MINOR_VERSION_ARB = 0x2092;
-	const unsigned int WGL_CONTEXT_PROFILE_MASK_ARB = 0x9126;
-	const unsigned int WGL_CONTEXT_CORE_PROFILE_BIT_ARB = 0x00000001;
+	#define WGL_CONTEXT_MAJOR_VERSION_ARB 0x2091
+	#define WGL_CONTEXT_MINOR_VERSION_ARB 0x2092
+	#define WGL_CONTEXT_PROFILE_MASK_ARB 0x9126
+	#define WGL_CONTEXT_CORE_PROFILE_BIT_ARB 0x00000001
 
-	const unsigned int WGL_DRAW_TO_WINDOW_ARB = 0x2001;
-	const unsigned int WGL_SUPPORT_OPENGL_ARB = 0x2010;
-	const unsigned int WGL_DOUBLE_BUFFER_ARB = 0x2011;
-	const unsigned int WGL_PIXEL_TYPE_ARB = 0x2013;
-	const unsigned int WGL_COLOR_BITS_ARB = 0x2014;
-	const unsigned int WGL_DEPTH_BITS_ARB = 0x2022;
-	const unsigned int WGL_STENCIL_BITS_ARB = 0x2023;
-	const unsigned int WGL_SAMPLE_BUFFERS_ARB = 0x2041;
-	const unsigned int WGL_SAMPLES_ARB = 0x2042;
-	const unsigned int WGL_TYPE_RGBA_ARB = 0x202B;
+	#define WGL_DRAW_TO_WINDOW_ARB 0x2001
+	#define WGL_SUPPORT_OPENGL_ARB 0x2010
+	#define WGL_DOUBLE_BUFFER_ARB 0x2011
+	#define WGL_PIXEL_TYPE_ARB 0x2013
+	#define WGL_COLOR_BITS_ARB 0x2014
+	#define WGL_DEPTH_BITS_ARB 0x2022
+	#define WGL_STENCIL_BITS_ARB 0x2023
+	#define WGL_SAMPLE_BUFFERS_ARB 0x2041
+	#define WGL_SAMPLES_ARB 0x2042
+	#define WGL_TYPE_RGBA_ARB 0x202B
 
 	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int* attribList );
 	extern WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
@@ -53,14 +53,17 @@
 	extern WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
 	typedef int ( WINAPI * WGLSWAPINTERVALEXT ) ( int interval );
 	extern WGLSWAPINTERVALEXT wglSwapIntervalEXT;
+#elif defined( OOGL_PLATFORM_LINUX )
+	#define GLX_CONTEXT_MAJOR_VERSION_ARB 0x2091
+	#define GLX_CONTEXT_MINOR_VERSION_ARB 0x2092
 #endif
 
 /*
 	Return values/parameters
 */
 
-const unsigned int GL_MAJOR_VERSION = 0x821B;
-const unsigned int GL_MINOR_VERSION = 0x821C;
+#define GL_MAJOR_VERSION 0x821B
+#define GL_MINOR_VERSION 0x821C
 
 /*
 	Extension loader

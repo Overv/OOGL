@@ -36,6 +36,8 @@
 #elif defined( __linux__ )
 	#define OOGL_PLATFORM_LINUX
 	#include <X11/Xlib.h>
+	#include <GL/gl.h>
+	#include <GL/glx.h>
 #elif defined( __APPLE__ )
 	#define OOGL_PLATFORM_OSX
 #endif

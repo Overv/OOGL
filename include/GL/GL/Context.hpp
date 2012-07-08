@@ -74,13 +74,17 @@ namespace GL
 	private:
 		friend class Window;
 
-		Context( uint color, uint depth, uint stencil, uint antialias, const Window& window );
 		~Context();
 
 #if defined( OOGL_PLATFORM_WINDOWS )
+		Context( uint color, uint depth, uint stencil, uint antialias, HDC dc );
+
 		HDC dc;
 		HGLRC context;
 #elif defined( OOGL_PLATFORM_LINUX )
+		Context( uint color, uint depth, uint stencil, uint antialias, Display* display, int screen, ::Window window );
+
+
 		GLXWindow glxWindow;
 		GLXContext context;
 #endif
