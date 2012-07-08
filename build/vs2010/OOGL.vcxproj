@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\GL\GL\Color.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Context.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Extensions.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Mat3.hpp" />
@@ -24,6 +25,7 @@
     <ClInclude Include="..\..\include\GL\Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\GL\GL\Color.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Context.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Extensions.cpp" />
