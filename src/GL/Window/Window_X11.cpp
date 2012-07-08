@@ -131,14 +131,16 @@ namespace GL
 		this->mousey = 0;
 		memset( this->mouse, 0, sizeof( this->mouse ) );
 		memset( this->keys, 0, sizeof( this->keys ) );
+		this->context = 0;
 	}
 
 	Window::~Window()
 	{
-		XDestroyWindow( display, window );
-		XFlush( display );
+		if ( !open ) return;
 
-		XCloseDisplay( display );
+		if ( context ) delete context;
+
+		Close();
 	}
 
 	void Window::SetPos( int x, int y )
@@ -177,7 +179,11 @@ namespace GL
 	{
 		XDestroyWindow( display, window );
 		XFlush( display );
+		
 		if ( fullscreen ) EnableFullscreen( false );
+
+		XCloseDisplay( display );
+
 		open = false;
 	}
 

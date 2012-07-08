@@ -21,36 +21,35 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_PLATFORM_HPP
+#define OOGL_PLATFORM_HPP
 
 /*
-	Platform and type configuration
+	Platform identification
 */
 
-#include <GL/Platform.hpp>
+#if defined( _WIN32 )
+	#define OOGL_PLATFORM_WINDOWS
+	#include <Windows.h>
+	#include <WindowsX.h>
+	#include <GL/GL.h>
+#elif defined( __linux__ )
+	#define OOGL_PLATFORM_LINUX
+	#include <X11/Xlib.h>
+#elif defined( __APPLE__ )
+	#define OOGL_PLATFORM_OSX
+#endif
 
 /*
-	3D math
+	Types
 */
 
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Context.hpp>
+namespace GL
+{
+	typedef unsigned char uchar;
+	typedef unsigned short ushort;
+	typedef unsigned int uint;
+	typedef unsigned long ulong;
+}
 
 #endif

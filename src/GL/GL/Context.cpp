@@ -19,38 +19,17 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
 #include <GL/GL/Context.hpp>
 
-#endif
+namespace GL
+{
+	void Context::ClearColor( float r, float g, float b, float a )
+	{
+		glClearColor( r, g, b, a );
+	}
+
+	void Context::Clear( uint buffers )
+	{
+		glClear( buffers );
+	}
+}

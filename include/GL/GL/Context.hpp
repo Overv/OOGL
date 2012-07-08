@@ -21,36 +21,37 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_CONTEXT_HPP
+#define OOGL_CONTEXT_HPP
 
 #include <GL/Platform.hpp>
 
-/*
-	3D math
-*/
+namespace GL
+{
+	namespace Buffer
+	{
+		const uint Color = GL_COLOR_BUFFER_BIT;
+		const uint Depth = GL_DEPTH_BUFFER_BIT;
+		const uint Stencil = GL_STENCIL_BUFFER_BIT;
+	}
+	
+	class Window;
+	class Context
+	{
+	public:
+		void ClearColor( float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f );
+		void Clear( uint buffers = Buffer::Color | Buffer::Depth );
 
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Context.hpp>
+	private:
+#if defined( OOGL_PLATFORM_WINDOWS )
+		friend class Window;
+		Context( HDC dc );
+		~Context();
+	
+		HDC dc;
+		HGLRC context;
+#endif
+	};
+}
 
 #endif

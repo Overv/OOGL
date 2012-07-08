@@ -24,8 +24,6 @@
 #ifndef OOGL_EVENT_HPP
 #define OOGL_EVENT_HPP
 
-#include <GL/OOGL.hpp>
-
 namespace GL
 {
 	/*

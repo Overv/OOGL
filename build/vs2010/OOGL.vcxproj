@@ -11,16 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\GL\GL\Context.hpp" />
+    <ClInclude Include="..\..\include\GL\GL\Extensions.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Mat3.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Mat4.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Util.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec2.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec3.hpp" />
     <ClInclude Include="..\..\include\GL\OOGL.hpp" />
+    <ClInclude Include="..\..\include\GL\Platform.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Event.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\GL\GL\Context.cpp" />
+    <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat3.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat4.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />
@@ -77,6 +82,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -95,6 +103,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

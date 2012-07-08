@@ -24,8 +24,9 @@
 #ifndef OOGL_WINDOW_HPP
 #define OOGL_WINDOW_HPP
 
-#include <GL/OOGL.hpp>
+#include <GL/Platform.hpp>
 #include <GL/Window/Event.hpp>
+#include <GL/GL/Context.hpp>
 #include <string>
 #include <cstring>
 #include <queue>
@@ -78,6 +79,9 @@ namespace GL
 		bool IsMouseButtonDown( uint button );
 		bool IsKeyDown( uint key );
 
+		Context& GetContext();
+		void Present();
+
 	private:
 		uint width, height;
 		int x, y;
@@ -87,6 +91,8 @@ namespace GL
 		uint mousex, mousey;
 		bool mouse[3];
 		bool keys[100];
+
+		Context* context;
 
 #if defined( OOGL_PLATFORM_WINDOWS )
 		HWND window;

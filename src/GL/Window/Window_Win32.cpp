@@ -34,6 +34,7 @@ namespace GL
 		wc.hCursor = LoadCursor( NULL, IDC_ARROW );
 		wc.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
 		wc.lpszClassName = "OOGL_WINDOW";
+		wc.style = CS_OWNDC;
 		RegisterClass( &wc );
 		
 		ulong windowStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_VISIBLE;
@@ -95,14 +96,16 @@ namespace GL
 		this->mousey = 0;
 		memset( this->mouse, 0, sizeof( this->mouse ) );
 		memset( this->keys, 0, sizeof( this->keys ) );
+		this->context = 0;
 	}
 
 	Window::~Window()
 	{
 		if ( !open ) return;
+
+		if ( context ) delete context;
 		
-		DestroyWindow( window );
-		UnregisterClass( "OGLWINDOW", GetModuleHandle( NULL ) );
+		Close();
 	}
 
 	void Window::SetPos( int x, int y )
@@ -134,6 +137,9 @@ namespace GL
 	void Window::Close()
 	{
 		DestroyWindow( window );
+
+		UnregisterClass( "OGLWINDOW", GetModuleHandle( NULL ) );
+
 		open = false;
 	}
 
@@ -154,6 +160,19 @@ namespace GL
 		events.pop();
 
 		return true;
+	}
+
+	Context& Window::GetContext()
+	{
+		if ( context )
+			return *context;
+		else
+			return *( context = new Context( GetDC( window ) ) );
+	}
+
+	void Window::Present()
+	{
+		SwapBuffers( GetDC( window ) );
 	}
 
 	LRESULT Window::WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam )

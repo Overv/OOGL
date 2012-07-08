@@ -21,36 +21,25 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_EXTENSIONS_HPP
+#define OOGL_EXTENSIONS_HPP
 
 #include <GL/Platform.hpp>
 
-/*
-	3D math
-*/
+namespace GL
+{
+	/*
+		OpenGL context creation
+	*/
 
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
+#if defined( OOGL_PLATFORM_WINDOWS )
+	const uint WGL_CONTEXT_MAJOR_VERSION_ARB = 0x2091;
+	const uint WGL_CONTEXT_MINOR_VERSION_ARB = 0x2092;
+	const uint WGL_CONTEXT_PROFILE_MASK_ARB = 0x9126;
+	const uint WGL_CONTEXT_CORE_PROFILE_BIT_ARB = 0x00000001;
 
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Context.hpp>
+	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int *attribList );
+#endif
+}
 
 #endif
