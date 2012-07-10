@@ -21,39 +21,56 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_LINK_HPP
+#define OOGL_LINK_HPP
 
 #include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
 #include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
 #include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
+#include <exception>
+#include <string>
+
+namespace GL
+{
+	/*
+		Exceptions
+	*/
+	class LinkException : public std::exception 
+	{
+	public:
+		LinkException( const std::string& str ) throw() : infoLog( str ) {}
+		~LinkException() throw() {}
+
+		virtual const char* what() const throw()
+		{
+			return infoLog.c_str();
+		}
+
+	private:
+		std::string infoLog;
+	};
+
+	/*
+		Program
+	*/
+	class Program
+	{
+	public:
+		Program();
+		Program( const Shader& vertex, const Shader& fragment );
+
+		~Program();
+
+		operator GLuint() const;
+
+		void Attach( const Shader& shader );
+		void Link();
+
+		std::string GetInfoLog();
+
+	private:
+		GLuint id;
+	};
+}
 
 #endif

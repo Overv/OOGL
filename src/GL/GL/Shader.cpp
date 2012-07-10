@@ -19,41 +19,63 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
 #include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
+#include <vector>
 
-#endif
+namespace GL
+{
+	Shader::Shader( uint shader )
+	{
+		id = glCreateShader( shader );
+	}
+
+	Shader::Shader( uint shader, const std::string& code )
+	{
+		id = glCreateShader( shader );
+		Source( code );
+		Compile();
+	}
+
+	Shader::~Shader()
+	{
+		glDeleteShader( id );
+	}
+
+	Shader::operator GLuint() const
+	{
+		return id;
+	}
+
+	void Shader::Source( const std::string& code )
+	{
+		const char* c = code.c_str();
+		glShaderSource( id, 1, &c, NULL );
+	}
+
+	void Shader::Compile()
+	{
+		GLint res;
+
+		glCompileShader( id );
+		glGetShaderiv( id, GL_COMPILE_STATUS, &res );
+
+		if ( res == GL_FALSE )
+			throw CompileException( GetInfoLog() );
+	}
+
+	std::string Shader::GetInfoLog()
+	{
+		GLint res;
+		glGetShaderiv( id, GL_INFO_LOG_LENGTH, &res );
+
+		if ( res > 0 )
+		{
+			std::vector<char> infoLog( res );
+			glGetShaderInfoLog( id, res, &res, &infoLog[0] );
+
+			return &infoLog[0];
+		} else {
+			return "";
+		}
+	}
+}

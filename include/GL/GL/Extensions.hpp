@@ -49,9 +49,9 @@
 
 	typedef HGLRC ( WINAPI * WGLCREATECONTEXTATTRIBSARB ) ( HDC hDC, HGLRC hShareContext, const int* attribList );
 	extern WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
-	typedef int ( WINAPI * WGLCHOOSEPIXELFORMATARB ) ( HDC hdc, const int* intAttribs, const float* floatAttribs, unsigned int maxFormats, int* formats, unsigned int* formatCount );
+	typedef BOOL ( WINAPI * WGLCHOOSEPIXELFORMATARB ) ( HDC hdc, const int* piAttribIList, const FLOAT* pfAttribFList, UINT nMaxFormats, int* piFormats, UINT* nNumFormats );
 	extern WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
-	typedef int ( WINAPI * WGLSWAPINTERVALEXT ) ( int interval );
+	typedef BOOL ( WINAPI * WGLSWAPINTERVALEXT ) ( int interval );
 	extern WGLSWAPINTERVALEXT wglSwapIntervalEXT;
 #elif defined( OOGL_PLATFORM_LINUX )
 	#define GLX_CONTEXT_MAJOR_VERSION_ARB 0x2091
@@ -59,7 +59,7 @@
 	#define GLX_CONTEXT_PROFILE_MASK_ARB 0x9126
 	#define GLX_CONTEXT_CORE_PROFILE_BIT_ARB 0x00000001
 
-	typedef GLXContext ( * GLXCREATECONTEXTATTRIBSARB ) ( Display* display, GLXFBConfig config, GLXContext share_context, Bool direct, const int* attribs );
+	typedef GLXContext ( * GLXCREATECONTEXTATTRIBSARB ) ( Display* dpy, GLXFBConfig config, GLXContext share_context, Bool direct, const int* attrib_list );
 	extern GLXCREATECONTEXTATTRIBSARB glXCreateContextAttribsARB;
 	typedef int ( * GLXSWAPINTERVALSGI ) ( int interval );
 	extern GLXSWAPINTERVALSGI glXSwapIntervalSGI;
@@ -71,6 +71,43 @@
 
 #define GL_MAJOR_VERSION 0x821B
 #define GL_MINOR_VERSION 0x821C
+
+/*
+	Shaders
+*/
+
+#define GL_FRAGMENT_SHADER 0x8B30
+#define GL_VERTEX_SHADER 0x8B31
+#define GL_COMPILE_STATUS 0x8B81
+#define GL_INFO_LOG_LENGTH 0x8B84
+
+typedef void ( APIENTRYP GLCOMPILESHADER ) ( GLuint shader );
+extern GLCOMPILESHADER glCompileShader;
+typedef GLuint ( APIENTRYP GLCREATESHADER ) ( GLenum type );
+extern GLCREATESHADER glCreateShader;
+typedef void ( APIENTRYP GLDELETESHADER ) ( GLuint shader );
+extern GLDELETESHADER glDeleteShader;
+typedef void ( APIENTRYP GLGETSHADERIV ) ( GLuint shader, GLenum pname, GLint* params );
+extern GLGETSHADERIV glGetShaderiv;
+typedef void ( APIENTRYP GLGETSHADERINFOLOG ) ( GLuint shader, GLsizei bufSize, GLsizei* length, GLchar* infoLog );
+extern GLGETSHADERINFOLOG glGetShaderInfoLog;
+typedef void ( APIENTRYP GLSHADERSOURCE ) ( GLuint shader, GLsizei count, const GLchar* const* string, const GLint* length );
+extern GLSHADERSOURCE glShaderSource;
+
+#define GL_LINK_STATUS 0x8B82
+
+typedef GLuint ( APIENTRYP GLCREATEPROGRAM ) ( void );
+extern GLCREATEPROGRAM glCreateProgram;
+typedef void ( APIENTRYP GLDELETEPROGRAM ) ( GLuint program );
+extern GLDELETEPROGRAM glDeleteProgram;
+typedef void ( APIENTRYP GLATTACHSHADER ) ( GLuint program, GLuint shader );
+extern GLATTACHSHADER glAttachShader;
+typedef void ( APIENTRYP GLLINKPROGRAM ) ( GLuint program );
+extern GLLINKPROGRAM glLinkProgram;
+typedef void ( APIENTRYP GLGETPROGRAMIV ) ( GLuint program, GLenum pname, GLint* params );
+extern GLGETPROGRAMIV glGetProgramiv;
+typedef void ( APIENTRYP GLGETPROGRAMINFOLOG ) ( GLuint program, GLsizei bufSize, GLsizei* length, GLchar* infoLog );
+extern GLGETPROGRAMINFOLOG glGetProgramInfoLog;
 
 /*
 	Extension loader

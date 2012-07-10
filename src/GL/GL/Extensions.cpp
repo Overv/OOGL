@@ -30,6 +30,20 @@
 	GLXSWAPINTERVALSGI glXSwapIntervalSGI;
 #endif
 
+GLCOMPILESHADER glCompileShader;
+GLCREATESHADER glCreateShader;
+GLDELETESHADER glDeleteShader;
+GLGETSHADERIV glGetShaderiv;
+GLGETSHADERINFOLOG glGetShaderInfoLog;
+GLSHADERSOURCE glShaderSource;
+
+GLCREATEPROGRAM glCreateProgram;
+GLDELETEPROGRAM glDeleteProgram;
+GLATTACHSHADER glAttachShader;
+GLLINKPROGRAM glLinkProgram;
+GLGETPROGRAMIV glGetProgramiv;
+GLGETPROGRAMINFOLOG glGetProgramInfoLog;
+
 namespace GL
 {
 	bool extensionsLoaded = false;
@@ -56,5 +70,19 @@ namespace GL
 		glXCreateContextAttribsARB = (GLXCREATECONTEXTATTRIBSARB)LoadExtension( "glXCreateContextAttribsARB" );
 		glXSwapIntervalSGI = (GLXSWAPINTERVALSGI)LoadExtension( "glXSwapIntervalSGI" );
 #endif
+
+		glCompileShader = (GLCOMPILESHADER)LoadExtension( "glCompileShader" );
+		glCreateShader = (GLCREATESHADER)LoadExtension( "glCreateShader" );
+		glDeleteShader = (GLDELETESHADER)LoadExtension( "glDeleteShader" );
+		glGetShaderiv = (GLGETSHADERIV)LoadExtension( "glGetShaderiv" );
+		glGetShaderInfoLog = (GLGETSHADERINFOLOG)LoadExtension( "glGetShaderInfoLog" );
+		glShaderSource = (GLSHADERSOURCE)LoadExtension( "glShaderSource" );
+
+		glCreateProgram = (GLCREATEPROGRAM)LoadExtension( "glCreateProgram" );
+		glDeleteProgram = (GLDELETEPROGRAM)LoadExtension( "glDeleteProgram" );
+		glAttachShader = (GLATTACHSHADER)LoadExtension( "glAttachShader" );
+		glLinkProgram = (GLLINKPROGRAM)LoadExtension( "glLinkProgram" );
+		glGetProgramiv = (GLGETPROGRAMIV)LoadExtension( "glGetProgramiv" );
+		glGetProgramInfoLog = (GLGETPROGRAMINFOLOG)LoadExtension( "glGetProgramInfoLog" );
 	}
 }

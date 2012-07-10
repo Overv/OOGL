@@ -21,39 +21,64 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_SHADER_HPP
+#define OOGL_SHADER_HPP
 
 #include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
 #include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
+#include <exception>
+#include <string>
+
+namespace GL
+{
+	/*
+		Shader type
+	*/
+	namespace ShaderType
+	{
+		const uint Vertex = GL_VERTEX_SHADER;
+		const uint Fragment = GL_FRAGMENT_SHADER;
+	}
+
+	/*
+		Exceptions
+	*/
+	class CompileException : public std::exception 
+	{
+	public:
+		CompileException( const std::string& str ) throw() : infoLog( str ) {}
+		~CompileException() throw() {}
+
+		virtual const char* what() const throw()
+		{
+			return infoLog.c_str();
+		}
+
+	private:
+		std::string infoLog;
+	};
+
+	/*
+		Shader
+	*/
+	class Shader
+	{
+	public:
+		Shader( uint type );
+		Shader( uint type, const std::string& code );
+
+		~Shader();
+
+		operator GLuint() const;
+
+		void Source( const std::string& code );
+		void Compile();
+
+		std::string GetInfoLog();
+
+	private:
+		GLuint id;
+	};
+}
 
 #endif

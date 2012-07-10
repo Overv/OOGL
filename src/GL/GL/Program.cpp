@@ -19,41 +19,63 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
 #include <GL/GL/Program.hpp>
+#include <vector>
 
-#endif
+namespace GL
+{
+	Program::Program()
+	{
+		id = glCreateProgram();
+	}
+
+	Program::Program( const Shader& vertex, const Shader& fragment )
+	{
+		id = glCreateProgram();
+		Attach( vertex );
+		Attach( fragment );
+		Link();
+	}
+
+	Program::~Program()
+	{
+		glDeleteProgram( id );
+	}
+
+	Program::operator GLuint() const
+	{
+		return id;
+	}
+
+	void Program::Attach( const Shader& shader )
+	{
+		glAttachShader( id, shader );
+	}
+
+	void Program::Link()
+	{
+		GLint res;
+
+		glLinkProgram( id );
+		glGetProgramiv( id, GL_LINK_STATUS, &res );
+
+		if ( res == GL_FALSE )
+			throw LinkException( GetInfoLog() );
+	}
+
+	std::string Program::GetInfoLog()
+	{
+		GLint res;
+		glGetProgramiv( id, GL_INFO_LOG_LENGTH, &res );
+
+		if ( res > 0 )
+		{
+			std::vector<char> infoLog( res );
+			glGetProgramInfoLog( id, res, &res, &infoLog[0] );
+
+			return &infoLog[0];
+		} else {
+			return "";
+		}
+	}
+}
