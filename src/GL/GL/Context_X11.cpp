@@ -94,6 +94,7 @@ namespace GL
 
 	void Context::SetVerticalSync( bool enabled )
 	{
+		Activate();
 		glXSwapIntervalSGI( enabled ? 1 : 0 );
 	}
 }

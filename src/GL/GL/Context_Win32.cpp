@@ -108,6 +108,7 @@ namespace GL
 
 	void Context::SetVerticalSync( bool enabled )
 	{
+		Activate();
 		wglSwapIntervalEXT( enabled ? 1 : 0 );
 	}
 }

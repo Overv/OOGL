@@ -1,7 +1,7 @@
 # Parameters
 
 CC = g++
-CCFLAGS = -O3 -Wall -Wextra
+CCFLAGS = -O3 -Wall -Wextra -Werror
 
 # Final library
 
