@@ -36,6 +36,11 @@ namespace GL
 		glClear( buffers );
 	}
 
+	void Context::Use( const Program& program )
+	{
+		glUseProgram( program );
+	}
+
 	void Context::DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices )
 	{
 		glBindVertexArray( vao );

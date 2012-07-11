@@ -68,8 +68,7 @@ namespace GL
 
 		static Vec3 UnProject( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] );
 		static Vec3 Project( const Vec3& vec, const Mat4& view, const Mat4& proj, const float viewport[] );
-
-	private:
+		
 		float m[16];
 	};
 }

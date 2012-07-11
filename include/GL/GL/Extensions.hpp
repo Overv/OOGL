@@ -105,6 +105,8 @@ typedef GLuint ( APIENTRYP GLCREATEPROGRAM ) ( void );
 extern GLCREATEPROGRAM glCreateProgram;
 typedef void ( APIENTRYP GLDELETEPROGRAM ) ( GLuint program );
 extern GLDELETEPROGRAM glDeleteProgram;
+typedef void ( APIENTRYP GLUSEPROGRAM ) ( GLuint program );
+extern GLUSEPROGRAM glUseProgram;
 typedef void ( APIENTRYP GLATTACHSHADER ) ( GLuint program, GLuint shader );
 extern GLATTACHSHADER glAttachShader;
 typedef void ( APIENTRYP GLLINKPROGRAM ) ( GLuint program );
@@ -115,6 +117,79 @@ typedef void ( APIENTRYP GLGETPROGRAMINFOLOG ) ( GLuint program, GLsizei bufSize
 extern GLGETPROGRAMINFOLOG glGetProgramInfoLog;
 typedef GLint ( APIENTRYP GLGETATTRIBLOCATION ) ( GLuint program, const GLchar* name );
 extern GLGETATTRIBLOCATION glGetAttribLocation;
+typedef GLint ( APIENTRYP GLGETUNIFORMLOCATION ) ( GLuint program, const GLchar* name );
+extern GLGETUNIFORMLOCATION glGetUniformLocation;
+
+/*
+	Uniforms
+*/
+
+typedef void ( APIENTRYP GLUNIFORM1F ) ( GLint location, GLfloat v0 );
+extern GLUNIFORM1F glUniform1f;
+typedef void ( APIENTRYP GLUNIFORM2F ) ( GLint location, GLfloat v0, GLfloat v1 );
+extern GLUNIFORM2F glUniform2f;
+typedef void ( APIENTRYP GLUNIFORM3F ) ( GLint location, GLfloat v0, GLfloat v1, GLfloat v2 );
+extern GLUNIFORM3F glUniform3f;
+typedef void ( APIENTRYP GLUNIFORM4F ) ( GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3 );
+extern GLUNIFORM4F glUniform4f;
+typedef void ( APIENTRYP GLUNIFORM1I ) ( GLint location, GLint v0 );
+extern GLUNIFORM1I glUniform1i;
+typedef void ( APIENTRYP GLUNIFORM2I ) ( GLint location, GLint v0, GLint v1 );
+extern GLUNIFORM2I glUniform2i;
+typedef void ( APIENTRYP GLUNIFORM3I ) ( GLint location, GLint v0, GLint v1, GLint v2 );
+extern GLUNIFORM3I glUniform3i;
+typedef void ( APIENTRYP GLUNIFORM4I ) ( GLint location, GLint v0, GLint v1, GLint v2, GLint v3 );
+extern GLUNIFORM4I glUniform4i;
+typedef void ( APIENTRYP GLUNIFORM1UI ) ( GLuint location, GLuint v0 );
+extern GLUNIFORM1UI glUniform1ui;
+typedef void ( APIENTRYP GLUNIFORM2UI ) ( GLuint location, GLuint v0, GLuint v1 );
+extern GLUNIFORM2UI glUniform2ui;
+typedef void ( APIENTRYP GLUNIFORM3UI ) ( GLuint location, GLuint v0, GLuint v1, GLuint v2 );
+extern GLUNIFORM3UI glUniform3ui;
+typedef void ( APIENTRYP GLUNIFORM4UI ) ( GLuint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3 );
+extern GLUNIFORM4UI glUniform4ui;
+typedef void ( APIENTRYP GLUNIFORM1FV ) ( GLint location, GLsizei count, const GLfloat* value );
+extern GLUNIFORM1FV glUniform1fv;
+typedef void ( APIENTRYP GLUNIFORM2FV ) ( GLint location, GLsizei count, const GLfloat* value );
+extern GLUNIFORM2FV glUniform2fv;
+typedef void ( APIENTRYP GLUNIFORM3FV ) ( GLint location, GLsizei count, const GLfloat* value );
+extern GLUNIFORM3FV glUniform3fv;
+typedef void ( APIENTRYP GLUNIFORM4FV ) ( GLint location, GLsizei count, const GLfloat* value );
+extern GLUNIFORM4FV glUniform4fv;
+typedef void ( APIENTRYP GLUNIFORM1IV ) ( GLint location, GLsizei count, const GLint* value );
+extern GLUNIFORM1IV glUniform1iv;
+typedef void ( APIENTRYP GLUNIFORM2IV ) ( GLint location, GLsizei count, const GLint* value );
+extern GLUNIFORM2IV glUniform2iv;
+typedef void ( APIENTRYP GLUNIFORM3IV ) ( GLint location, GLsizei count, const GLint* value );
+extern GLUNIFORM3IV glUniform3iv;
+typedef void ( APIENTRYP GLUNIFORM4IV ) ( GLint location, GLsizei count, const GLint* value );
+extern GLUNIFORM4IV glUniform4iv;
+typedef void ( APIENTRYP GLUNIFORM1UIV ) ( GLuint location, GLsizei count, const GLuint* value );
+extern GLUNIFORM1UIV glUniform1uiv;
+typedef void ( APIENTRYP GLUNIFORM2UIV ) ( GLuint location, GLsizei count, const GLuint* value );
+extern GLUNIFORM2UIV glUniform2uiv;
+typedef void ( APIENTRYP GLUNIFORM3UIV ) ( GLuint location, GLsizei count, const GLuint* value );
+extern GLUNIFORM3UIV glUniform3uiv;
+typedef void ( APIENTRYP GLUNIFORM4UIV ) ( GLuint location, GLsizei count, const GLuint* value );
+extern GLUNIFORM4UIV glUniform4uiv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX2FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX2FV glUniformMatrix2fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX3FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX3FV glUniformMatrix3fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX4FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX4FV glUniformMatrix4fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX2X3FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX2X3FV glUniformMatrix2x3fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX3X2FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX3X2FV glUniformMatrix3x2fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX2X4FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX2X4FV glUniformMatrix2x4fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX4X2FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX4X2FV glUniformMatrix4x2fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX3X4FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX3X4FV glUniformMatrix3x4fv;
+typedef void ( APIENTRYP GLUNIFORMMATRIX4X3FV ) ( GLint location, GLsizei count, GLboolean transpose, const GLfloat* value );
+extern GLUNIFORMMATRIX4X3FV glUniformMatrix4x3fv;
 
 /*
 	VBOs

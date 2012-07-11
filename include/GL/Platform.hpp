@@ -66,6 +66,7 @@ namespace GL
 	}
 
 	typedef GLint Attribute;
+	typedef GLint Uniform;
 }
 
 #endif

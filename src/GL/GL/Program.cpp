@@ -35,6 +35,7 @@ namespace GL
 		Attach( vertex );
 		Attach( fragment );
 		Link();
+		glUseProgram( id );
 	}
 
 	Program::~Program()
@@ -82,5 +83,35 @@ namespace GL
 	Attribute Program::GetAttribute( const std::string& name )
 	{
 		return glGetAttribLocation( id, name.c_str() );
+	}
+
+	Uniform Program::GetUniform( const std::string& name )
+	{
+		return glGetUniformLocation( id, name.c_str() );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, float value )
+	{
+		glUniform1f( uniform, value );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, const Vec2& value )
+	{
+		glUniform2f( uniform, value.X, value.Y );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, const Vec3& value )
+	{
+		glUniform3f( uniform, value.X, value.Y, value.Z );
+	}
+
+	void Program::SetUniformMatrix( const Uniform& uniform, const Mat3& value )
+	{
+		glUniformMatrix3fv( uniform, 1, GL_FALSE, value.m );
+	}
+
+	void Program::SetUniformMatrix( const Uniform& uniform, const Mat4& value )
+	{
+		glUniformMatrix4fv( uniform, 1, GL_FALSE, value.m );
 	}
 }

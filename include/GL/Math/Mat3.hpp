@@ -52,8 +52,7 @@ namespace GL
 
 		float Determinant() const;
 		Mat3 Inverse() const;
-
-	private:
+		
 		float m[9];
 	};
 }

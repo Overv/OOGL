@@ -7,7 +7,8 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 ## Sample
 
 	#include <GL/OOGL.hpp>
-
+	#include <ctime>
+	 
 	int main()
 	{
 		GL::Window window( 800, 600, "OpenGL Window", GL::WindowStyle::Close );
@@ -15,7 +16,7 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 		gl.SetVerticalSync( false );
 
 		GL::Shader vert( GL::ShaderType::Vertex, "#version 150\nin vec2 position; void main() { gl_Position = vec4( position, 0.0, 1.0 ); }" );
-		GL::Shader frag( GL::ShaderType::Fragment, "#version 150\nout vec4 outColor; void main() { outColor = vec4( 1.0, 1.0, 1.0, 1.0 ); }" );
+		GL::Shader frag( GL::ShaderType::Fragment, "#version 150\nout vec4 outColor; uniform float red; void main() { outColor = vec4( red, 0.0, 0.0, 1.0 ); }" );
 		GL::Program program( vert, frag );
 
 		float vertices[] = {
@@ -31,16 +32,11 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 		GL::Event ev;
 		while ( window.IsOpen() )
 		{
-			while ( window.GetEvent( ev ) )
-			{
-				if ( ev.Type == GL::Event::KeyDown )
-					gl.ClearColor( 1.0f, 1.0f, 1.0f );
-				else if ( ev.Type == GL::Event::KeyUp )
-					gl.ClearColor();
-			}
+			while ( window.GetEvent( ev ) );
 
 			gl.Clear();
-
+			
+			program.SetUniform( program.GetUniform( "red" ), sin( clock() / 200.0f ) * 0.5f + 0.5f );
 			gl.DrawArrays( vao, GL::Primitive::Triangle, 0, 3 );
 
 			window.Present();

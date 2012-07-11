@@ -25,6 +25,7 @@
 #define OOGL_CONTEXT_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/GL/Program.hpp>
 #include <GL/GL/VertexArray.hpp>
 #include <exception>
 
@@ -81,6 +82,8 @@ namespace GL
 
 		void ClearColor( float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f );
 		void Clear( uint buffers = Buffer::Color | Buffer::Depth );
+
+		void Use( const Program& program );
 
 		void DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices );
 

@@ -27,6 +27,8 @@
 #include <GL/Platform.hpp>
 #include <GL/GL/Extensions.hpp>
 #include <GL/GL/Shader.hpp>
+#include <GL/Math/Mat3.hpp>
+#include <GL/Math/Mat4.hpp>
 #include <exception>
 #include <string>
 
@@ -69,6 +71,13 @@ namespace GL
 		std::string GetInfoLog();
 
 		Attribute GetAttribute( const std::string& name );
+		Uniform GetUniform( const std::string& name );
+
+		void SetUniform( const Uniform& uniform, float value );
+		void SetUniform( const Uniform& uniform, const Vec2& value );
+		void SetUniform( const Uniform& uniform, const Vec3& value );
+		void SetUniformMatrix( const Uniform& uniform, const Mat3& value );
+		void SetUniformMatrix( const Uniform& uniform, const Mat4& value );
 
 	private:
 		GLuint id;
