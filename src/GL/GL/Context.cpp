@@ -20,6 +20,7 @@
 */
 
 #include <GL/GL/Context.hpp>
+#include <GL/GL/Extensions.hpp>
 
 namespace GL
 {
@@ -33,5 +34,11 @@ namespace GL
 	{
 		Activate();
 		glClear( buffers );
+	}
+
+	void Context::DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices )
+	{
+		glBindVertexArray( vao );
+		glDrawArrays( mode, offset, vertices );
 	}
 }

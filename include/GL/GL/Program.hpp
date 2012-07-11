@@ -68,6 +68,8 @@ namespace GL
 
 		std::string GetInfoLog();
 
+		Attribute GetAttribute( const std::string& name );
+
 	private:
 		GLuint id;
 	};

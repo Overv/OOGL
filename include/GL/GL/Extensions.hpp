@@ -113,9 +113,11 @@ typedef void ( APIENTRYP GLGETPROGRAMIV ) ( GLuint program, GLenum pname, GLint*
 extern GLGETPROGRAMIV glGetProgramiv;
 typedef void ( APIENTRYP GLGETPROGRAMINFOLOG ) ( GLuint program, GLsizei bufSize, GLsizei* length, GLchar* infoLog );
 extern GLGETPROGRAMINFOLOG glGetProgramInfoLog;
+typedef GLint ( APIENTRYP GLGETATTRIBLOCATION ) ( GLuint program, const GLchar* name );
+extern GLGETATTRIBLOCATION glGetAttribLocation;
 
 /*
-	VBOS
+	VBOs
 */
 
 #define GL_STREAM_DRAW 0x88E0
@@ -141,6 +143,22 @@ typedef void ( APIENTRYP GLBUFFERDATA ) ( GLenum target, GLsizeiptr size, const 
 extern GLBUFFERDATA glBufferData;
 typedef void ( APIENTRYP GLBUFFERSUBDATA ) ( GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid* data );
 extern GLBUFFERSUBDATA glBufferSubData;
+
+/*
+	VAOs
+*/
+
+typedef void ( APIENTRYP GLGENVERTEXARRAYS ) ( GLsizei n, GLuint* arrays );
+extern GLGENVERTEXARRAYS glGenVertexArrays;
+typedef void ( APIENTRYP GLDELETEVERTEXARRAYS ) ( GLsizei n, const GLuint* arrays );
+extern GLDELETEVERTEXARRAYS glDeleteVertexArrays;
+typedef void ( APIENTRYP GLBINDVERTEXARRAY ) ( GLuint array );
+extern GLBINDVERTEXARRAY glBindVertexArray;
+
+typedef void ( APIENTRYP GLENABLEVERTEXATTRIBARRAY ) ( GLuint index );
+extern GLENABLEVERTEXATTRIBARRAY glEnableVertexAttribArray;
+typedef void ( APIENTRYP GLVERTEXATTRIBPOINTER ) ( GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer );
+extern GLVERTEXATTRIBPOINTER glVertexAttribPointer;
 
 /*
 	Extension loader

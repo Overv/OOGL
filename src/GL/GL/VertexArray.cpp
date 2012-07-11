@@ -19,53 +19,30 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_PLATFORM_HPP
-#define OOGL_PLATFORM_HPP
-
-/*
-	Platform identification
-*/
-
-#if defined( _WIN32 )
-	#define OOGL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <WindowsX.h>
-	#include <GL/GL.h>
-#elif defined( __linux__ )
-	#define OOGL_PLATFORM_LINUX
-	#include <X11/Xlib.h>
-	#include <GL/gl.h>
-	#include <GL/glx.h>
-#elif defined( __APPLE__ )
-	#define OOGL_PLATFORM_OSX
-#endif
-
-/*
-	Types
-*/
+#include <GL/GL/VertexArray.hpp>
 
 namespace GL
 {
-	typedef unsigned char uchar;
-	typedef unsigned short ushort;
-	typedef unsigned int uint;
-	typedef unsigned long ulong;
-
-	namespace Type
+	VertexArray::VertexArray()
 	{
-		const uint Byte = GL_BYTE;
-		const uint UnsignedByte = GL_UNSIGNED_BYTE;
-		const uint Short = GL_SHORT;
-		const uint UnsignedShort = GL_UNSIGNED_SHORT;
-		const uint Int = GL_INT;
-		const uint UnsignedInt = GL_UNSIGNED_INT;
-		const uint Float = GL_FLOAT;
-		const uint Double = GL_DOUBLE;
+		glGenVertexArrays( 1, &id );
 	}
 
-	typedef GLint Attribute;
-}
+	VertexArray::~VertexArray()
+	{
+		glDeleteVertexArrays( 1, &id );
+	}
 
-#endif
+	VertexArray::operator GLuint() const
+	{
+		return id;
+	}
+
+	void VertexArray::BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, uint offset )
+	{
+		glBindVertexArray( id );
+		glBindBuffer( GL_ARRAY_BUFFER, buffer );
+		glEnableVertexAttribArray( attribute );
+		glVertexAttribPointer( attribute, count, type, GL_FALSE, stride, (const GLvoid*)offset );
+	}
+}

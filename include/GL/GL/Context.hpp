@@ -25,6 +25,7 @@
 #define OOGL_CONTEXT_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/GL/VertexArray.hpp>
 #include <exception>
 
 namespace GL
@@ -38,7 +39,17 @@ namespace GL
 		const uint Depth = GL_DEPTH_BUFFER_BIT;
 		const uint Stencil = GL_STENCIL_BUFFER_BIT;
 	}
-
+	
+	/*
+		Drawing mode
+	*/
+	namespace Primitive
+	{
+		const uint Triangle = GL_TRIANGLES;
+		const uint Lines = GL_LINES;
+		const uint Points = GL_POINTS;
+	}
+		
 	/*
 		Exceptions
 	*/
@@ -70,6 +81,8 @@ namespace GL
 
 		void ClearColor( float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f );
 		void Clear( uint buffers = Buffer::Color | Buffer::Depth );
+
+		void DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices );
 
 	private:
 		friend class Window;

@@ -21,51 +21,31 @@
 
 #pragma once
 
-#ifndef OOGL_PLATFORM_HPP
-#define OOGL_PLATFORM_HPP
+#ifndef OOGL_VERTEXARRAY_HPP
+#define OOGL_VERTEXARRAY_HPP
 
-/*
-	Platform identification
-*/
-
-#if defined( _WIN32 )
-	#define OOGL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <WindowsX.h>
-	#include <GL/GL.h>
-#elif defined( __linux__ )
-	#define OOGL_PLATFORM_LINUX
-	#include <X11/Xlib.h>
-	#include <GL/gl.h>
-	#include <GL/glx.h>
-#elif defined( __APPLE__ )
-	#define OOGL_PLATFORM_OSX
-#endif
-
-/*
-	Types
-*/
+#include <GL/Platform.hpp>
+#include <GL/GL/Extensions.hpp>
+#include <GL/GL/VertexBuffer.hpp>
 
 namespace GL
 {
-	typedef unsigned char uchar;
-	typedef unsigned short ushort;
-	typedef unsigned int uint;
-	typedef unsigned long ulong;
-
-	namespace Type
+	/*
+		Vertex Array Object
+	*/
+	class VertexArray
 	{
-		const uint Byte = GL_BYTE;
-		const uint UnsignedByte = GL_UNSIGNED_BYTE;
-		const uint Short = GL_SHORT;
-		const uint UnsignedShort = GL_UNSIGNED_SHORT;
-		const uint Int = GL_INT;
-		const uint UnsignedInt = GL_UNSIGNED_INT;
-		const uint Float = GL_FLOAT;
-		const uint Double = GL_DOUBLE;
-	}
+	public:
+		VertexArray();
+		~VertexArray();
 
-	typedef GLint Attribute;
+		operator GLuint() const;
+
+		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, uint offset );
+
+	private:
+		GLuint id;
+	};
 }
 
 #endif

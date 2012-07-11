@@ -56,5 +56,6 @@
 #include <GL/GL/Shader.hpp>
 #include <GL/GL/Program.hpp>
 #include <GL/GL/VertexBuffer.hpp>
+#include <GL/GL/VertexArray.hpp>
 
 #endif

@@ -78,4 +78,9 @@ namespace GL
 			return "";
 		}
 	}
+
+	Attribute Program::GetAttribute( const std::string& name )
+	{
+		return glGetAttribLocation( id, name.c_str() );
+	}
 }

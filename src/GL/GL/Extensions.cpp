@@ -43,12 +43,20 @@ GLATTACHSHADER glAttachShader;
 GLLINKPROGRAM glLinkProgram;
 GLGETPROGRAMIV glGetProgramiv;
 GLGETPROGRAMINFOLOG glGetProgramInfoLog;
+GLGETATTRIBLOCATION glGetAttribLocation;
 
 GLGENBUFFERS glGenBuffers;
 GLDELETEBUFFERS glDeleteBuffers;
 GLBINDBUFFER glBindBuffer;
 GLBUFFERDATA glBufferData;
 GLBUFFERSUBDATA glBufferSubData;
+
+GLGENVERTEXARRAYS glGenVertexArrays;
+GLDELETEVERTEXARRAYS glDeleteVertexArrays;
+GLBINDVERTEXARRAY glBindVertexArray;
+
+GLENABLEVERTEXATTRIBARRAY glEnableVertexAttribArray;
+GLVERTEXATTRIBPOINTER glVertexAttribPointer;
 
 namespace GL
 {
@@ -90,11 +98,19 @@ namespace GL
 		glLinkProgram = (GLLINKPROGRAM)LoadExtension( "glLinkProgram" );
 		glGetProgramiv = (GLGETPROGRAMIV)LoadExtension( "glGetProgramiv" );
 		glGetProgramInfoLog = (GLGETPROGRAMINFOLOG)LoadExtension( "glGetProgramInfoLog" );
+		glGetAttribLocation = (GLGETATTRIBLOCATION)LoadExtension( "glGetAttribLocation" );
 
 		glGenBuffers = (GLGENBUFFERS)LoadExtension( "glGenBuffers" );
 		glDeleteBuffers = (GLDELETEBUFFERS)LoadExtension( "glDeleteBuffers" );
 		glBindBuffer = (GLBINDBUFFER)LoadExtension( "glBindBuffer" );
 		glBufferData = (GLBUFFERDATA)LoadExtension( "glBufferData" );
 		glBufferSubData = (GLBUFFERSUBDATA)LoadExtension( "glBufferSubData" );
+
+		glGenVertexArrays = (GLGENVERTEXARRAYS)LoadExtension( "glGenVertexArrays" );
+		glDeleteVertexArrays = (GLDELETEVERTEXARRAYS)LoadExtension( "glDeleteVertexArrays" );
+		glBindVertexArray = (GLBINDVERTEXARRAY)LoadExtension( "glBindVertexArray" );
+
+		glEnableVertexAttribArray = (GLENABLEVERTEXATTRIBARRAY)LoadExtension( "glEnableVertexAttribArray" );
+		glVertexAttribPointer = (GLVERTEXATTRIBPOINTER)LoadExtension( "glVertexAttribPointer" );
 	}
 }
