@@ -31,6 +31,11 @@
 */
 
 #if defined( OOGL_PLATFORM_WINDOWS )
+	#define APIENTRYP WINAPI *
+	typedef ptrdiff_t GLsizeiptr;
+	typedef ptrdiff_t GLintptr;
+	typedef char GLchar;
+	
 	#define WGL_CONTEXT_MAJOR_VERSION_ARB 0x2091
 	#define WGL_CONTEXT_MINOR_VERSION_ARB 0x2092
 	#define WGL_CONTEXT_PROFILE_MASK_ARB 0x9126
@@ -108,6 +113,34 @@ typedef void ( APIENTRYP GLGETPROGRAMIV ) ( GLuint program, GLenum pname, GLint*
 extern GLGETPROGRAMIV glGetProgramiv;
 typedef void ( APIENTRYP GLGETPROGRAMINFOLOG ) ( GLuint program, GLsizei bufSize, GLsizei* length, GLchar* infoLog );
 extern GLGETPROGRAMINFOLOG glGetProgramInfoLog;
+
+/*
+	VBOS
+*/
+
+#define GL_STREAM_DRAW 0x88E0
+#define GL_STREAM_READ 0x88E1
+#define GL_STREAM_COPY 0x88E2
+#define GL_STATIC_DRAW 0x88E4
+#define GL_STATIC_READ 0x88E5
+#define GL_STATIC_COPY 0x88E6
+#define GL_DYNAMIC_DRAW 0x88E8
+#define GL_DYNAMIC_READ 0x88E9
+#define GL_DYNAMIC_COPY 0x88EA
+
+#define GL_ARRAY_BUFFER 0x8892
+#define GL_ELEMENT_ARRAY_BUFFER 0x8893
+
+typedef void ( APIENTRYP GLGENBUFFERS ) ( GLsizei n, GLuint* buffers );
+extern GLGENBUFFERS glGenBuffers;
+typedef void ( APIENTRYP GLDELETEBUFFERS ) ( GLsizei n, const GLuint* buffers );
+extern GLDELETEBUFFERS glDeleteBuffers;
+typedef void ( APIENTRYP GLBINDBUFFER )  ( GLenum target, GLuint buffer );
+extern GLBINDBUFFER glBindBuffer;
+typedef void ( APIENTRYP GLBUFFERDATA ) ( GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage );
+extern GLBUFFERDATA glBufferData;
+typedef void ( APIENTRYP GLBUFFERSUBDATA ) ( GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid* data );
+extern GLBUFFERSUBDATA glBufferSubData;
 
 /*
 	Extension loader

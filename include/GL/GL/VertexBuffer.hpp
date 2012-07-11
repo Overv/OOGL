@@ -21,40 +21,49 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_VERTEXBUFFER_HPP
+#define OOGL_VERTEXBUFFER_HPP
 
 #include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
 #include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
-#include <GL/GL/VertexBuffer.hpp>
+
+namespace GL
+{
+	/*
+		Buffer usage types
+	*/
+	namespace BufferUsage
+	{
+		const uint StreamDraw = GL_STREAM_DRAW;
+		const uint StreamRead = GL_STREAM_READ;
+		const uint StreamCopy = GL_STREAM_COPY;
+		const uint StaticDraw = GL_STATIC_DRAW;
+		const uint StaticRead = GL_STATIC_READ;
+		const uint StaticCopy = GL_STATIC_COPY;
+		const uint DynamicDraw = GL_DYNAMIC_DRAW;
+		const uint DynamicRead = GL_DYNAMIC_READ;
+		const uint DynamicCopy = GL_DYNAMIC_COPY;
+	}
+
+	/*
+		Vertex Buffer
+	*/
+	class VertexBuffer
+	{
+	public:
+		VertexBuffer();
+		VertexBuffer( const void* data, size_t length, uint usage );
+
+		~VertexBuffer();
+
+		operator GLuint() const;
+
+		void Data( const void* data, size_t length, uint usage );
+		void SubData( const void* data, size_t offset, size_t length );
+
+	private:
+		GLuint id;
+	};
+}
 
 #endif

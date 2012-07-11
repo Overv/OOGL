@@ -66,6 +66,15 @@
     <ClInclude Include="..\..\include\GL\GL\Extensions.hpp">
       <Filter>Header Files\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\GL\Program.hpp">
+      <Filter>Header Files\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GL\GL\Shader.hpp">
+      <Filter>Header Files\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GL\GL\VertexBuffer.hpp">
+      <Filter>Header Files\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
@@ -93,6 +102,15 @@
       <Filter>Source Files\GL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\GL\GL\Extensions.cpp">
+      <Filter>Source Files\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\GL\Program.cpp">
+      <Filter>Source Files\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\GL\Shader.cpp">
+      <Filter>Source Files\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\GL\VertexBuffer.cpp">
       <Filter>Source Files\GL</Filter>
     </ClCompile>
   </ItemGroup>

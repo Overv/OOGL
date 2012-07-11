@@ -13,6 +13,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\GL\GL\Context.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Extensions.hpp" />
+    <ClInclude Include="..\..\include\GL\GL\Program.hpp" />
+    <ClInclude Include="..\..\include\GL\GL\Shader.hpp" />
+    <ClInclude Include="..\..\include\GL\GL\VertexBuffer.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Mat3.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Mat4.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Util.hpp" />
@@ -27,6 +30,9 @@
     <ClCompile Include="..\..\src\GL\GL\Context.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Extensions.cpp" />
+    <ClCompile Include="..\..\src\GL\GL\Program.cpp" />
+    <ClCompile Include="..\..\src\GL\GL\Shader.cpp" />
+    <ClCompile Include="..\..\src\GL\GL\VertexBuffer.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat3.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Mat4.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />

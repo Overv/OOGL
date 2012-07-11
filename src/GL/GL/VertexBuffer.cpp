@@ -19,42 +19,41 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
 #include <GL/GL/VertexBuffer.hpp>
+#include <vector>
 
-#endif
+namespace GL
+{
+	VertexBuffer::VertexBuffer()
+	{
+		glGenBuffers( 1, &id );
+	}
+
+	VertexBuffer::VertexBuffer( const void* data, size_t length, uint usage )
+	{
+		glGenBuffers( 1, &id );
+		Data( data, length, usage );
+	}
+
+	VertexBuffer::~VertexBuffer()
+	{
+		glDeleteBuffers( 1, &id );
+	}
+
+	VertexBuffer::operator GLuint() const
+	{
+		return id;
+	}
+
+	void VertexBuffer::Data( const void* data, size_t length, uint usage )
+	{
+		glBindBuffer( GL_ARRAY_BUFFER, id );
+		glBufferData( GL_ARRAY_BUFFER, length, data, usage );
+	}
+
+	void VertexBuffer::SubData( const void* data, size_t offset, size_t length )
+	{
+		glBindBuffer( GL_ARRAY_BUFFER, id );
+		glBufferSubData( GL_ARRAY_BUFFER, offset, length, data );
+	}
+}

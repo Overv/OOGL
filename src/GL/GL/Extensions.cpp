@@ -44,6 +44,12 @@ GLLINKPROGRAM glLinkProgram;
 GLGETPROGRAMIV glGetProgramiv;
 GLGETPROGRAMINFOLOG glGetProgramInfoLog;
 
+GLGENBUFFERS glGenBuffers;
+GLDELETEBUFFERS glDeleteBuffers;
+GLBINDBUFFER glBindBuffer;
+GLBUFFERDATA glBufferData;
+GLBUFFERSUBDATA glBufferSubData;
+
 namespace GL
 {
 	bool extensionsLoaded = false;
@@ -84,5 +90,11 @@ namespace GL
 		glLinkProgram = (GLLINKPROGRAM)LoadExtension( "glLinkProgram" );
 		glGetProgramiv = (GLGETPROGRAMIV)LoadExtension( "glGetProgramiv" );
 		glGetProgramInfoLog = (GLGETPROGRAMINFOLOG)LoadExtension( "glGetProgramInfoLog" );
+
+		glGenBuffers = (GLGENBUFFERS)LoadExtension( "glGenBuffers" );
+		glDeleteBuffers = (GLDELETEBUFFERS)LoadExtension( "glDeleteBuffers" );
+		glBindBuffer = (GLBINDBUFFER)LoadExtension( "glBindBuffer" );
+		glBufferData = (GLBUFFERDATA)LoadExtension( "glBufferData" );
+		glBufferSubData = (GLBUFFERSUBDATA)LoadExtension( "glBufferSubData" );
 	}
 }

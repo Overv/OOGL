@@ -5,8 +5,8 @@ CCFLAGS = -O3 -Wall -Wextra -Werror
 
 # Final library
 
-bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o
-	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o
+bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o
+	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o
 
 # 3D Math
 
@@ -46,6 +46,10 @@ bin/Shader.o: src/GL/GL/Shader.cpp
 
 bin/Program.o: src/GL/GL/Program.cpp
 	$(CC) $(CCFLAGS) -c src/GL/GL/Program.cpp -o bin/Program.o -I include
+
+bin/VertexBuffer.o: src/GL/GL/VertexBuffer.cpp
+	$(CC) $(CCFLAGS) -c src/GL/GL/VertexBuffer.cpp -o bin/VertexBuffer.o -I include
+
 
 # Clean
 clean:
