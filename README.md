@@ -8,6 +8,7 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 
 	#include <GL/OOGL.hpp>
 	#include <ctime>
+	#include <cmath>
 	 
 	int main()
 	{
@@ -36,7 +37,7 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 
 			gl.Clear();
 			
-			program.SetUniform( program.GetUniform( "red" ), sin( clock() / 200.0f ) * 0.5f + 0.5f );
+			program.SetUniform( program.GetUniform( "red" ), sin( clock() / (float)CLOCKS_PER_SEC * 5.0f ) * 0.5f + 0.5f );
 			gl.DrawArrays( vao, GL::Primitive::Triangle, 0, 3 );
 
 			window.Present();

@@ -38,7 +38,7 @@ namespace GL
 		return id;
 	}
 
-	void VertexArray::BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, uint offset )
+	void VertexArray::BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, intptr_t offset )
 	{
 		glBindVertexArray( id );
 		glBindBuffer( GL_ARRAY_BUFFER, buffer );

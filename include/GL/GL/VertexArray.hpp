@@ -41,7 +41,7 @@ namespace GL
 
 		operator GLuint() const;
 
-		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, uint offset );
+		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, intptr_t offset );
 
 	private:
 		GLuint id;
