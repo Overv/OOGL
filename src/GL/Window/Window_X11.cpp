@@ -256,7 +256,7 @@ namespace GL
 	void Window::WindowEvent( const XEvent& event )
 	{
 		Event ev;
-		ev.Type = 0;
+		ev.Type = Event::None;
 
 		// Translate XEvent to Event
 		uint button = 0;
@@ -393,7 +393,7 @@ namespace GL
 		}
 
 		// Add event to internal queue
-		if ( ev.Type != 0 )
+		if ( ev.Type != Event::None )
 			events.push( ev );
 	}
 
@@ -402,7 +402,7 @@ namespace GL
 		return event->xany.window == reinterpret_cast< ::Window >( userData );
 	}
 
-	uint Window::TranslateKey( uint code )
+	Key::key_t Window::TranslateKey( uint code )
 	{
 		if ( code >= 'a' && code <= 'z' ) code -= 'a' - 'A';
 
@@ -449,13 +449,13 @@ namespace GL
 
 		default:
 			if ( code >= XK_F1 && code <= XK_F12 )
-				return Key::F1 + code - XK_F1;
+				return (Key::key_t)( (uint)Key::F1 + code - XK_F1 );
 			else if ( code >= XK_KP_0 && code <= XK_KP_9 )
-				return Key::Numpad0 + code - XK_KP_0;
+				return (Key::key_t)( (uint)Key::Numpad0 + code - XK_KP_0 );
 			else if ( code >= 'A' && code <= 'Z' )
-				return Key::A + code - 'A';
+				return (Key::key_t)( (uint)Key::A + code - 'A' );
 			else if ( code >= '0' && code <= '9' )
-				return Key::Num0 + code - '0';
+				return (Key::key_t)( (uint)Key::Num0 + code - '0' );
 		}
 
 		return 0;

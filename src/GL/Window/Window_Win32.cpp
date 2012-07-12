@@ -183,7 +183,7 @@ namespace GL
 	LRESULT Window::WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam )
 	{
 		Event ev;
-		ev.Type = 0;
+		ev.Type = Event::None;
 
 		// Translate message to Event
 		switch ( msg )
@@ -313,7 +313,7 @@ namespace GL
 		}
 
 		// Add event to internal queue
-		if ( ev.Type != 0 )
+		if ( ev.Type != Event::None )
 			events.push( ev );
 
 		return 0;
@@ -344,7 +344,7 @@ namespace GL
 		}
 	}
 
-	uint Window::TranslateKey( uint code )
+	Key::key_t Window::TranslateKey( uint code )
 	{
 		switch ( code )
 		{
@@ -385,16 +385,16 @@ namespace GL
 
 		default:
 			if ( code >= VK_F1 && code <= VK_F12 )
-				return Key::F1 + code - VK_F1;
+				return (Key::key_t)( (uint)Key::F1 + code - VK_F1 );
 			else if ( code >= VK_NUMPAD0 && code <= VK_NUMPAD9 )
-				return Key::Numpad0 + code - VK_NUMPAD0;
+				return (Key::key_t)( (uint)Key::Numpad0 + code - VK_NUMPAD0 );
 			else if ( code >= 'A' && code <= 'Z' )
-				return Key::A + code - 'A';
+				return (Key::key_t)( (uint)Key::A + code - 'A' );
 			else if ( code >= '0' && code <= '9' )
-				return Key::Num0 + code - '0';
+				return (Key::key_t)( (uint)Key::Num0 + code - '0' );
 		}
 
-		return 0;
+		return Key::Unkown;
 	}
 }
 

@@ -63,13 +63,13 @@ namespace GL
 		return mousey;
 	}
 
-	bool Window::IsMouseButtonDown( uint button )
+	bool Window::IsMouseButtonDown( MouseButton::mouse_button_t button )
 	{
 		if ( button >= sizeof( mouse ) / sizeof( bool ) ) return false;
 		return mouse[button];
 	}
 
-	bool Window::IsKeyDown( uint key )
+	bool Window::IsKeyDown( Key::key_t key )
 	{
 		if ( key >= sizeof( keys ) / sizeof( bool ) ) return false;
 		return keys[key];
