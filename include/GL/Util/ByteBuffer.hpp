@@ -39,9 +39,20 @@ namespace GL
 		~ByteReader() { delete [] buffer; }
 
 		uchar* Data() { return buffer; }
+		uint Length() { return length; }
 
 		void Advance( uint count ) { ptr += count; }
 		void Move( uint location ) { ptr = location; }
+
+		bool Compare( uint location, uint length, const uchar* data )
+		{
+			if ( location + length > this->length ) return false;
+			
+			for ( uint i = 0; i < length; i++ )
+				if ( buffer[ location + i ] != data[i] ) return false;
+			
+			return true;
+		}
 
 		uchar PeekByte( uint offset = 0 ) { return buffer[ptr+offset]; }
 

@@ -92,6 +92,8 @@ namespace GL
 		// Determine format and process
 		if ( data.PeekByte( 0 ) == 'B' && data.PeekByte( 1 ) == 'M' )
 			LoadBMP( data );
+		else if ( data.Compare( data.Length() - 18, 18, (const uchar*)"TRUEVISION-XFILE." ) )
+			LoadTGA( data );
 		else
 			throw FormatException();
 	}
@@ -102,6 +104,8 @@ namespace GL
 
 		if ( format == ImageFileFormat::BMP )
 			SaveBMP( filename );
+		else if ( format == ImageFileFormat::TGA )
+			SaveTGA( filename );
 		else
 			throw FormatException();
 	}
@@ -213,6 +217,69 @@ namespace GL
 			}
 		}
 
+		std::ofstream file( filename, std::ios::binary );
+		if ( !file.is_open() ) throw FileException();
+
+		file.write( (char*)data.Data(), data.Length() );
+
+		file.close();
+	}
+
+	void Image::LoadTGA( ByteReader& data )
+	{
+		// TGA header
+		data.Advance( 1 ); // Image ID field length, ignored
+		if ( data.ReadUbyte() != 0 ) throw FormatException(); // Color map
+		if ( data.ReadUbyte() != 2 ) throw FormatException(); // Image type
+		data.Advance( 5 ); // Color map info, ignored
+		data.Advance( 4 ); // XY offset, ignored
+		uint width = data.ReadUshort();
+		uint height = data.ReadUshort();
+		if ( data.ReadUbyte() != 24 ) throw FormatException(); // Bits per pixel
+		if ( data.ReadUbyte() != 0 ) throw FormatException(); // Image descriptor, alpha depth/direction currently unsupported
+
+		// Pixel data
+		image = new Color[ width * height ];
+
+		for ( int y = height - 1; y >= 0; y-- )
+		{
+			for ( uint x = 0; x < width; x++ )
+			{
+				image[ x + y * width ] = Color( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) ); // BGR byte order
+				data.Advance( 3 );
+			}
+		}
+
+		this->width = width;
+		this->height = height;
+	}
+
+	void Image::SaveTGA( const std::string& filename )
+	{
+		ByteWriter data( true );
+
+		// TGA header
+		data.WriteUbyte( 0 ); // Image ID field length
+		data.WriteUbyte( 0 ); // Color map
+		data.WriteUbyte( 2 ); // Image type (Truecolor 24 bit, no RLE)
+		data.Pad( 5 + 4 ); // No color map or XY offset
+		data.WriteUshort( width );
+		data.WriteUshort( height );
+		data.WriteUbyte( 24 ); // Bits per pixel
+		data.WriteUbyte( 0 ); // Image descriptor (No alpha depth or direction)
+
+		// Pixel data
+		for ( int y = height - 1; y >= 0; y-- )
+		{
+			for ( uint x = 0; x < width; x++ )
+			{
+				Color& col = image[ x + y * width ];
+				data.WriteUbyte( col.B );
+				data.WriteUbyte( col.G );
+				data.WriteUbyte( col.R );
+			}
+		}
+		
 		std::ofstream file( filename, std::ios::binary );
 		if ( !file.is_open() ) throw FileException();
 

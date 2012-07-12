@@ -39,7 +39,8 @@ namespace GL
 	{
 		enum image_file_format_t
 		{
-			BMP
+			BMP,
+			TGA
 		};
 	}
 
@@ -91,6 +92,9 @@ namespace GL
 		
 		void LoadBMP( ByteReader& data );
 		void SaveBMP( const std::string& filename );
+
+		void LoadTGA( ByteReader& data );
+		void SaveTGA( const std::string& filename );
 	};
 }
 
