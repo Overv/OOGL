@@ -36,9 +36,17 @@ namespace GL
 	*/
 	namespace Buffer
 	{
-		const uint Color = GL_COLOR_BUFFER_BIT;
-		const uint Depth = GL_DEPTH_BUFFER_BIT;
-		const uint Stencil = GL_STENCIL_BUFFER_BIT;
+		enum buffer_t
+		{
+			Color = GL_COLOR_BUFFER_BIT,
+			Depth = GL_DEPTH_BUFFER_BIT,
+			Stencil = GL_STENCIL_BUFFER_BIT
+		};
+
+		inline buffer_t operator|(buffer_t lft, buffer_t rht)
+		{
+			return static_cast<buffer_t>(static_cast<int>(lft) | static_cast<int>(rht));
+		}
 	}
 	
 	/*
@@ -84,7 +92,7 @@ namespace GL
 		void SetVerticalSync( bool enabled );
 
 		void ClearColor( float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f );
-		void Clear( uint buffers = Buffer::Color | Buffer::Depth );
+		void Clear( Buffer::buffer_t buffers = Buffer::Color | Buffer::Depth );
 
 		void Use( const Program& program );
 

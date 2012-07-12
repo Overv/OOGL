@@ -30,7 +30,7 @@ namespace GL
 		glClearColor( r, g, b, a );
 	}
 
-	void Context::Clear( uint buffers )
+	void Context::Clear( Buffer::buffer_t buffers )
 	{
 		Activate();
 		glClear( buffers );

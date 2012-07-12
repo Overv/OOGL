@@ -24,12 +24,12 @@
 
 namespace GL
 {
-	Shader::Shader( uint shader )
+	Shader::Shader( ShaderType::shader_type_t shader )
 	{
 		id = glCreateShader( shader );
 	}
 
-	Shader::Shader( uint shader, const std::string& code )
+	Shader::Shader( ShaderType::shader_type_t shader, const std::string& code )
 	{
 		id = glCreateShader( shader );
 		Source( code );

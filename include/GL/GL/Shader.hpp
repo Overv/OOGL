@@ -36,8 +36,11 @@ namespace GL
 	*/
 	namespace ShaderType
 	{
-		const uint Vertex = GL_VERTEX_SHADER;
-		const uint Fragment = GL_FRAGMENT_SHADER;
+		enum shader_type_t 
+		{
+			Vertex = GL_VERTEX_SHADER,
+			Fragment = GL_FRAGMENT_SHADER
+		};
 	}
 
 	/*
@@ -64,8 +67,8 @@ namespace GL
 	class Shader
 	{
 	public:
-		Shader( uint type );
-		Shader( uint type, const std::string& code );
+		Shader( ShaderType::shader_type_t type );
+		Shader( ShaderType::shader_type_t type, const std::string& code );
 
 		~Shader();
 
