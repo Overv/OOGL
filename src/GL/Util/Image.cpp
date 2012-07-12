@@ -84,7 +84,7 @@ namespace GL
 		uint fileSize = (uint)file.tellg();
 		file.seekg( 0, std::ios::beg );
 
-		ByteBuffer data( fileSize );
+		ByteReader data( fileSize, true );
 		file.read( (char*)data.Data(), fileSize );
 		
 		file.close();
@@ -92,6 +92,16 @@ namespace GL
 		// Determine format and process
 		if ( data.PeekByte( 0 ) == 'B' && data.PeekByte( 1 ) == 'M' )
 			LoadBMP( data );
+		else
+			throw FormatException();
+	}
+
+	void Image::Save( const std::string& filename, ImageFileFormat::image_file_format_t format )
+	{
+		if ( image == 0 || width == 0 || height == 0 ) return;
+
+		if ( format == ImageFileFormat::BMP )
+			SaveBMP( filename );
 		else
 			throw FormatException();
 	}
@@ -123,9 +133,9 @@ namespace GL
 		image[ x + y * width ] = color;
 	}
 
-	void Image::LoadBMP( ByteBuffer& data )
+	void Image::LoadBMP( ByteReader& data )
 	{
-		// Header
+		// BMP header
 		data.Advance( 2 + 4 + 4 ); // Skip magic number, file size and application specific data
 		uint pixelOffset = data.ReadUint();
 
@@ -135,7 +145,7 @@ namespace GL
 		int rawHeight = data.ReadInt();
 		uint height = abs( rawHeight );
 		if ( width == 0 || height == 0 ) throw FormatException();
-		if ( data.ReadUshort() != 1 ) throw FormatException(); // Image planes
+		if ( data.ReadUshort() != 1 ) throw FormatException(); // Color planes
 		if ( data.ReadUshort() != 24 ) throw FormatException(); // Bits per pixel
 		if ( data.ReadUint() != 0 ) throw FormatException(); // Compression
 		data.Advance( 4 ); // Skip pixel array size (very unreliable, a value of 0 is not uncommon)
@@ -162,5 +172,52 @@ namespace GL
 
 		this->width = width;
 		this->height = height;
+	}
+
+	void Image::SaveBMP( const std::string& filename )
+	{
+		ByteWriter data( true );
+		uint padding = ( width * 3 ) % 4;
+
+		// BMP header
+		data.WriteUbyte( 'B' );
+		data.WriteUbyte( 'M' );
+		data.WriteUint( width * height * 3 + padding * height + 54 ); // File size
+		data.WriteUint( 0 ); // Two application specific shorts
+		data.WriteUint( 54 ); // Offset to pixel array
+
+		// DIB header
+		data.WriteUint( 40 ); // Header size
+		data.WriteUint( width );
+		data.WriteUint( height );
+		data.WriteUshort( 1 ); // Color planes
+		data.WriteUshort( 24 ); // Bits per pixel
+		data.WriteUint( 0 ); // Compression
+		data.WriteUint( width * height * 3 + padding * height );
+		data.WriteUint( 0 ); // X resolution, ignored
+		data.WriteUint( 0 ); // Y resolution, ignored
+		data.WriteUint( 0 ); // Palette colors
+		data.WriteUint( 0 ); // Important colors
+
+		// Pixel data
+		for ( int y = height - 1; y >= 0; y-- )
+		{
+			for ( uint x = 0; x < width; x++ )
+			{
+				Color& col = image[ x + y * width ];
+				data.WriteUbyte( col.B );
+				data.WriteUbyte( col.G );
+				data.WriteUbyte( col.R );
+
+				if ( x == width - 1 ) data.Pad( padding );
+			}
+		}
+
+		std::ofstream file( filename, std::ios::binary );
+		if ( !file.is_open() ) throw FileException();
+
+		file.write( (char*)data.Data(), data.Length() );
+
+		file.close();
 	}
 }
