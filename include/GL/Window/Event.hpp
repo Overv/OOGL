@@ -31,7 +31,7 @@ namespace GL
 	*/
 	namespace MouseButton
 	{
-		enum
+		enum mouse_button_t
 		{
 			Left,
 			Right,
@@ -48,7 +48,7 @@ namespace GL
 		union
 		{
 			int Delta;
-			uint Button;
+			MouseButton::mouse_button_t Button;
 		};
 	};
 
@@ -57,8 +57,9 @@ namespace GL
 	*/
 	namespace Key
 	{
-		enum
+		enum key_t
 		{
+			Unkown,
 			F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
 			A, B, C, D, E, F, G, H, I, J, K, L,	M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
 			Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9,
@@ -75,7 +76,7 @@ namespace GL
 	*/
 	struct KeyEvent
 	{
-		uint Code;
+		Key::key_t Code;
 		bool Alt;
 		bool Control;
 		bool Shift;
@@ -95,8 +96,9 @@ namespace GL
 	*/
 	struct Event
 	{
-		enum
+		enum event_t
 		{
+			None,
 			Close,
 			Resize,
 			Move,
@@ -110,7 +112,7 @@ namespace GL
 			MouseMove
 		};
 
-		uint Type;
+		event_t Type;
 
 		union
 		{
