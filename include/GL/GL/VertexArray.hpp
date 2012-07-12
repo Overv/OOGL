@@ -43,6 +43,8 @@ namespace GL
 
 		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, uint type, uint count, uint stride, intptr_t offset );
 
+		void BindElements( const VertexBuffer& elements );
+
 	private:
 		GLuint id;
 	};

@@ -86,6 +86,7 @@ namespace GL
 		void Use( const Program& program );
 
 		void DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices );
+		void DrawElements( const VertexArray& vao, uint mode, intptr_t offset, uint count, uint type );
 
 	private:
 		friend class Window;

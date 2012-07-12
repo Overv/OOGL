@@ -46,4 +46,10 @@ namespace GL
 		glBindVertexArray( vao );
 		glDrawArrays( mode, offset, vertices );
 	}
+
+	void Context::DrawElements( const VertexArray& vao, uint mode, intptr_t offset, uint count, uint type )
+	{
+		glBindVertexArray( vao );
+		glDrawElements( mode, count, type, (const GLvoid*)offset );
+	}
 }

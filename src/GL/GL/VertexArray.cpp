@@ -45,4 +45,10 @@ namespace GL
 		glEnableVertexAttribArray( attribute );
 		glVertexAttribPointer( attribute, count, type, GL_FALSE, stride, (const GLvoid*)offset );
 	}
+
+	void VertexArray::BindElements( const VertexBuffer& elements )
+	{
+		glBindVertexArray( id );
+		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, elements );
+	}
 }
