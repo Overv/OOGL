@@ -43,9 +43,9 @@ namespace GL
 			Stencil = GL_STENCIL_BUFFER_BIT
 		};
 
-		inline buffer_t operator|(buffer_t lft, buffer_t rht)
+		inline buffer_t operator|( buffer_t lft, buffer_t rht )
 		{
-			return static_cast<buffer_t>(static_cast<int>(lft) | static_cast<int>(rht));
+			return (buffer_t)( (int)lft | (int)rht );
 		}
 	}
 	

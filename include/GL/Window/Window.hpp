@@ -46,9 +46,9 @@ namespace GL
 			Fullscreen = 4
 		};
 				
-		inline window_style_t operator|(window_style_t lft, window_style_t rht)
+		inline window_style_t operator|( window_style_t lft, window_style_t rht )
 		{
-			return static_cast<window_style_t>(static_cast<int>(lft) | static_cast<int>(rht));
+			return (window_style_t)( (int)lft | (int)rht );
 		}
 	}
 

@@ -46,11 +46,6 @@ namespace GL
 			DynamicRead = GL_DYNAMIC_READ,
 			DynamicCopy = GL_DYNAMIC_COPY
 		};
-
-		inline buffer_usage_t operator|(buffer_usage_t lft, buffer_usage_t rht)
-		{
-			return static_cast<buffer_usage_t>(static_cast<int>(lft) | static_cast<int>(rht));
-		}
 	}
 
 	/*

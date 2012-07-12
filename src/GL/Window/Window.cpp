@@ -65,13 +65,13 @@ namespace GL
 
 	bool Window::IsMouseButtonDown( uint button )
 	{
-		if ( button >= sizeof( mouse ) / sizeof(bool) ) return false;
+		if ( button >= sizeof( mouse ) / sizeof( bool ) ) return false;
 		return mouse[button];
 	}
 
 	bool Window::IsKeyDown( uint key )
 	{
-		if ( key >= sizeof( keys ) / sizeof(bool) ) return false;
+		if ( key >= sizeof( keys ) / sizeof( bool ) ) return false;
 		return keys[key];
 	}
 }
