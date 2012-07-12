@@ -34,15 +34,23 @@ namespace GL
 	*/
 	namespace BufferUsage
 	{
-		const uint StreamDraw = GL_STREAM_DRAW;
-		const uint StreamRead = GL_STREAM_READ;
-		const uint StreamCopy = GL_STREAM_COPY;
-		const uint StaticDraw = GL_STATIC_DRAW;
-		const uint StaticRead = GL_STATIC_READ;
-		const uint StaticCopy = GL_STATIC_COPY;
-		const uint DynamicDraw = GL_DYNAMIC_DRAW;
-		const uint DynamicRead = GL_DYNAMIC_READ;
-		const uint DynamicCopy = GL_DYNAMIC_COPY;
+		enum buffer_usage_t
+		{
+			StreamDraw = GL_STREAM_DRAW,
+			StreamRead = GL_STREAM_READ,
+			StreamCopy = GL_STREAM_COPY,
+			StaticDraw = GL_STATIC_DRAW,
+			StaticRead = GL_STATIC_READ,
+			StaticCopy = GL_STATIC_COPY,
+			DynamicDraw = GL_DYNAMIC_DRAW,
+			DynamicRead = GL_DYNAMIC_READ,
+			DynamicCopy = GL_DYNAMIC_COPY
+		};
+
+		inline buffer_usage_t operator|(buffer_usage_t lft, buffer_usage_t rht)
+		{
+			return static_cast<buffer_usage_t>(static_cast<int>(lft) | static_cast<int>(rht));
+		}
 	}
 
 	/*
@@ -52,13 +60,13 @@ namespace GL
 	{
 	public:
 		VertexBuffer();
-		VertexBuffer( const void* data, size_t length, uint usage );
+		VertexBuffer( const void* data, size_t length, BufferUsage::buffer_usage_t usage );
 
 		~VertexBuffer();
 
 		operator GLuint() const;
 
-		void Data( const void* data, size_t length, uint usage );
+		void Data( const void* data, size_t length, BufferUsage::buffer_usage_t usage );
 		void SubData( const void* data, size_t offset, size_t length );
 
 	private:

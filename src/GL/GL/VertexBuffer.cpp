@@ -29,7 +29,7 @@ namespace GL
 		glGenBuffers( 1, &id );
 	}
 
-	VertexBuffer::VertexBuffer( const void* data, size_t length, uint usage )
+	VertexBuffer::VertexBuffer( const void* data, size_t length, BufferUsage::buffer_usage_t usage )
 	{
 		glGenBuffers( 1, &id );
 		Data( data, length, usage );
@@ -45,7 +45,7 @@ namespace GL
 		return id;
 	}
 
-	void VertexBuffer::Data( const void* data, size_t length, uint usage )
+	void VertexBuffer::Data( const void* data, size_t length, BufferUsage::buffer_usage_t usage )
 	{
 		glBindBuffer( GL_ARRAY_BUFFER, id );
 		glBufferData( GL_ARRAY_BUFFER, length, data, usage );
