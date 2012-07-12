@@ -256,7 +256,7 @@ namespace GL
 	void Window::WindowEvent( const XEvent& event )
 	{
 		Event ev;
-		ev.Type = Event::None;
+		ev.Type = Event::Unknown;
 
 		// Translate XEvent to Event
 		uint button = 0;
@@ -393,7 +393,7 @@ namespace GL
 		}
 
 		// Add event to internal queue
-		if ( ev.Type != Event::None )
+		if ( ev.Type != Event::Unknown )
 			events.push( ev );
 	}
 

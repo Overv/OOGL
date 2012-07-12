@@ -98,7 +98,7 @@ namespace GL
 	{
 		enum event_t
 		{
-			None,
+			Unknown,
 			Close,
 			Resize,
 			Move,

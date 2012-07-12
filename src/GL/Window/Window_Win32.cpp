@@ -183,7 +183,7 @@ namespace GL
 	LRESULT Window::WindowEvent( UINT msg, WPARAM wParam, LPARAM lParam )
 	{
 		Event ev;
-		ev.Type = Event::None;
+		ev.Type = Event::Unknown;
 
 		// Translate message to Event
 		switch ( msg )
@@ -313,7 +313,7 @@ namespace GL
 		}
 
 		// Add event to internal queue
-		if ( ev.Type != Event::None )
+		if ( ev.Type != Event::Unknown )
 			events.push( ev );
 
 		return 0;
