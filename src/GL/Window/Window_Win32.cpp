@@ -335,7 +335,12 @@ namespace GL
 		} else {
 			window = reinterpret_cast<Window*>( GetWindowLong( hwnd, GWL_USERDATA ) );
 		
-			return window->WindowEvent( msg, wParam, lParam );
+			if( window != nullptr )
+			{
+				return window->WindowEvent( msg, wParam, lParam );
+			} else {
+				return DefWindowProc( hwnd, msg, wParam, lParam );
+			}
 		}
 	}
 
