@@ -31,6 +31,12 @@
     <Filter Include="Source Files\GL">
       <UniqueIdentifier>{7ea08471-5e46-43e8-aadb-4df461c640cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{9f35dd22-54da-402f-b010-27b00a241fe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{1aa6c945-0c8b-4bb8-a63d-49afde75a7a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\GL\OOGL.hpp">
@@ -81,6 +87,15 @@
     <ClInclude Include="..\..\include\GL\Math\Vec4.hpp">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\Util\Image.hpp">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GL\Util\Color.hpp">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\GL\Util\ByteBuffer.hpp">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
@@ -124,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GL\Math\Vec4.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\Image.cpp">
+      <Filter>Source Files\Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

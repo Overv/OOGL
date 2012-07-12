@@ -25,6 +25,9 @@
     <ClInclude Include="..\..\include\GL\Math\Vec4.hpp" />
     <ClInclude Include="..\..\include\GL\OOGL.hpp" />
     <ClInclude Include="..\..\include\GL\Platform.hpp" />
+    <ClInclude Include="..\..\include\GL\Util\ByteBuffer.hpp" />
+    <ClInclude Include="..\..\include\GL\Util\Color.hpp" />
+    <ClInclude Include="..\..\include\GL\Util\Image.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Event.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Window.hpp" />
   </ItemGroup>
@@ -41,6 +44,7 @@
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec3.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec4.cpp" />
+    <ClCompile Include="..\..\src\GL\Util\Image.cpp" />
     <ClCompile Include="..\..\src\GL\Window\Window.cpp" />
     <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp" />
   </ItemGroup>

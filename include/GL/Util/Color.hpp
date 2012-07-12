@@ -21,49 +21,23 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_COLOR_HPP
+#define OOGL_COLOR_HPP
 
 #include <GL/Platform.hpp>
 
-/*
-	3D math
-*/
+namespace GL
+{
+	/*
+		Color
+	*/
+	class Color
+	{
+	public:
+		Color( uchar r = 0, uchar g = 0, uchar b = 0, uchar a = 255 ) : R( r ), G( g ), B( b ), A( a ) {}
 
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Vec4.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
-#include <GL/GL/VertexBuffer.hpp>
-#include <GL/GL/VertexArray.hpp>
-
-/*
-	Utilities
-*/
-
-#include <GL/Util/Color.hpp>
-#include <GL/Util/Image.hpp>
+		uchar R, G, B, A;
+	};
+}
 
 #endif
