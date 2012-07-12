@@ -84,8 +84,8 @@ namespace GL
 		int GetMouseX();
 		int GetMouseY();
 
-		bool IsMouseButtonDown( uint button );
-		bool IsKeyDown( uint key );
+		bool IsMouseButtonDown( MouseButton::mouse_button_t button );
+		bool IsKeyDown( Key::key_t key );
 
 		Context& GetContext( uint color = 32, uint depth = 24, uint stencil = 8, uint antialias = 1 );
 		void Present();
@@ -121,7 +121,7 @@ namespace GL
 		static Bool CheckEvent( Display*, XEvent* event, XPointer userData );
 #endif
 
-		uint TranslateKey( uint code );
+		Key::key_t TranslateKey( uint code );
 	};
 }
 
