@@ -25,7 +25,7 @@
 
 namespace GL
 {
-	Window::Window( uint width, uint height, const std::string& title, uint style )
+	Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
 	{
 		// Create class for OpenGL window
 		WNDCLASS wc = { 0 };

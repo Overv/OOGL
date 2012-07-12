@@ -38,10 +38,18 @@ namespace GL
 	*/
 	namespace WindowStyle
 	{
-		const ulong Base = 0;
-		const ulong Resize = 1;
-		const ulong Close = 2;
-		const ulong Fullscreen = 4;
+		enum window_style_t
+		{
+			Base = 0,
+			Resize = 1,
+			Close = 2,
+			Fullscreen = 4
+		};
+				
+		inline window_style_t operator|(window_style_t lft, window_style_t rht)
+		{
+			return static_cast<window_style_t>(static_cast<int>(lft) | static_cast<int>(rht));
+		}
 	}
 
 	/*
@@ -50,7 +58,7 @@ namespace GL
 	class Window
 	{
 	public:
-		Window( uint width = 800, uint height = 600, const std::string& title = "Window", uint style = WindowStyle::Close );
+		Window( uint width = 800, uint height = 600, const std::string& title = "Window", WindowStyle::window_style_t style = WindowStyle::Close );
 		~Window();
 		
 		int GetX();
