@@ -73,11 +73,11 @@ namespace GL
 
 		int ReadInt()
 		{
-			int val;
-			if ( littleEndian ) val = buffer[ptr+0] + buffer[ptr+1]*256 + buffer[ptr+2]*65536 + buffer[ptr+3]*16777216;
-			else val = buffer[ptr+3] + buffer[ptr+2]*256 + buffer[ptr+1]*65536 + buffer[ptr+0]*16777216;
-			ptr += 4;
-			return val;
+			uint val = ReadUint();
+			if ( val <= INT_MAX )
+				return val;
+			else
+				return INT_MIN + val - INT_MAX - 1;
 		}
 
 	private:
