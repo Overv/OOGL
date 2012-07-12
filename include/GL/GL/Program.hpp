@@ -76,6 +76,11 @@ namespace GL
 		void SetUniform( const Uniform& uniform, float value );
 		void SetUniform( const Uniform& uniform, const Vec2& value );
 		void SetUniform( const Uniform& uniform, const Vec3& value );
+		void SetUniform( const Uniform& uniform, const Vec4& value );
+		void SetUniform( const Uniform& uniform, const float* values, uint count );
+		void SetUniform( const Uniform& uniform, const Vec2* values, uint count );
+		void SetUniform( const Uniform& uniform, const Vec3* values, uint count );
+		void SetUniform( const Uniform& uniform, const Vec4* values, uint count );
 		void SetUniformMatrix( const Uniform& uniform, const Mat3& value );
 		void SetUniformMatrix( const Uniform& uniform, const Mat4& value );
 

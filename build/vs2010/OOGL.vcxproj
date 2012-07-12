@@ -22,6 +22,7 @@
     <ClInclude Include="..\..\include\GL\Math\Util.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec2.hpp" />
     <ClInclude Include="..\..\include\GL\Math\Vec3.hpp" />
+    <ClInclude Include="..\..\include\GL\Math\Vec4.hpp" />
     <ClInclude Include="..\..\include\GL\OOGL.hpp" />
     <ClInclude Include="..\..\include\GL\Platform.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Event.hpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="..\..\src\GL\Math\Mat4.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec3.cpp" />
+    <ClCompile Include="..\..\src\GL\Math\Vec4.cpp" />
     <ClCompile Include="..\..\src\GL\Window\Window.cpp" />
     <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp" />
   </ItemGroup>

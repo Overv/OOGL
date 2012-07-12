@@ -5,8 +5,8 @@ CCFLAGS = -O3 -Wall -Wextra -Werror
 
 # Final library
 
-bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o
-	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o
+bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o
+	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o
 
 # 3D Math
 
@@ -21,6 +21,9 @@ bin/Vec2.o: src/GL/Math/Vec2.cpp
 
 bin/Vec3.o: src/GL/Math/Vec3.cpp
 	$(CC) $(CCFLAGS) -c src/GL/Math/Vec3.cpp -o bin/Vec3.o -I include
+
+bin/Vec4.o: src/GL/Math/Vec4.cpp
+	$(CC) $(CCFLAGS) -c src/GL/Math/Vec4.cpp -o bin/Vec4.o -I include
 
 # Window
 

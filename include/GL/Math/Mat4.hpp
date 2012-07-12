@@ -25,6 +25,7 @@
 #define OOGL_MAT4_HPP
 
 #include <GL/Math/Vec3.hpp>
+#include <GL/Math/Vec4.hpp>
 
 namespace GL
 {
@@ -44,6 +45,7 @@ namespace GL
 
 		const Mat4 operator*( const Mat4& mat ) const;
 		const Vec3 operator*( const Vec3& v ) const;
+		const Vec4 operator*( const Vec4& v ) const;
 
 		Mat4& Translate( const Vec3& v );
 		Mat4& Scale( const Vec3& v );

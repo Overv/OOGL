@@ -104,6 +104,31 @@ namespace GL
 		glUniform3f( uniform, value.X, value.Y, value.Z );
 	}
 
+	void Program::SetUniform( const Uniform& uniform, const Vec4& value )
+	{
+		glUniform4f( uniform, value.X, value.Y, value.Z, value.W );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, const float* values, uint count )
+	{
+		glUniform1fv( uniform, count, values );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, const Vec2* values, uint count )
+	{
+		glUniform2fv( uniform, count, (float*)values );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, const Vec3* values, uint count )
+	{
+		glUniform3fv( uniform, count, (float*)values );
+	}
+
+	void Program::SetUniform( const Uniform& uniform, const Vec4* values, uint count )
+	{
+		glUniform4fv( uniform, count, (float*)values );
+	}
+
 	void Program::SetUniformMatrix( const Uniform& uniform, const Mat3& value )
 	{
 		glUniformMatrix3fv( uniform, 1, GL_FALSE, value.m );

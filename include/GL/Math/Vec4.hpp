@@ -21,42 +21,36 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_VEC4_HPP
+#define OOGL_VEC4_HPP
 
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
 #include <GL/Math/Vec3.hpp>
-#include <GL/Math/Vec4.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
 
-/*
-	Window management
-*/
+namespace GL
+{
+	/*
+		4D vector
+	*/
+	class Vec4
+	{
+	public:
+		Vec4( float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f ) : X( x ), Y( y ), Z( z ), W( w ) {}
+		Vec4( const Vec3& v, float w = 1.0f ) : X( v.X ), Y( v.Y ), Z( v.Z ), W( w ) {}
 
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
+		Vec4& operator+=( const Vec4& v );
+		Vec4& operator-=( const Vec4& v );
 
-/*
-	OpenGL
-*/
+		const Vec4 operator+( const Vec4& v ) const;
+		const Vec4 operator-( const Vec4& v ) const;
 
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
-#include <GL/GL/VertexBuffer.hpp>
-#include <GL/GL/VertexArray.hpp>
+		friend Vec4 operator*( const Vec4& v, float n );
+		friend Vec4 operator*( float n, const Vec4& v );
+
+		friend Vec4 operator/( const Vec4& v, float n );
+		friend Vec4 operator/( float n, const Vec4& v );
+
+		float X, Y, Z, W;
+	};
+}
 
 #endif

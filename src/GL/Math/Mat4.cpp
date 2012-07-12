@@ -61,6 +61,16 @@ namespace GL
 		);
 	}
 
+	const Vec4 Mat4::operator*( const Vec4& v ) const
+	{
+		return Vec4(
+			m[0]*v.X + m[4]*v.Y + m[8]*v.Z + m[12]*v.W,
+			m[1]*v.X + m[5]*v.Y + m[9]*v.Z + m[13]*v.W,
+			m[2]*v.X + m[6]*v.Y + m[10]*v.Z + m[14]*v.W,
+			m[3]*v.X + m[7]*v.Y + m[11]*v.Z + m[15]*v.W
+		);
+	}
+
 	Mat4& Mat4::Translate( const Vec3& v )
 	{
 		return *this = *this * Mat4(

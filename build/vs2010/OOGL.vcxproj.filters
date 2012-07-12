@@ -78,6 +78,9 @@
     <ClInclude Include="..\..\include\GL\GL\VertexArray.hpp">
       <Filter>Header Files\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\Math\Vec4.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
@@ -118,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GL\GL\VertexArray.cpp">
       <Filter>Source Files\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Math\Vec4.cpp">
+      <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

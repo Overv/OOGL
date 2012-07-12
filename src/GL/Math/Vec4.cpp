@@ -19,44 +19,56 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
 #include <GL/Math/Vec4.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
+#include <cmath>
 
-/*
-	Window management
-*/
+namespace GL
+{
+	Vec4& Vec4::operator+=( const Vec4& v )
+	{
+		X += v.X;
+		Y += v.Y;
+		Z += v.Z;
+		W += v.W;
+		return *this;
+	}
 
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
+	Vec4& Vec4::operator-=( const Vec4& v )
+	{
+		X -= v.X;
+		Y -= v.Y;
+		Z -= v.Z;
+		W -= v.W;
+		return *this;
+	}
 
-/*
-	OpenGL
-*/
+	const Vec4 Vec4::operator+( const Vec4& v ) const
+	{
+		return Vec4( X + v.X, Y + v.Y, Z + v.Z, W + v.W );
+	}
 
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
-#include <GL/GL/VertexBuffer.hpp>
-#include <GL/GL/VertexArray.hpp>
+	const Vec4 Vec4::operator-( const Vec4& v ) const
+	{
+		return Vec4( X - v.X, Y - v.Y, Z - v.Z, W - v.W );
+	}
 
-#endif
+	Vec4 operator*( const Vec4& v, float n )
+	{
+		return Vec4( v.X * n, v.Y * n, v.Z * n, v.W * n );
+	}
+
+	Vec4 operator*( float n, const Vec4& v )
+	{
+		return Vec4( v.X * n, v.Y * n, v.Z * n, v.W * n );
+	}
+
+	Vec4 operator/( const Vec4& v, float n )
+	{
+		return Vec4( v.X / n, v.Y / n, v.Z / n, v.W / n );
+	}
+
+	Vec4 operator/( float n, const Vec4& v )
+	{
+		return Vec4( v.X / n, v.Y / n, v.Z / n, v.W / n );
+	}
+}
