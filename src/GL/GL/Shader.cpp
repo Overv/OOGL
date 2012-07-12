@@ -70,10 +70,9 @@ namespace GL
 
 		if ( res > 0 )
 		{
-			std::vector<char> infoLog( res );
+			std::string infoLog( res, 0 );
 			glGetShaderInfoLog( id, res, &res, &infoLog[0] );
-
-			return &infoLog[0];
+			return infoLog;
 		} else {
 			return "";
 		}

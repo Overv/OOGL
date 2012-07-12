@@ -41,13 +41,13 @@ namespace GL
 		glUseProgram( program );
 	}
 
-	void Context::DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices )
+	void Context::DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices )
 	{
 		glBindVertexArray( vao );
 		glDrawArrays( mode, offset, vertices );
 	}
 
-	void Context::DrawElements( const VertexArray& vao, uint mode, intptr_t offset, uint count, uint type )
+	void Context::DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type )
 	{
 		glBindVertexArray( vao );
 		glDrawElements( mode, count, type, (const GLvoid*)offset );

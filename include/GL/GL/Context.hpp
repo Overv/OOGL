@@ -46,9 +46,12 @@ namespace GL
 	*/
 	namespace Primitive
 	{
-		const uint Triangle = GL_TRIANGLES;
-		const uint Lines = GL_LINES;
-		const uint Points = GL_POINTS;
+		enum primitive_t
+		{
+			Triangle = GL_TRIANGLES,
+			Lines = GL_LINES,
+			Points = GL_POINTS,
+		};
 	}
 		
 	/*
@@ -85,8 +88,8 @@ namespace GL
 
 		void Use( const Program& program );
 
-		void DrawArrays( const VertexArray& vao, uint mode, uint offset, uint vertices );
-		void DrawElements( const VertexArray& vao, uint mode, intptr_t offset, uint count, uint type );
+		void DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices );
+		void DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type );
 
 	private:
 		friend class Window;
