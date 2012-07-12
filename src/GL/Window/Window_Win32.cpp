@@ -336,11 +336,9 @@ namespace GL
 			window = reinterpret_cast<Window*>( GetWindowLong( hwnd, GWL_USERDATA ) );
 		
 			if( window != nullptr )
-			{
 				return window->WindowEvent( msg, wParam, lParam );
-			} else {
+			else
 				return DefWindowProc( hwnd, msg, wParam, lParam );
-			}
 		}
 	}
 
@@ -385,16 +383,16 @@ namespace GL
 
 		default:
 			if ( code >= VK_F1 && code <= VK_F12 )
-				return (Key::key_t)( (uint)Key::F1 + code - VK_F1 );
+				return (Key::key_t)( Key::F1 + code - VK_F1 );
 			else if ( code >= VK_NUMPAD0 && code <= VK_NUMPAD9 )
-				return (Key::key_t)( (uint)Key::Numpad0 + code - VK_NUMPAD0 );
+				return (Key::key_t)( Key::Numpad0 + code - VK_NUMPAD0 );
 			else if ( code >= 'A' && code <= 'Z' )
-				return (Key::key_t)( (uint)Key::A + code - 'A' );
+				return (Key::key_t)( Key::A + code - 'A' );
 			else if ( code >= '0' && code <= '9' )
-				return (Key::key_t)( (uint)Key::Num0 + code - '0' );
+				return (Key::key_t)( Key::Num0 + code - '0' );
 		}
 
-		return Key::Unkown;
+		return Key::Unknown;
 	}
 }
 

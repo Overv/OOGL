@@ -449,16 +449,16 @@ namespace GL
 
 		default:
 			if ( code >= XK_F1 && code <= XK_F12 )
-				return (Key::key_t)( (uint)Key::F1 + code - XK_F1 );
+				return (Key::key_t)( Key::F1 + code - XK_F1 );
 			else if ( code >= XK_KP_0 && code <= XK_KP_9 )
-				return (Key::key_t)( (uint)Key::Numpad0 + code - XK_KP_0 );
+				return (Key::key_t)( Key::Numpad0 + code - XK_KP_0 );
 			else if ( code >= 'A' && code <= 'Z' )
-				return (Key::key_t)( (uint)Key::A + code - 'A' );
+				return (Key::key_t)( Key::A + code - 'A' );
 			else if ( code >= '0' && code <= '9' )
-				return (Key::key_t)( (uint)Key::Num0 + code - '0' );
+				return (Key::key_t)( Key::Num0 + code - '0' );
 		}
 
-		return 0;
+		return Key::Unknown;
 	}
 }
 
