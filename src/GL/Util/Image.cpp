@@ -230,7 +230,8 @@ namespace GL
 		// TGA header
 		data.Advance( 1 ); // Image ID field length, ignored
 		if ( data.ReadUbyte() != 0 ) throw FormatException(); // Color map
-		if ( data.ReadUbyte() != 2 ) throw FormatException(); // Image type
+		uchar type = data.ReadUbyte();
+		if ( type != 2 && type != 10 ) throw FormatException(); // Image type not true-color
 		data.Advance( 5 ); // Color map info, ignored
 		data.Advance( 4 ); // XY offset, ignored
 		uint width = data.ReadUshort();
@@ -238,6 +239,10 @@ namespace GL
 		if ( data.ReadUbyte() != 24 ) throw FormatException(); // Bits per pixel
 		if ( data.ReadUbyte() != 0 ) throw FormatException(); // Image descriptor, alpha depth/direction currently unsupported
 
+		// If pixels are RLE encoded, they need to be unpacked first
+		if ( type == 10 )
+			DecodeRLE( data, width * height * 3 );
+		
 		// Pixel data
 		image = new Color[ width * height ];
 
@@ -254,6 +259,48 @@ namespace GL
 		this->height = height;
 	}
 
+	void Image::DecodeRLE( ByteReader& data, uint decodedLength )
+	{
+		std::vector<uchar> buffer;
+
+		uint debugLimit = 10;
+
+		while ( buffer.size() < decodedLength )
+		{
+			uchar rle = data.ReadUbyte();
+			uint count = ( rle & 0x7F ) + 1;
+
+			if ( rle & 0x80 ) // RLE packet
+			{
+				if ( debugLimit > 0 ) {
+					printf( "RLE: %X (%d)\n", rle, count );
+					debugLimit--;
+				}
+
+				Color value( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) );
+				data.Advance( 3 );
+
+				for ( uint i = 0; i < count; i++ )
+				{
+					buffer.push_back( value.B );
+					buffer.push_back( value.G );
+					buffer.push_back( value.R );
+				}
+			} else { // Non-RLE packet
+				if ( debugLimit > 0 ) {
+					printf( "Non-RLE: %X (%d)\n", rle, count );
+					debugLimit--;
+				}
+
+				for ( uint i = 0; i < count * 3; i++ )
+					buffer.push_back( data.ReadUbyte() );
+			}
+		}
+
+		data.Reuse( decodedLength );
+		memcpy( data.Data(), &buffer[0], decodedLength );
+	}
+
 	void Image::SaveTGA( const std::string& filename )
 	{
 		ByteWriter data( true );
@@ -261,7 +308,7 @@ namespace GL
 		// TGA header
 		data.WriteUbyte( 0 ); // Image ID field length
 		data.WriteUbyte( 0 ); // Color map
-		data.WriteUbyte( 2 ); // Image type (Truecolor 24 bit, no RLE)
+		data.WriteUbyte( 2 ); // Image type (true-color, no RLE)
 		data.Pad( 5 + 4 ); // No color map or XY offset
 		data.WriteUshort( width );
 		data.WriteUshort( height );

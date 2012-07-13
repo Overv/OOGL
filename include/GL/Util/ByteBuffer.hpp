@@ -38,6 +38,14 @@ namespace GL
 		ByteReader( uint length, bool littleEndian ) : buffer( new uchar[length] ), length( length ), ptr( 0 ), littleEndian( littleEndian ) {}
 		~ByteReader() { delete [] buffer; }
 
+		void Reuse( uint length )
+		{
+			delete [] buffer;
+			buffer = new uchar[length];
+			this->length = length;
+			ptr = 0;
+		}
+
 		uchar* Data() { return buffer; }
 		uint Length() { return length; }
 

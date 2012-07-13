@@ -94,6 +94,7 @@ namespace GL
 		void SaveBMP( const std::string& filename );
 
 		void LoadTGA( ByteReader& data );
+		void DecodeRLE( ByteReader& data, uint decodedLength );
 		void SaveTGA( const std::string& filename );
 	};
 }
