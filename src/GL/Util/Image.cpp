@@ -305,7 +305,7 @@ namespace GL
 		// TGA header
 		data.WriteUbyte( 0 ); // Image ID field length
 		data.WriteUbyte( 0 ); // Color map
-		data.WriteUbyte( 2 ); // Image type (true-color, no RLE)
+		data.WriteUbyte( 10 ); // Image type (true-color, RLE)
 		data.Pad( 5 + 4 ); // No color map or XY offset
 		data.WriteUshort( width );
 		data.WriteUshort( height );
@@ -313,16 +313,27 @@ namespace GL
 		data.WriteUbyte( 0 ); // Image descriptor (No alpha depth or direction)
 
 		// Pixel data
+		std::vector<uchar> pixelData;
+		pixelData.reserve( width * height * 3 );
+
 		for ( int y = height - 1; y >= 0; y-- )
 		{
 			for ( uint x = 0; x < width; x++ )
 			{
 				Color& col = image[ x + y * width ];
-				data.WriteUbyte( col.B );
-				data.WriteUbyte( col.G );
-				data.WriteUbyte( col.R );
+				pixelData.push_back( col.B );
+				pixelData.push_back( col.G );
+				pixelData.push_back( col.R );
 			}
 		}
+
+		// Compress using RLE
+		EncodeRLE( data, pixelData, width );
+
+		// Footer
+		data.WriteUint( 0 );
+		data.WriteUint( 0 );
+		data.WriteString( "TRUEVISION-XFILE." );
 		
 		std::ofstream file( filename, std::ios::binary );
 		if ( !file.is_open() ) throw FileException();
@@ -330,5 +341,79 @@ namespace GL
 		file.write( (char*)data.Data(), data.Length() );
 
 		file.close();
+	}
+
+	inline void flushRLE( ByteWriter& data, std::vector<Color>& backlog )
+	{
+		if ( backlog.size() > 0 )
+		{
+			data.WriteUbyte( 0x80 + backlog.size() - 1 );
+
+			data.WriteUbyte( backlog[0].B );
+			data.WriteUbyte( backlog[0].G );
+			data.WriteUbyte( backlog[0].R );
+
+			backlog.clear();
+		}
+	}
+
+	inline void flushNonRLE( ByteWriter& data, std::vector<Color>& backlog, Color& lastColor )
+	{
+		if ( backlog.size() > 1 )
+		{
+			data.WriteUbyte( backlog.size() - 2 );
+
+			for ( uint i = 0; i < backlog.size() - 1; i++ )
+			{
+				data.WriteUbyte( backlog[i].B );
+				data.WriteUbyte( backlog[i].G );
+				data.WriteUbyte( backlog[i].R );
+			}
+
+			backlog.clear();
+
+			backlog.push_back( lastColor );
+		}
+	}
+
+	void Image::EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, uint width )
+	{
+		std::vector<Color> backlog;
+		Color lastColor;
+		bool rleMode = false;
+
+		for ( uint i = 0; i < pixels.size(); i += 3 )
+		{
+			Color col( pixels[i+2], pixels[i+1], pixels[i+0] );
+
+			if ( !rleMode && lastColor.R == col.R && lastColor.G == col.G && lastColor.B == col.B )
+			{
+				flushNonRLE( data, backlog, lastColor );
+				rleMode = true;
+			}
+			else if ( rleMode && ( lastColor.R != col.R || lastColor.G != col.G || lastColor.B != col.B ) )
+			{
+				flushRLE( data, backlog );
+				rleMode = false;
+			}
+			else if ( backlog.size() == 127 )
+			{
+				if ( rleMode )
+					flushRLE( data, backlog );
+				else
+					flushNonRLE( data, backlog, lastColor );
+			}
+
+			backlog.push_back( col );
+			lastColor = col;
+		}
+
+		if ( backlog.size() > 0 )
+		{
+			if ( rleMode )
+				flushRLE( data, backlog );
+			else
+				flushNonRLE( data, backlog, lastColor );
+		}
 	}
 }

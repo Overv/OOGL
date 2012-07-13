@@ -153,6 +153,13 @@ namespace GL
 			}
 		}
 
+		void WriteString( const char* str )
+		{
+			while ( *str != 0 )
+				buffer.push_back( *(str++) );
+			buffer.push_back( 0 );
+		}
+
 	private:
 		std::vector<uchar> buffer;
 		bool littleEndian;

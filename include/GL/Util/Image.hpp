@@ -96,6 +96,7 @@ namespace GL
 		void LoadTGA( ByteReader& data );
 		void DecodeRLE( ByteReader& data, uint decodedLength, uint bytesPerPixel );
 		void SaveTGA( const std::string& filename );
+		void EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, uint width );
 	};
 }
 
