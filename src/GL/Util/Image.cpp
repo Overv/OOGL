@@ -236,12 +236,15 @@ namespace GL
 		data.Advance( 4 ); // XY offset, ignored
 		uint width = data.ReadUshort();
 		uint height = data.ReadUshort();
-		if ( data.ReadUbyte() != 24 ) throw FormatException(); // Bits per pixel
-		if ( data.ReadUbyte() != 0 ) throw FormatException(); // Image descriptor, alpha depth/direction currently unsupported
+		uchar depth = data.ReadUbyte();
+		if ( depth != 24 && depth != 32 ) throw FormatException(); // Not RGB(A)
+		uint bytesPerPixel = depth / 8;
+		uchar descriptor = data.ReadUbyte();
+		if ( ( depth == 24 && descriptor != 0 ) || ( depth == 32 && descriptor != 8 ) ) throw FormatException(); // Check for alpha channel if bit depth is 32
 
 		// If pixels are RLE encoded, they need to be unpacked first
 		if ( type == 10 )
-			DecodeRLE( data, width * height * 3 );
+			DecodeRLE( data, width * height * bytesPerPixel, bytesPerPixel );
 		
 		// Pixel data
 		image = new Color[ width * height ];
@@ -250,8 +253,12 @@ namespace GL
 		{
 			for ( uint x = 0; x < width; x++ )
 			{
-				image[ x + y * width ] = Color( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) ); // BGR byte order
-				data.Advance( 3 );
+				if ( bytesPerPixel == 3 )
+					image[ x + y * width ] = Color( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) ); // BGR byte order
+				else
+					image[ x + y * width ] = Color( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ), data.PeekByte( 3 ) ); // BGRA byte order
+
+				data.Advance( bytesPerPixel );
 			}
 		}
 
@@ -259,11 +266,9 @@ namespace GL
 		this->height = height;
 	}
 
-	void Image::DecodeRLE( ByteReader& data, uint decodedLength )
+	void Image::DecodeRLE( ByteReader& data, uint decodedLength, uint bytesPerPixel )
 	{
 		std::vector<uchar> buffer;
-
-		uint debugLimit = 10;
 
 		while ( buffer.size() < decodedLength )
 		{
@@ -272,27 +277,19 @@ namespace GL
 
 			if ( rle & 0x80 ) // RLE packet
 			{
-				if ( debugLimit > 0 ) {
-					printf( "RLE: %X (%d)\n", rle, count );
-					debugLimit--;
-				}
-
 				Color value( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) );
-				data.Advance( 3 );
+				if ( bytesPerPixel == 4 ) value.A = data.PeekByte( 3 );
+				data.Advance( bytesPerPixel );
 
 				for ( uint i = 0; i < count; i++ )
 				{
 					buffer.push_back( value.B );
 					buffer.push_back( value.G );
 					buffer.push_back( value.R );
+					if ( bytesPerPixel == 4 ) buffer.push_back( value.A );
 				}
 			} else { // Non-RLE packet
-				if ( debugLimit > 0 ) {
-					printf( "Non-RLE: %X (%d)\n", rle, count );
-					debugLimit--;
-				}
-
-				for ( uint i = 0; i < count * 3; i++ )
+				for ( uint i = 0; i < count * bytesPerPixel; i++ )
 					buffer.push_back( data.ReadUbyte() );
 			}
 		}
