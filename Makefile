@@ -5,8 +5,8 @@ CCFLAGS = -O3 -Wall -Wextra -Werror
 
 # Final library
 
-bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o
-	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o
+bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Image.o
+	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o  bin/Image.o
 
 # 3D Math
 
@@ -56,6 +56,10 @@ bin/VertexBuffer.o: src/GL/GL/VertexBuffer.cpp
 bin/VertexArray.o: src/GL/GL/VertexArray.cpp
 	$(CC) $(CCFLAGS) -c src/GL/GL/VertexArray.cpp -o bin/VertexArray.o -I include
 
+# Util
+
+bin/Image.o: src/GL/Util/Image.cpp
+	$(CC) $(CCFLAGS) -c src/GL/Util/Image.cpp -o bin/Image.o -I include
 
 # Clean
 clean:
