@@ -45,6 +45,52 @@
     <ClCompile Include="..\..\src\GL\Math\Vec3.cpp" />
     <ClCompile Include="..\..\src\GL\Math\Vec4.cpp" />
     <ClCompile Include="..\..\src\GL\Util\Image.cpp" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jaricom.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcapimin.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcapistd.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcarith.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jccoefct.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jccolor.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcdctmgr.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jchuff.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcinit.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcmainct.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcmarker.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcmaster.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcomapi.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcparam.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcprepct.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcsample.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jctrans.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdapimin.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdapistd.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdarith.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdatadst.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdatasrc.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdcoefct.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdcolor.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jddctmgr.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdhuff.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdinput.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmainct.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmarker.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmaster.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmerge.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdpostct.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdsample.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdtrans.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jerror.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jfdctflt.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jfdctfst.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jfdctint.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jidctflt.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jidctfst.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jidctint.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jmemmgr.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jmemnobs.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jquant1.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jquant2.c" />
+    <ClCompile Include="..\..\src\GL\Util\libjpeg\jutils.c" />
     <ClCompile Include="..\..\src\GL\Window\Window.cpp" />
     <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp" />
   </ItemGroup>
@@ -91,16 +137,18 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;$(SolutionDir)..\..\extlibs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;$(SolutionDir)..\..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;jpeg.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\extlibs\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,12 +160,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;$(SolutionDir)..\..\extlibs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\include\;$(SolutionDir)..\..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -126,8 +175,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;jpeg.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\extlibs\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

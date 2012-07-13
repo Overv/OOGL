@@ -20,6 +20,7 @@
 */
 
 #include <GL/Util/Image.hpp>
+#include <GL/Util/libjpeg/jpeglib.h>
 #include <fstream>
 #include <cstring>
 #include <cstdlib>
@@ -255,9 +256,9 @@ namespace GL
 		// Pixel data
 		image = new Color[ width * height ];
 
-		for ( int y = height - 1; y >= 0; y-- )
+		for ( short y = height - 1; y >= 0; y-- )
 		{
-			for ( uint x = 0; x < width; x++ )
+			for ( ushort x = 0; x < width; x++ )
 			{
 				if ( bytesPerPixel == 3 )
 					image[ x + y * width ] = Color( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) ); // BGR byte order
@@ -322,9 +323,9 @@ namespace GL
 		std::vector<uchar> pixelData;
 		pixelData.reserve( width * height * 3 );
 
-		for ( int y = height - 1; y >= 0; y-- )
+		for ( short y = height - 1; y >= 0; y-- )
 		{
-			for ( uint x = 0; x < width; x++ )
+			for ( ushort x = 0; x < width; x++ )
 			{
 				Color& col = image[ x + y * width ];
 				pixelData.push_back( col.B );
@@ -423,13 +424,45 @@ namespace GL
 		}
 	}
 
-	/*void Image::LoadJPEG( ByteReader& data )
+	void Image::LoadJPEG( ByteReader& data )
 	{
-		throw FormatException();
+		// Initialize structures
+		jpeg_decompress_struct cinfo;
+		jpeg_error_mgr jerr;
+
+		cinfo.err = jpeg_std_error( &jerr );
+		jpeg_create_decompress( &cinfo );
+		jpeg_mem_src( &cinfo, data.Data(), data.Length() );
+
+		// JPEG header
+		jpeg_read_header( &cinfo, true );
+
+		// Pixel data
+		jpeg_start_decompress( &cinfo );
+		
+		int stride = cinfo.output_width * cinfo.output_components;
+		JSAMPARRAY buffer = cinfo.mem->alloc_sarray( (j_common_ptr)&cinfo, JPOOL_IMAGE, stride, 1 );
+
+		image = new Color[ cinfo.output_width * cinfo.output_height ];
+
+		for ( uint y = 0; y < cinfo.output_height; y++ )
+		{
+			jpeg_read_scanlines( &cinfo, buffer, 1 );
+			
+			for ( uint x = 0; x < cinfo.output_width; x++ )
+				image[ x + y * cinfo.output_width ] = Color( buffer[0][x*3+0], buffer[0][x*3+1], buffer[0][x*3+2] );
+		}
+
+		jpeg_finish_decompress( &cinfo );
+
+		jpeg_destroy_decompress( &cinfo );
+
+		this->width = (ushort)cinfo.output_width;
+		this->height = (ushort)cinfo.output_height;
 	}
 
 	void Image::SaveJPEG( const std::string& filename )
 	{
-		throw FormatException();
-	}*/
+		
+	}
 }
