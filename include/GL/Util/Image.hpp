@@ -40,7 +40,8 @@ namespace GL
 		enum image_file_format_t
 		{
 			BMP,
-			TGA
+			TGA,
+			JPEG
 		};
 	}
 
@@ -97,6 +98,9 @@ namespace GL
 		void DecodeRLE( ByteReader& data, uint decodedLength, uchar bytesPerPixel );
 		void SaveTGA( const std::string& filename );
 		void EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, ushort width );
+
+		void LoadJPEG( ByteReader& data );
+		void SaveJPEG( const std::string& filename );
 	};
 }
 

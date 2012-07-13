@@ -94,6 +94,8 @@ namespace GL
 			LoadBMP( data );
 		else if ( data.Compare( data.Length() - 18, 18, (const uchar*)"TRUEVISION-XFILE." ) )
 			LoadTGA( data );
+		else if ( data.PeekByte( 0 ) == 0xFF && data.PeekByte( 1 ) == 0xD8 )
+			LoadJPEG( data );
 		else
 			throw FormatException();
 	}
@@ -106,6 +108,8 @@ namespace GL
 			SaveBMP( filename );
 		else if ( format == ImageFileFormat::TGA )
 			SaveTGA( filename );
+		else if ( format == ImageFileFormat::JPEG )
+			SaveJPEG( filename );
 		else
 			throw FormatException();
 	}
@@ -416,4 +420,14 @@ namespace GL
 				flushNonRLE( data, backlog, lastColor );
 		}
 	}
+
+	/*void Image::LoadJPEG( ByteReader& data )
+	{
+		throw FormatException();
+	}
+
+	void Image::SaveJPEG( const std::string& filename )
+	{
+		throw FormatException();
+	}*/
 }
