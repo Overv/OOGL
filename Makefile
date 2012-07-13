@@ -5,8 +5,10 @@ CCFLAGS = -O3 -Wall -Wextra -Werror
 
 # Final library
 
-bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Image.o
-	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o  bin/Image.o
+libjpeg = $(patsubst src/GL/Util/libjpeg/%.c,bin/%.o,$(wildcard src/GL/Util/libjpeg/*.c))
+
+bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Image.o $(libjpeg)
+	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Image.o $(libjpeg)
 
 # 3D Math
 
@@ -59,7 +61,10 @@ bin/VertexArray.o: src/GL/GL/VertexArray.cpp
 # Util
 
 bin/Image.o: src/GL/Util/Image.cpp
-	$(CC) $(CCFLAGS) -c src/GL/Util/Image.cpp -o bin/Image.o -I include
+	$(CC) $(CCFLAGS) -c src/GL/Util/Image.cpp -o bin/Image.o -I include -I src
+
+bin/%.o: src/GL/Util/libjpeg/%.c
+	$(CC) -O3 -Werror -c $< -o $(patsubst src/GL/Util/libjpeg/%.c,bin/%.o,$<)
 
 # Clean
 clean:
