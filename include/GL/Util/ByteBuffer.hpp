@@ -141,15 +141,15 @@ namespace GL
 		void WriteUint( uint val )
 		{
 			if ( littleEndian ) {
-				buffer.push_back( val & 0x000000FF );
-				buffer.push_back( ( val & 0x0000FF00 ) >> 8 );
-				buffer.push_back( ( val & 0x00FF0000 ) >> 16 );
-				buffer.push_back( ( val & 0xFF000000 ) >> 24 );
+				buffer.push_back( (uchar)( val & 0x000000FF ) );
+				buffer.push_back( (uchar)( ( val & 0x0000FF00 ) >> 8 ) );
+				buffer.push_back( (uchar)( (uchar)( ( val & 0x00FF0000 ) >> 16 ) ) );
+				buffer.push_back( (uchar)( ( val & 0xFF000000 ) >> 24 ) );
 			} else {
-				buffer.push_back( ( val & 0xFF000000 ) >> 24 );
-				buffer.push_back( ( val & 0x00FF0000 ) >> 16 );
-				buffer.push_back( ( val & 0x0000FF00 ) >> 8 );
-				buffer.push_back( val & 0x000000FF );
+				buffer.push_back( (uchar)( ( val & 0xFF000000 ) >> 24 ) );
+				buffer.push_back( (uchar)( ( val & 0x00FF0000 ) >> 16 ) );
+				buffer.push_back( (uchar)( ( val & 0x0000FF00 ) >> 8 ) );
+				buffer.push_back( (uchar)( val & 0x000000FF ) );
 			}
 		}
 

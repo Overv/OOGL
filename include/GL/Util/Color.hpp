@@ -25,6 +25,8 @@
 #define OOGL_COLOR_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/Math/Vec3.hpp>
+#include <GL/Math/Vec4.hpp>
 
 namespace GL
 {
@@ -35,6 +37,19 @@ namespace GL
 	{
 	public:
 		Color( uchar r = 0, uchar g = 0, uchar b = 0, uchar a = 255 ) : R( r ), G( g ), B( b ), A( a ) {}
+		explicit Color( const Vec3& vec ) : R( (uchar)( 255 * vec.X ) ), G( (uchar)( 255 * vec.Y ) ), B( (uchar)( 255 * vec.Z ) ), A( 255 ) {}
+		explicit Color( const Vec4& vec ) : R( (uchar)( 255 * vec.X ) ), G( (uchar)( 255 * vec.Y ) ), B( (uchar)( 255 * vec.Z ) ), A( (uchar)( 255 * vec.W ) ) {}
+		
+		inline Vec3 toVec3() const 
+		{
+			return Vec3(R / 255.0f, G / 255.0f, B / 255.0f);
+		}
+
+		inline Vec4 toVec4() const 
+		{
+			return Vec4(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
+		}
+
 
 		uchar R, G, B, A;
 	};
