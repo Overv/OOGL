@@ -26,6 +26,7 @@
 
 #include <GL/Platform.hpp>
 #include <vector>
+#include <climits>
 
 namespace GL
 {
