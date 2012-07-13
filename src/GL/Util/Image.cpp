@@ -21,6 +21,8 @@
 
 #include <GL/Util/Image.hpp>
 #include <fstream>
+#include <cstring>
+#include <cstdlib>
 
 namespace GL
 {
@@ -78,7 +80,7 @@ namespace GL
 		height = 0;
 
 		// Load data from file
-		std::ifstream file( filename, std::ios::binary | std::ios::ate );
+		std::ifstream file( filename.c_str(), std::ios::binary | std::ios::ate );
 		if ( !file.is_open() ) throw FileException();
 
 		uint fileSize = (uint)file.tellg();
@@ -221,7 +223,7 @@ namespace GL
 			}
 		}
 
-		std::ofstream file( filename, std::ios::binary );
+		std::ofstream file( filename.c_str(), std::ios::binary );
 		if ( !file.is_open() ) throw FileException();
 
 		file.write( (char*)data.Data(), data.Length() );
@@ -339,7 +341,7 @@ namespace GL
 		data.WriteUint( 0 );
 		data.WriteString( "TRUEVISION-XFILE." );
 		
-		std::ofstream file( filename, std::ios::binary );
+		std::ofstream file( filename.c_str(), std::ios::binary );
 		if ( !file.is_open() ) throw FileException();
 
 		file.write( (char*)data.Data(), data.Length() );
