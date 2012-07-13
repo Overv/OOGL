@@ -307,8 +307,8 @@ namespace GL
 		data.WriteUbyte( 0 ); // Color map
 		data.WriteUbyte( 10 ); // Image type (true-color, RLE)
 		data.Pad( 5 + 4 ); // No color map or XY offset
-		data.WriteUshort( width );
-		data.WriteUshort( height );
+		data.WriteUshort( (ushort)width );
+		data.WriteUshort( (ushort)height );
 		data.WriteUbyte( 24 ); // Bits per pixel
 		data.WriteUbyte( 0 ); // Image descriptor (No alpha depth or direction)
 
@@ -347,7 +347,7 @@ namespace GL
 	{
 		if ( backlog.size() > 0 )
 		{
-			data.WriteUbyte( 0x80 + backlog.size() - 1 );
+			data.WriteUbyte( 0x80 + (uchar)backlog.size() - 1 );
 
 			data.WriteUbyte( backlog[0].B );
 			data.WriteUbyte( backlog[0].G );
@@ -361,7 +361,7 @@ namespace GL
 	{
 		if ( backlog.size() > 1 )
 		{
-			data.WriteUbyte( backlog.size() - 2 );
+			data.WriteUbyte( (uchar)backlog.size() - 2 );
 
 			for ( uint i = 0; i < backlog.size() - 1; i++ )
 			{
@@ -376,7 +376,7 @@ namespace GL
 		}
 	}
 
-	void Image::EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, uint width )
+	void Image::EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, uint )
 	{
 		std::vector<Color> backlog;
 		Color lastColor;

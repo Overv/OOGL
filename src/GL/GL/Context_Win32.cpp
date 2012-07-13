@@ -36,7 +36,7 @@ namespace GL
 		PIXELFORMATDESCRIPTOR dummyFormatDescriptor =
 		{
 			sizeof( dummyFormatDescriptor ), 1, PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-			PFD_TYPE_RGBA, color, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, depth, stencil, 0, PFD_MAIN_PLANE,
+			PFD_TYPE_RGBA, (BYTE)color, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (BYTE)depth, (BYTE)stencil, 0, PFD_MAIN_PLANE,
 			0, 0, 0, 0
 		};
 

@@ -264,6 +264,7 @@ namespace GL
 			if ( msg == WM_LBUTTONDOWN ) ev.Mouse.Button = MouseButton::Left;
 			else if ( msg == WM_RBUTTONDOWN ) ev.Mouse.Button = MouseButton::Right;
 			else if ( msg == WM_MBUTTONDOWN ) ev.Mouse.Button = MouseButton::Middle;
+			else break;
 
 			ev.Type = Event::MouseDown;
 			ev.Mouse.X = mousex;
@@ -281,6 +282,7 @@ namespace GL
 			if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Left;
 			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Right;
 			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Middle;
+			else break;
 
 			ev.Type = Event::MouseUp;
 			ev.Mouse.X = mousex;
