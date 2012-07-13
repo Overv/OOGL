@@ -35,7 +35,7 @@ namespace GL
 		return 0;
 	}
 
-	Context::Context( uint color, uint depth, uint stencil, uint antialias, Display* display, int screen, ::Window window )
+	Context::Context( uchar color, uchar depth, uchar stencil, uint antialias, Display* display, int screen, ::Window window )
 	{
 		// Load OpenGL extensions
 		LoadExtensions();

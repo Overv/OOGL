@@ -105,12 +105,12 @@ namespace GL
 		~Context();
 
 #if defined( OOGL_PLATFORM_WINDOWS )
-		Context( uint color, uint depth, uint stencil, uint antialias, HDC dc );
+		Context( uchar color, uchar depth, uchar stencil, uint antialias, HDC dc );
 
 		HDC dc;
 		HGLRC context;
 #elif defined( OOGL_PLATFORM_LINUX )
-		Context( uint color, uint depth, uint stencil, uint antialias, Display* display, int screen, ::Window window );
+		Context( uchar color, uchar depth, uchar stencil, uint antialias, Display* display, int screen, ::Window window );
 
 
 		GLXWindow glxWindow;

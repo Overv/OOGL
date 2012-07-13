@@ -26,7 +26,7 @@
 
 namespace GL
 {
-	Context::Context( uint color, uint depth, uint stencil, uint antialias, HDC dc )
+	Context::Context( uchar color, uchar depth, uchar stencil, uint antialias, HDC dc )
 	{
 		// Create dummy window
 		HWND dummyWindow = CreateWindowA( "STATIC", "", WS_POPUP | WS_DISABLED, 0, 0, 1, 1, NULL, NULL, GetModuleHandle( NULL ), NULL );

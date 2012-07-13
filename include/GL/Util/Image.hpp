@@ -70,8 +70,8 @@ namespace GL
 	public:
 		Image();
 
-		Image( uint width, uint height, const Color& background );
-		Image( uint width, uint height, uchar* pixels );
+		Image( ushort width, ushort height, const Color& background );
+		Image( ushort width, ushort height, uchar* pixels );
 		Image( const std::string& filename );
 
 		~Image();
@@ -79,8 +79,8 @@ namespace GL
 		void Load( const std::string& filename );
 		void Save( const std::string& filename, ImageFileFormat::image_file_format_t format );
 
-		uint GetWidth() const;
-		uint GetHeight() const;
+		ushort GetWidth() const;
+		ushort GetHeight() const;
 		const Color* GetPixels() const;
 
 		Color GetPixel( uint x, uint y ) const;
@@ -88,15 +88,15 @@ namespace GL
 
 	private:
 		Color* image;
-		uint width, height;
+		ushort width, height;
 		
 		void LoadBMP( ByteReader& data );
 		void SaveBMP( const std::string& filename );
 
 		void LoadTGA( ByteReader& data );
-		void DecodeRLE( ByteReader& data, uint decodedLength, uint bytesPerPixel );
+		void DecodeRLE( ByteReader& data, uint decodedLength, uchar bytesPerPixel );
 		void SaveTGA( const std::string& filename );
-		void EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, uint width );
+		void EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, ushort width );
 	};
 }
 

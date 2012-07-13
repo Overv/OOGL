@@ -31,17 +31,17 @@ namespace GL
 		height = 0;
 	}
 
-	Image::Image( uint width, uint height, const Color& background )
+	Image::Image( ushort width, ushort height, const Color& background )
 	{
 		image = new Color[ width * height ];
-		for ( uint i = 0; i < width * height; i++ )
+		for ( uint i = 0; i < (uint)( width * height ); i++ )
 			image[i] = background;
 
 		this->width = width;
 		this->height = height;
 	}
 
-	Image::Image( uint width, uint height, uchar* pixels )
+	Image::Image( ushort width, ushort height, uchar* pixels )
 	{
 		image = new Color[ width * height ];
 
@@ -110,12 +110,12 @@ namespace GL
 			throw FormatException();
 	}
 
-	uint Image::GetWidth() const
+	ushort Image::GetWidth() const
 	{
 		return width;
 	}
 
-	uint Image::GetHeight() const
+	ushort Image::GetHeight() const
 	{
 		return height;
 	}
@@ -145,9 +145,9 @@ namespace GL
 
 		// DIB header
 		if ( data.ReadUint() != 40 ) throw FormatException(); // Only version 1 is currently supported
-		uint width = data.ReadUint();
+		ushort width = (ushort)data.ReadUint();
 		int rawHeight = data.ReadInt();
-		uint height = abs( rawHeight );
+		ushort height = (ushort)abs( rawHeight );
 		if ( width == 0 || height == 0 ) throw FormatException();
 		if ( data.ReadUshort() != 1 ) throw FormatException(); // Color planes
 		if ( data.ReadUshort() != 24 ) throw FormatException(); // Bits per pixel
@@ -163,9 +163,9 @@ namespace GL
 
 		image = new Color[ width * height ];
 		
-		for ( uint y = 0; y < height; y++ )
+		for ( ushort y = 0; y < height; y++ )
 		{
-			for ( uint x = 0; x < width; x++ )
+			for ( ushort x = 0; x < width; x++ )
 			{
 				uint o = rawHeight > 0 ? x + ( height - y - 1 ) * width : x + y * width; // Flip image vertically if height is negative
 				image[ o ] = Color( data.PeekByte( 2 ), data.PeekByte( 1 ), data.PeekByte( 0 ) ); // BGR byte order
@@ -204,9 +204,9 @@ namespace GL
 		data.WriteUint( 0 ); // Important colors
 
 		// Pixel data
-		for ( int y = height - 1; y >= 0; y-- )
+		for ( short y = height - 1; y >= 0; y-- )
 		{
-			for ( uint x = 0; x < width; x++ )
+			for ( ushort x = 0; x < width; x++ )
 			{
 				Color& col = image[ x + y * width ];
 				data.WriteUbyte( col.B );
@@ -234,11 +234,11 @@ namespace GL
 		if ( type != 2 && type != 10 ) throw FormatException(); // Image type not true-color
 		data.Advance( 5 ); // Color map info, ignored
 		data.Advance( 4 ); // XY offset, ignored
-		uint width = data.ReadUshort();
-		uint height = data.ReadUshort();
+		ushort width = data.ReadUshort();
+		ushort height = data.ReadUshort();
 		uchar depth = data.ReadUbyte();
 		if ( depth != 24 && depth != 32 ) throw FormatException(); // Not RGB(A)
-		uint bytesPerPixel = depth / 8;
+		uchar bytesPerPixel = depth / 8;
 		uchar descriptor = data.ReadUbyte();
 		if ( ( depth == 24 && descriptor != 0 ) || ( depth == 32 && descriptor != 8 ) ) throw FormatException(); // Check for alpha channel if bit depth is 32
 
@@ -266,7 +266,7 @@ namespace GL
 		this->height = height;
 	}
 
-	void Image::DecodeRLE( ByteReader& data, uint decodedLength, uint bytesPerPixel )
+	void Image::DecodeRLE( ByteReader& data, uint decodedLength, uchar bytesPerPixel )
 	{
 		std::vector<uchar> buffer;
 
@@ -347,7 +347,7 @@ namespace GL
 	{
 		if ( backlog.size() > 0 )
 		{
-			data.WriteUbyte( 0x80 + backlog.size() - 1 );
+			data.WriteUbyte( 0x80 + (uchar)backlog.size() - 1 );
 
 			data.WriteUbyte( backlog[0].B );
 			data.WriteUbyte( backlog[0].G );
@@ -361,7 +361,7 @@ namespace GL
 	{
 		if ( backlog.size() > 1 )
 		{
-			data.WriteUbyte( backlog.size() - 2 );
+			data.WriteUbyte( (uchar)backlog.size() - 2 );
 
 			for ( uint i = 0; i < backlog.size() - 1; i++ )
 			{
@@ -376,7 +376,7 @@ namespace GL
 		}
 	}
 
-	void Image::EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, uint width )
+	void Image::EncodeRLE( ByteWriter& data, std::vector<uchar>& pixels, ushort width )
 	{
 		std::vector<Color> backlog;
 		Color lastColor;
@@ -396,7 +396,7 @@ namespace GL
 				flushRLE( data, backlog );
 				rleMode = false;
 			}
-			else if ( backlog.size() == 127 )
+			else if ( backlog.size() == 127 || ( i % width == 0 ) )
 			{
 				if ( rleMode )
 					flushRLE( data, backlog );
