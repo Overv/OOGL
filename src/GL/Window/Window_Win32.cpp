@@ -165,7 +165,7 @@ namespace GL
 		return true;
 	}
 
-	Context& Window::GetContext( uint color, uint depth, uint stencil, uint antialias )
+	Context& Window::GetContext( uchar color, uchar depth, uchar stencil, uchar antialias )
 	{
 		if ( context )
 			return *context;

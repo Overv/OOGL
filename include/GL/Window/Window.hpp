@@ -87,7 +87,7 @@ namespace GL
 		bool IsMouseButtonDown( MouseButton::mouse_button_t button );
 		bool IsKeyDown( Key::key_t key );
 
-		Context& GetContext( uint color = 32, uint depth = 24, uint stencil = 8, uint antialias = 1 );
+		Context& GetContext( uchar color = 32, uchar depth = 24, uchar stencil = 8, uchar antialias = 1 );
 		void Present();
 
 	private:
