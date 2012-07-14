@@ -21,8 +21,8 @@
 
 #pragma once
 
-#ifndef OOGL_LINK_HPP
-#define OOGL_LINK_HPP
+#ifndef OOGL_PROGRAM_HPP
+#define OOGL_PROGRAM_HPP
 
 #include <GL/Platform.hpp>
 #include <GL/GL/Extensions.hpp>

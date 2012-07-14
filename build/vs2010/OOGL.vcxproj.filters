@@ -141,6 +141,9 @@
     <ClInclude Include="..\..\src\GL\Util\zlib\zutil.h">
       <Filter>Source Files\Util\zlib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\GL\Texture.hpp">
+      <Filter>Header Files\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
@@ -406,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GL\Util\zlib\zutil.c">
       <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\GL\Texture.cpp">
+      <Filter>Source Files\GL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -24,10 +24,10 @@
 
 namespace GL
 {
-	void Context::ClearColor( float r, float g, float b, float a )
+	void Context::ClearColor( const Color& col )
 	{
 		Activate();
-		glClearColor( r, g, b, a );
+		glClearColor( col.R / 255.0f, col.G / 255.0f, col.B / 255.0f, col.A / 255.0f );
 	}
 
 	void Context::Clear( Buffer::buffer_t buffers )

@@ -19,57 +19,9 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_PLATFORM_HPP
-#define OOGL_PLATFORM_HPP
-
-/*
-	Platform identification
-*/
-
-#if defined( _WIN32 )
-	#define OOGL_PLATFORM_WINDOWS
-	#include <Windows.h>
-	#include <WindowsX.h>
-	#include <GL/GL.h>
-#elif defined( __linux__ )
-	#define OOGL_PLATFORM_LINUX
-	#include <X11/Xlib.h>
-	#include <GL/gl.h>
-	#include <GL/glx.h>
-#elif defined( __APPLE__ )
-	#define OOGL_PLATFORM_OSX
-#endif
-
-/*
-	Types
-*/
+#include <GL/GL/Texture.hpp>
 
 namespace GL
 {
-	typedef unsigned char uchar;
-	typedef unsigned short ushort;
-	typedef unsigned int uint;
-	typedef unsigned long ulong;
-
-	namespace Type
-	{
-		enum type_t
-		{
-			Byte = GL_BYTE,
-			UnsignedByte = GL_UNSIGNED_BYTE,
-			Short = GL_SHORT,
-			UnsignedShort = GL_UNSIGNED_SHORT,
-			Int = GL_INT,
-			UnsignedInt = GL_UNSIGNED_INT,
-			Float = GL_FLOAT,
-			Double = GL_DOUBLE
-		};
-	}
-
-	typedef GLint Attribute;
-	typedef GLint Uniform;
+	
 }
-
-#endif

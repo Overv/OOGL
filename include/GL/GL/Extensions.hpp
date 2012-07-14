@@ -236,6 +236,14 @@ typedef void ( APIENTRYP GLVERTEXATTRIBPOINTER ) ( GLuint index, GLint size, GLe
 extern GLVERTEXATTRIBPOINTER glVertexAttribPointer;
 
 /*
+	Textures
+*/
+
+#define GL_CLAMP_TO_EDGE 0x812F
+#define GL_CLAMP_TO_BORDER 0x812D
+#define GL_MIRRORED_REPEAT 0x8370
+
+/*
 	Extension loader
 */
 
