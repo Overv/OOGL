@@ -95,7 +95,9 @@ GLENABLEVERTEXATTRIBARRAY glEnableVertexAttribArray;
 GLVERTEXATTRIBPOINTER glVertexAttribPointer;
 
 GLGENERATEMIPMAP glGenerateMipmap;
+#ifdef OOGL_PLATFORM_WINDOWS
 GLACTIVETEXTURE glActiveTexture;
+#endif
 
 namespace GL
 {
@@ -189,6 +191,8 @@ namespace GL
 		glVertexAttribPointer = (GLVERTEXATTRIBPOINTER)LoadExtension( "glVertexAttribPointer" );
 
 		glGenerateMipmap = (GLGENERATEMIPMAP)LoadExtension( "glGenerateMipmap" );
+#ifdef OOGL_PLATFORM_WINDOWS
 		glActiveTexture = (GLACTIVETEXTURE)LoadExtension( "glActiveTexture" );
+#endif
 	}
 }
