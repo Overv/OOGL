@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 4127 )
+#endif
 
 /* crc32.c -- compute the CRC-32 of a data stream
  * Copyright (C) 1995-2005 Mark Adler

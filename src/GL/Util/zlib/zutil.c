@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 )
+#endif
 
 /* zutil.c -- target dependent utility functions for the compression library
  * Copyright (C) 1995-2005 Jean-loup Gailly.

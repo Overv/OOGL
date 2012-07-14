@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4100 )
+#endif
 
 /*
  * jmemnobs.c

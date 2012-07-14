@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 )
+#endif
 
 /* compress.c -- compress a memory buffer
  * Copyright (C) 1995-2003 Jean-loup Gailly.
