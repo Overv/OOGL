@@ -20,7 +20,7 @@
 */
 
 // libpng
-#ifdef OOGL_PLATFORM_WINDOWS
+#ifdef _MSC_VER
 #pragma warning( disable : 4611 )
 #endif
 
@@ -539,7 +539,7 @@ namespace GL
 		png_structp png = png_create_read_struct( PNG_LIBPNG_VER_STRING, NULL, NULL, NULL );
 		png_infop info = png_create_info_struct( png );
 
-		setjmp( png_jmpbuf( png ) ); // Fix this!
+		setjmp( png_jmpbuf( png ) );
 
 		png_set_read_fn( png, (void*)&data, &readPNG );
 
@@ -583,7 +583,7 @@ namespace GL
 		png_structp png = png_create_write_struct( PNG_LIBPNG_VER_STRING, NULL, NULL, NULL );
 		png_infop info = png_create_info_struct( png );
 
-		setjmp( png_jmpbuf( png ) ); // Fix this!
+		setjmp( png_jmpbuf( png ) );
 
 		// Configure image
 		png_init_io( png, file );

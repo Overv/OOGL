@@ -1,4 +1,4 @@
-#ifdef OOGL_PLATFORM_WINDOWS
+#ifdef _MSC_VER
 #pragma warning( disable : 4131 4127 )
 #endif
 
