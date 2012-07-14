@@ -6,55 +6,56 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 
 ## Sample
 
-	#include <GL/OOGL.hpp>
-	#include <ctime>
-	#include <cmath>
-		 
-	int main()
+```c++
+#include <GL/OOGL.hpp>
+#include <ctime>
+#include <cmath>
+	 
+int main()
+{
+	GL::Window window( 800, 600, "OpenGL Window", GL::WindowStyle::Close );
+	GL::Context& gl = window.GetContext();
+
+	GL::Shader vert( GL::ShaderType::Vertex, "#version 150\nin vec2 position; void main() { gl_Position = vec4( position, 0.0, 1.0 ); }" );
+	GL::Shader frag( GL::ShaderType::Fragment, "#version 150\nout vec4 outColor; uniform float factor; void main() { outColor = vec4( factor, 0.0, 0.0, 1.0 ); }" );
+	GL::Program program( vert, frag );
+
+	float vertices[] = {
+		-0.5f,  0.5f,
+		 0.5f,  0.5f,
+		 0.5f, -0.5f,
+		-0.5f, -0.5f
+	};
+	GL::VertexBuffer vbo( vertices, sizeof( vertices ), GL::BufferUsage::StaticDraw );
+
+	unsigned short indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+	GL::VertexBuffer ebo( indices, sizeof( indices ), GL::BufferUsage::StaticDraw );
+		
+	GL::VertexArray vao;
+	vao.BindAttribute( program.GetAttribute( "position" ), vbo, GL::Type::Float, 2, 0, 0 );
+	vao.BindElements( ebo );
+
+	GL::Event ev;
+	float lastValue = 0.0f;
+	while ( window.IsOpen() )
 	{
-		GL::Window window( 800, 600, "OpenGL Window", GL::WindowStyle::Close );
-		GL::Context& gl = window.GetContext();
-		gl.SetVerticalSync( false );
+		while ( window.GetEvent( ev ) );
 
-		GL::Shader vert( GL::ShaderType::Vertex, "#version 150\nin vec2 position; void main() { gl_Position = vec4( position, 0.0, 1.0 ); }" );
-		GL::Shader frag( GL::ShaderType::Fragment, "#version 150\nout vec4 outColor; uniform float factor; void main() { outColor = vec4( factor, 0.0, 0.0, 1.0 ); }" );
-		GL::Program program( vert, frag );
+		gl.Clear();
+		
+		program.SetUniform( program.GetUniform( "factor" ), sin( clock() / (float)CLOCKS_PER_SEC * 5.0f ) / 2.0f + 0.5f );
 
-		float vertices[] = {
-			-0.5f,  0.5f,
-			 0.5f,  0.5f,
-			 0.5f, -0.5f,
-			-0.5f, -0.5f
-		};
-		GL::VertexBuffer vbo( vertices, sizeof( vertices ), GL::BufferUsage::StaticDraw );
+		gl.DrawElements( vao, GL::Primitive::Triangle, 0, 6, GL::Type::UnsignedShort );
 
-		unsigned short indices[] = {
-			0, 1, 2,
-			2, 3, 0
-		};
-		GL::VertexBuffer ebo( indices, sizeof( indices ), GL::BufferUsage::StaticDraw );
-			
-		GL::VertexArray vao;
-		vao.BindAttribute( program.GetAttribute( "position" ), vbo, GL::Type::Float, 2, 0, 0 );
-		vao.BindElements( ebo );
-
-		GL::Event ev;
-		float lastValue = 0.0f;
-		while ( window.IsOpen() )
-		{
-			while ( window.GetEvent( ev ) );
-
-			gl.Clear();
-			
-			program.SetUniform( program.GetUniform( "factor" ), sin( clock() / (float)CLOCKS_PER_SEC * 5.0f ) / 2.0f + 0.5f );
-
-			gl.DrawElements( vao, GL::Primitive::Triangle, 0, 6, GL::Type::UnsignedShort );
-
-			window.Present();
-		}
-
-		return 0;
+		window.Present();
 	}
+
+	return 0;
+}
+```
 
 To compile after building OOGL:
 
