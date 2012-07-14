@@ -99,6 +99,13 @@ namespace GL
 				return INT_MIN + val - INT_MAX - 1;
 		}
 
+		void Read( uchar* dest, uint length )
+		{
+			for ( uint i = 0; i < length; i++ )
+				dest[i] = buffer[ptr+i];
+			ptr += length;
+		}
+
 	private:
 		uchar* buffer;
 		uint length;

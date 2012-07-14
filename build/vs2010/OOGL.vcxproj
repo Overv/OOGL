@@ -30,6 +30,18 @@
     <ClInclude Include="..\..\include\GL\Util\Image.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Event.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Window.hpp" />
+    <ClInclude Include="..\..\src\GL\Util\libpng\png.h" />
+    <ClInclude Include="..\..\src\GL\Util\libpng\pngconf.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\crc32.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\deflate.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\inffast.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\inffixed.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\inflate.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\inftrees.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\trees.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\zconf.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\zlib.h" />
+    <ClInclude Include="..\..\src\GL\Util\zlib\zutil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\GL\Context.cpp" />
@@ -91,6 +103,33 @@
     <ClCompile Include="..\..\src\GL\Util\libjpeg\jquant1.c" />
     <ClCompile Include="..\..\src\GL\Util\libjpeg\jquant2.c" />
     <ClCompile Include="..\..\src\GL\Util\libjpeg\jutils.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\png.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngerror.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pnggccrd.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngget.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngmem.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngpread.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngread.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngrio.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngrtran.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngrutil.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngset.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngtrans.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngvcrd.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwio.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwrite.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwtran.c" />
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwutil.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\adler32.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\compress.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\crc32.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\deflate.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\inffast.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\inflate.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\inftrees.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\trees.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\uncompr.c" />
+    <ClCompile Include="..\..\src\GL\Util\zlib\zutil.c" />
     <ClCompile Include="..\..\src\GL\Window\Window.cpp" />
     <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp" />
   </ItemGroup>

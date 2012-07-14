@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Util\libjpeg">
       <UniqueIdentifier>{3edc7525-9a50-473e-86d4-98b4ecd3c853}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Util\libpng">
+      <UniqueIdentifier>{feb94dd3-322e-48b5-84b3-e9c1c89b4814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util\zlib">
+      <UniqueIdentifier>{100d2b00-44b7-43e4-9c08-1f5a5e22b24f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\GL\OOGL.hpp">
@@ -98,6 +104,42 @@
     </ClInclude>
     <ClInclude Include="..\..\include\GL\Util\ByteBuffer.hpp">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\libpng\png.h">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\libpng\pngconf.h">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\crc32.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\deflate.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\inffast.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\inffixed.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\inflate.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\inftrees.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\trees.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\zconf.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\zlib.h">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GL\Util\zlib\zutil.h">
+      <Filter>Source Files\Util\zlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +325,87 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GL\Util\libjpeg\jutils.c">
       <Filter>Source Files\Util\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\png.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngerror.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pnggccrd.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngget.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngmem.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngpread.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngread.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngrio.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngrtran.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngrutil.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngset.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngtrans.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngvcrd.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwio.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwrite.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwtran.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\libpng\pngwutil.c">
+      <Filter>Source Files\Util\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\adler32.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\compress.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\crc32.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\deflate.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\inffast.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\inflate.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\inftrees.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\trees.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\uncompr.c">
+      <Filter>Source Files\Util\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\Util\zlib\zutil.c">
+      <Filter>Source Files\Util\zlib</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

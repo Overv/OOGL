@@ -41,7 +41,8 @@ namespace GL
 		{
 			BMP,
 			TGA,
-			JPEG
+			JPEG,
+			PNG
 		};
 	}
 
@@ -101,6 +102,9 @@ namespace GL
 
 		void LoadJPEG( ByteReader& data );
 		void SaveJPEG( const std::string& filename );
+
+		void LoadPNG( ByteReader& data );
+		void SavePNG( const std::string& filename );
 	};
 }
 

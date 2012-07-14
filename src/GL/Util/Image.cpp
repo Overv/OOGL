@@ -21,6 +21,7 @@
 
 #include <GL/Util/Image.hpp>
 #include <GL/Util/libjpeg/jpeglib.h>
+#include <GL/Util/libpng/png.h>
 #include <fstream>
 #include <cstring>
 #include <cstdlib>
@@ -99,6 +100,8 @@ namespace GL
 			LoadTGA( data );
 		else if ( data.PeekByte( 0 ) == 0xFF && data.PeekByte( 1 ) == 0xD8 )
 			LoadJPEG( data );
+		else if ( data.Compare( 0, 4, (const uchar*)"\x89PNG" ) )
+			LoadPNG( data );
 		else
 			throw FormatException();
 	}
@@ -113,6 +116,8 @@ namespace GL
 			SaveTGA( filename );
 		else if ( format == ImageFileFormat::JPEG )
 			SaveJPEG( filename );
+		else if ( format == ImageFileFormat::PNG )
+			SavePNG( filename );
 		else
 			throw FormatException();
 	}
@@ -152,10 +157,11 @@ namespace GL
 
 		// DIB header
 		if ( data.ReadUint() != 40 ) throw FormatException(); // Only version 1 is currently supported
-		ushort width = (ushort)data.ReadUint();
+		uint width = data.ReadUint();
 		int rawHeight = data.ReadInt();
-		ushort height = (ushort)abs( rawHeight );
+		uint height = abs( rawHeight );
 		if ( width == 0 || height == 0 ) throw FormatException();
+		if ( width > USHRT_MAX || height > USHRT_MAX ) throw FormatException();
 		if ( data.ReadUshort() != 1 ) throw FormatException(); // Color planes
 		if ( data.ReadUshort() != 24 ) throw FormatException(); // Bits per pixel
 		if ( data.ReadUint() != 0 ) throw FormatException(); // Compression
@@ -181,8 +187,8 @@ namespace GL
 			}
 		}
 
-		this->width = width;
-		this->height = height;
+		this->width = (ushort)width;
+		this->height = (ushort)height;
 	}
 
 	void Image::SaveBMP( const std::string& filename )
@@ -436,6 +442,8 @@ namespace GL
 
 		// JPEG header
 		jpeg_read_header( &cinfo, true );
+		if ( cinfo.output_width > USHRT_MAX ) throw FormatException();
+		if ( cinfo.output_height > USHRT_MAX ) throw FormatException();
 
 		// Pixel data
 		jpeg_start_decompress( &cinfo );
@@ -445,11 +453,11 @@ namespace GL
 
 		image = new Color[ cinfo.output_width * cinfo.output_height ];
 
-		for ( uint y = 0; y < cinfo.output_height; y++ )
+		for ( ushort y = 0; y < cinfo.output_height; y++ )
 		{
 			jpeg_read_scanlines( &cinfo, buffer, 1 );
 			
-			for ( uint x = 0; x < cinfo.output_width; x++ )
+			for ( ushort x = 0; x < cinfo.output_width; x++ )
 				image[ x + y * cinfo.output_width ] = Color( buffer[0][x*3+0], buffer[0][x*3+1], buffer[0][x*3+2] );
 		}
 
@@ -510,6 +518,98 @@ namespace GL
 		jpeg_finish_compress( &cinfo );
 
 		jpeg_destroy_compress( &cinfo );
+
+		fclose( file );
+	}
+
+	void readPNG( png_structp png_ptr, png_bytep dest, png_size_t length )
+	{
+		ByteReader& data = *(ByteReader*)png_ptr->io_ptr;
+		data.Read( dest, length );
+	}
+
+#pragma warning( disable : 4611 )
+
+	void Image::LoadPNG( ByteReader& data )
+	{		
+		// Initialize structures
+		png_structp png = png_create_read_struct( PNG_LIBPNG_VER_STRING, NULL, NULL, NULL );
+		png_infop info = png_create_info_struct( png );
+
+		setjmp( png_jmpbuf( png ) ); // Fix this!
+
+		png_set_read_fn( png, (void*)&data, &readPNG );
+
+		// Header
+		png_read_info( png, info );
+		if ( info->width > USHRT_MAX ) throw FormatException();
+		if ( info->height > USHRT_MAX ) throw FormatException();
+
+		// Pixel data
+		image = new Color[ info->width * info->height ];
+
+		png_uint_32 rowLength = png_get_rowbytes( png, info );
+		std::vector<uchar> row( rowLength );
+
+		for ( ushort y = 0; y < info->height; y++ )
+		{
+			png_read_row( png, &row[0], NULL );
+
+			if ( info->color_type == PNG_COLOR_TYPE_RGB )
+				for ( ushort x = 0; x < info->width; x++ )
+					image[ x + y * info->width ] = Color( row[x*3+0], row[x*3+1], row[x*3+2] );
+			else if ( info->color_type == PNG_COLOR_TYPE_RGBA )
+				for ( ushort x = 0; x < info->width; x++ )
+					image[ x + y * info->width ] = Color( row[x*3+0], row[x*3+1], row[x*3+2] );
+			else
+				throw FormatException();
+		}
+
+		width = (ushort)info->width;
+		height = (ushort)info->height;
+
+		png_destroy_read_struct( &png, &info, NULL );
+	}
+
+	void Image::SavePNG( const std::string& filename )
+	{
+		FILE* file = fopen( filename.c_str(), "wb" );
+		if ( !file ) throw FileException();
+
+		// Initialize structures
+		png_structp png = png_create_write_struct( PNG_LIBPNG_VER_STRING, NULL, NULL, NULL );
+		png_infop info = png_create_info_struct( png );
+
+		setjmp( png_jmpbuf( png ) ); // Fix this!
+
+		// Configure image
+		png_init_io( png, file );
+		png_set_IHDR( png, info, width, height, 8, PNG_COLOR_TYPE_RGB_ALPHA, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE );
+		png_write_info( png, info );
+
+		// Prepare pixel data
+		std::vector<uchar> pixelData;
+		pixelData.reserve( width * height * 4 );
+
+		for ( ushort y = 0; y < height; y++ )
+		{
+			for ( ushort x = 0; x < width; x++ )
+			{
+				Color& col = image[ x + y * width ];
+				pixelData.push_back( col.R );
+				pixelData.push_back( col.G );
+				pixelData.push_back( col.B );
+				pixelData.push_back( col.A );
+			}
+		}
+
+		// Write rows
+		for ( ushort y = 0; y < height; y++ )
+			png_write_row( png, &pixelData[ y * width * 4 ] );
+
+		png_write_end( png, info );
+
+		png_destroy_write_struct( &png, &info );
 
 		fclose( file );
 	}
