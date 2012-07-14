@@ -29,6 +29,8 @@
 #include <exception>
 #include <string>
 
+#define GLSL( x ) "#version 150\n" #x
+
 namespace GL
 {
 	/*
