@@ -21,7 +21,121 @@
 
 #include <GL/GL/Texture.hpp>
 
+#define PUSHSTATE() GLint restoreId; glGetIntegerv( GL_TEXTURE_BINDING_2D, &restoreId );
+#define POPSTATE() glBindTexture( GL_TEXTURE_2D, restoreId );
+
 namespace GL
 {
+	Texture::Texture()
+	{
+		glGenTextures( 1, &id );
+	}
+
+	Texture::Texture( const Image& image, const InternalFormat::internal_format_t& internalFormat )
+	{
+		PUSHSTATE()
+
+		glGenTextures( 1, &id );
+		glBindTexture( GL_TEXTURE_2D, id );
+		
+		glTexImage2D( GL_TEXTURE_2D, 0, internalFormat, image.GetWidth(), image.GetHeight(), 0, Format::RGBA, DataType::UnsignedByte, image.GetPixels() );
+
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+		glGenerateMipmap( GL_TEXTURE_2D );
+
+		POPSTATE()
+	}
+
+	Texture::~Texture()
+	{
+		glDeleteTextures( 1, &id );
+	}
+
+	Texture::operator GLuint() const
+	{
+		return id;
+	}
+
+	void Texture::Image2D( const GLvoid* data, const DataType::data_type_t& type, const Format::format_t& format, uint width, uint height, const InternalFormat::internal_format_t& internalFormat )
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		glTexImage2D( GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, data );
+
+		POPSTATE()
+	}
+
+	void Texture::SetWrapping( const Wrapping::wrapping_t& s )
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, s );
+
+		glBindTexture( GL_TEXTURE_2D, restoreId );
+
+		POPSTATE()
+	}
+
+	void Texture::SetWrapping( const Wrapping::wrapping_t& s, const Wrapping::wrapping_t& t )
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, s );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, t );
+
+		glBindTexture( GL_TEXTURE_2D, restoreId );
+
+		POPSTATE()
+	}
+
+	void Texture::SetWrapping( const Wrapping::wrapping_t& s, const Wrapping::wrapping_t& t, const Wrapping::wrapping_t& r )
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, s );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, t );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, r );
+
+		POPSTATE()
+	}
+
+	void Texture::SetFilters( const Filter::filter_t& min, const Filter::filter_t& mag )
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag );
+
+		POPSTATE()
+	}
+
+	void Texture::SetBorderColor( const Color& color )
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		float col[4] = { color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f };
+		glTexParameterfv( GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, col );
+
+		POPSTATE()
+	}
 	
+	void Texture::GenerateMipmaps()
+	{
+		PUSHSTATE()
+
+		glBindTexture( GL_TEXTURE_2D, id );
+		glGenerateMipmap( GL_TEXTURE_2D );
+
+		POPSTATE()
+	}
 }

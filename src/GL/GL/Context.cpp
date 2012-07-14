@@ -26,19 +26,23 @@ namespace GL
 {
 	void Context::ClearColor( const Color& col )
 	{
-		Activate();
 		glClearColor( col.R / 255.0f, col.G / 255.0f, col.B / 255.0f, col.A / 255.0f );
 	}
 
 	void Context::Clear( Buffer::buffer_t buffers )
 	{
-		Activate();
 		glClear( buffers );
 	}
 
-	void Context::Use( const Program& program )
+	void Context::UseProgram( const Program& program )
 	{
 		glUseProgram( program );
+	}
+
+	void Context::BindTexture( const Texture& texture, uchar unit )
+	{
+		glActiveTexture( GL_TEXTURE0 + unit );
+		glBindTexture( GL_TEXTURE_2D, texture );
 	}
 
 	void Context::DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices )

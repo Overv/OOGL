@@ -27,6 +27,7 @@
 #include <GL/Platform.hpp>
 #include <GL/GL/Program.hpp>
 #include <GL/GL/VertexArray.hpp>
+#include <GL/GL/Texture.hpp>
 #include <GL/Util/Color.hpp>
 #include <exception>
 
@@ -95,7 +96,9 @@ namespace GL
 		void ClearColor( const Color& col );
 		void Clear( Buffer::buffer_t buffers = Buffer::Color | Buffer::Depth );
 
-		void Use( const Program& program );
+		void UseProgram( const Program& program );
+
+		void BindTexture( const Texture& texture, uchar unit );
 
 		void DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices );
 		void DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type );

@@ -94,6 +94,9 @@ GLBINDVERTEXARRAY glBindVertexArray;
 GLENABLEVERTEXATTRIBARRAY glEnableVertexAttribArray;
 GLVERTEXATTRIBPOINTER glVertexAttribPointer;
 
+GLGENERATEMIPMAP glGenerateMipmap;
+GLACTIVETEXTURE glActiveTexture;
+
 namespace GL
 {
 	bool extensionsLoaded = false;
@@ -184,5 +187,8 @@ namespace GL
 
 		glEnableVertexAttribArray = (GLENABLEVERTEXATTRIBARRAY)LoadExtension( "glEnableVertexAttribArray" );
 		glVertexAttribPointer = (GLVERTEXATTRIBPOINTER)LoadExtension( "glVertexAttribPointer" );
+
+		glGenerateMipmap = (GLGENERATEMIPMAP)LoadExtension( "glGenerateMipmap" );
+		glActiveTexture = (GLACTIVETEXTURE)LoadExtension( "glActiveTexture" );
 	}
 }

@@ -58,6 +58,7 @@
 #include <GL/GL/Program.hpp>
 #include <GL/GL/VertexBuffer.hpp>
 #include <GL/GL/VertexArray.hpp>
+#include <GL/GL/Texture.hpp>
 
 /*
 	Utilities

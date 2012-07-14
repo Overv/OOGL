@@ -73,6 +73,7 @@ namespace GL
 		Attribute GetAttribute( const std::string& name );
 		Uniform GetUniform( const std::string& name );
 
+		void SetUniform( const Uniform& uniform, int value );
 		void SetUniform( const Uniform& uniform, float value );
 		void SetUniform( const Uniform& uniform, const Vec2& value );
 		void SetUniform( const Uniform& uniform, const Vec3& value );

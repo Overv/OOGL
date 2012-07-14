@@ -563,7 +563,7 @@ namespace GL
 					image[ x + y * info->width ] = Color( row[x*3+0], row[x*3+1], row[x*3+2] );
 			else if ( info->color_type == PNG_COLOR_TYPE_RGBA )
 				for ( ushort x = 0; x < info->width; x++ )
-					image[ x + y * info->width ] = Color( row[x*3+0], row[x*3+1], row[x*3+2] );
+					image[ x + y * info->width ] = Color( row[x*4+0], row[x*4+1], row[x*4+2], row[x*4+3] );
 			else
 				throw FormatException();
 		}

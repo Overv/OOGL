@@ -89,6 +89,11 @@ namespace GL
 		return glGetUniformLocation( id, name.c_str() );
 	}
 
+	void Program::SetUniform( const Uniform& uniform, int value )
+	{
+		glUniform1i( uniform, value );
+	}
+
 	void Program::SetUniform( const Uniform& uniform, float value )
 	{
 		glUniform1f( uniform, value );
