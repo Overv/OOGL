@@ -19,6 +19,9 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
+// libpng
+#pragma warning( disable : 4611 )
+
 #include <GL/Util/Image.hpp>
 #include <GL/Util/libjpeg/jpeglib.h>
 #include <GL/Util/libpng/png.h>
@@ -527,8 +530,6 @@ namespace GL
 		ByteReader& data = *(ByteReader*)png_ptr->io_ptr;
 		data.Read( dest, length );
 	}
-
-#pragma warning( disable : 4611 )
 
 	void Image::LoadPNG( ByteReader& data )
 	{		
