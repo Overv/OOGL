@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 )
+#endif
 
 /* adler32.c -- compute the Adler-32 checksum of a data stream
  * Copyright (C) 1995-2004 Mark Adler

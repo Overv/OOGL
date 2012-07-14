@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4244 )
+#endif
 
 /*
  * jdhuff.c

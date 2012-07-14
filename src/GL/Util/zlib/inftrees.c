@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 )
+#endif
 
 /* inftrees.c -- generate Huffman trees for efficient decoding
  * Copyright (C) 1995-2005 Mark Adler

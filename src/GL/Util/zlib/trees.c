@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 4244 )
+#endif
 
 /* trees.c -- output deflated data using Huffman coding
  * Copyright (C) 1995-2005 Jean-loup Gailly

@@ -1,6 +1,7 @@
 # Parameters
 
 CC = g++
+CCC = gcc
 CCFLAGS = -O3 -Wall -Wextra -Werror
 
 # Final library
@@ -66,13 +67,13 @@ bin/Image.o: src/GL/Util/Image.cpp
 	$(CC) $(CCFLAGS) -c src/GL/Util/Image.cpp -o bin/Image.o -I include -I src
 
 bin/%.o: src/GL/Util/libjpeg/%.c
-	$(CC) -O3 -Werror -c $< -o $(patsubst src/GL/Util/libjpeg/%.c,bin/%.o,$<)
+	$(CCC) -O3 -c $< -o $(patsubst src/GL/Util/libjpeg/%.c,bin/%.o,$<)
 
 bin/%.o: src/GL/Util/libpng/%.c
-	$(CC) -O3 -Werror -c $< -o $(patsubst src/GL/Util/libpng/%.c,bin/%.o,$<)
+	$(CCC) -O3 -c $< -o $(patsubst src/GL/Util/libpng/%.c,bin/%.o,$<)
 
 bin/%.o: src/GL/Util/zlib/%.c
-	$(CC) -O3 -Werror -c $< -o $(patsubst src/GL/Util/zlib/%.c,bin/%.o,$<)
+	$(CCC) -O3 -c $< -o $(patsubst src/GL/Util/zlib/%.c,bin/%.o,$<)
 
 # Clean
 clean:

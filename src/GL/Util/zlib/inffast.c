@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 )
+#endif
 
 /* inffast.c -- fast decoding
  * Copyright (C) 1995-2004 Mark Adler

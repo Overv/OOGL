@@ -20,7 +20,9 @@
 */
 
 // libpng
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4611 )
+#endif
 
 #include <GL/Util/Image.hpp>
 #include <GL/Util/libjpeg/jpeglib.h>

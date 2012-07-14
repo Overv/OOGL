@@ -1,4 +1,6 @@
+#ifdef OOGL_PLATFORM_WINDOWS
 #pragma warning( disable : 4131 4127 4244 )
+#endif
 
 /* inflate.c -- zlib decompression
  * Copyright (C) 1995-2005 Mark Adler
