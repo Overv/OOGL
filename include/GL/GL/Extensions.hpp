@@ -280,9 +280,10 @@ extern GLVERTEXATTRIBPOINTER glVertexAttribPointer;
 
 typedef void ( APIENTRYP GLGENERATEMIPMAP ) ( GLenum target );
 extern GLGENERATEMIPMAP glGenerateMipmap;
-#ifdef OOGL_PLATFORM_WINDOWS
-typedef void ( APIENTRYP GLACTIVETEXTURE ) ( GLenum texture );
-extern GLACTIVETEXTURE glActiveTexture;
+
+#ifndef GL_VERSION_1_3
+	typedef void ( APIENTRYP GLACTIVETEXTURE ) ( GLenum texture );
+	extern GLACTIVETEXTURE glActiveTexture;
 #endif
 
 /*

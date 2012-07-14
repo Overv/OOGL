@@ -8,6 +8,7 @@
 *.tlog
 *.idb
 *.pdb
+*.suo
 
 # Binaries
 
