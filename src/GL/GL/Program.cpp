@@ -129,12 +129,12 @@ namespace GL
 		glUniform4fv( uniform, count, (float*)values );
 	}
 
-	void Program::SetUniformMatrix( const Uniform& uniform, const Mat3& value )
+	void Program::SetUniform( const Uniform& uniform, const Mat3& value )
 	{
 		glUniformMatrix3fv( uniform, 1, GL_FALSE, value.m );
 	}
 
-	void Program::SetUniformMatrix( const Uniform& uniform, const Mat4& value )
+	void Program::SetUniform( const Uniform& uniform, const Mat4& value )
 	{
 		glUniformMatrix4fv( uniform, 1, GL_FALSE, value.m );
 	}

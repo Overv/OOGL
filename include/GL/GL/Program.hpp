@@ -81,8 +81,8 @@ namespace GL
 		void SetUniform( const Uniform& uniform, const Vec2* values, uint count );
 		void SetUniform( const Uniform& uniform, const Vec3* values, uint count );
 		void SetUniform( const Uniform& uniform, const Vec4* values, uint count );
-		void SetUniformMatrix( const Uniform& uniform, const Mat3& value );
-		void SetUniformMatrix( const Uniform& uniform, const Mat4& value );
+		void SetUniform( const Uniform& uniform, const Mat3& value );
+		void SetUniform( const Uniform& uniform, const Mat4& value );
 
 	private:
 		GLuint id;
