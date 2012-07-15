@@ -121,8 +121,8 @@ namespace GL
 		static Bool CheckEvent( Display*, XEvent* event, XPointer userData );
 #endif		
 
-		Window( const Window& ) { }
-		const Window& operator=( const Window& ) { }
+		Window( const Window& );
+		const Window& operator=( const Window& );
 
 		Key::key_t TranslateKey( uint code );
 	};
