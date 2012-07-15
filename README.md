@@ -1,15 +1,23 @@
 # OOGL
 
-OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of the OpenGL API in a more object-oriented package. It additionally includes various classes and functions for 3D math, loading models and textures and creating a window and OpenGL context.
+OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of the OpenGL API in a more object-oriented package. It additionally includes various classes and functions for 3D math, loading models and textures and creating a window and core OpenGL context.
 
-**Disclaimer:** This library is currently not ready to be used in a real project.
+## Quick start
+
+To start using this library, all you need is Windows or a Linux distro and a working OpenGL driver that supports at the least OpenGL 3.2. Any libraries that OOGL depends on are included in the source, so building is as simple as
+
+	git://github.com/toji/gl-matrix.git
+	cd OOGL
+	make
+
+or pressing F7 after loading the project in Visual Studio on Windows. To find out how to get started, have a look at the [wiki](https://github.com/Overv/OOGL/wiki).
 
 ## Sample
 
+To get an idea of what this library is like using in practice, have a look at the simple example below.
+
 ```c++
 #include <GL/OOGL.hpp>
-#include <ctime>
-#include <cmath>
 	 
 int main()
 {
@@ -17,38 +25,27 @@ int main()
 	GL::Context& gl = window.GetContext();
 
 	GL::Shader vert( GL::ShaderType::Vertex, "#version 150\nin vec2 position; void main() { gl_Position = vec4( position, 0.0, 1.0 ); }" );
-	GL::Shader frag( GL::ShaderType::Fragment, "#version 150\nout vec4 outColor; uniform float factor; void main() { outColor = vec4( factor, 0.0, 0.0, 1.0 ); }" );
+	GL::Shader frag( GL::ShaderType::Fragment, "#version 150\nout vec4 outColor; void main() { outColor = vec4( 1.0, 0.0, 0.0, 1.0 ); }" );
 	GL::Program program( vert, frag );
 
 	float vertices[] = {
 		-0.5f,  0.5f,
 		 0.5f,  0.5f,
-		 0.5f, -0.5f,
-		-0.5f, -0.5f
+		 0.5f, -0.5f
 	};
 	GL::VertexBuffer vbo( vertices, sizeof( vertices ), GL::BufferUsage::StaticDraw );
-
-	unsigned short indices[] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-	GL::VertexBuffer ebo( indices, sizeof( indices ), GL::BufferUsage::StaticDraw );
 		
 	GL::VertexArray vao;
 	vao.BindAttribute( program.GetAttribute( "position" ), vbo, GL::Type::Float, 2, 0, 0 );
-	vao.BindElements( ebo );
 
 	GL::Event ev;
-	float lastValue = 0.0f;
 	while ( window.IsOpen() )
 	{
 		while ( window.GetEvent( ev ) );
 
 		gl.Clear();
-		
-		program.SetUniform( program.GetUniform( "factor" ), sin( clock() / (float)CLOCKS_PER_SEC * 5.0f ) / 2.0f + 0.5f );
 
-		gl.DrawElements( vao, GL::Primitive::Triangle, 0, 6, GL::Type::UnsignedShort );
+		gl.DrawArrays( vao, GL::Primitive::Triangle, 0, 3 );
 
 		window.Present();
 	}
@@ -57,9 +54,7 @@ int main()
 }
 ```
 
-To compile after building OOGL:
-
-	g++ main.cpp -o main -I OOGL/include OOGL/bin/OOGL.a -lX11 -lXrandr -lGL
+The sample above makes use of a lot of the abstraction OOGL offers, but it is always possible to fall back to the raw OpenGL calls. Find out more on the [wiki](https://github.com/Overv/OOGL/wiki)!
 
 ## License
 
@@ -81,3 +76,5 @@ To compile after building OOGL:
 	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 	IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+
+This project is licensed under the MIT license, of which the terms are outlined above.
