@@ -70,7 +70,7 @@ namespace GL
 		return Vec3( v.X / n, v.Y / n, v.Z / n );
 	}
 
-	const Vec3 Vec3::Cross( const Vec3& v )
+	const Vec3 Vec3::Cross( const Vec3& v ) const
 	{
 		return Vec3( Y*v.Z - Z*v.Y, Z*v.X - X*v.Z, X*v.Y - Y*v.X );
 	}
