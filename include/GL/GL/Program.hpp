@@ -87,6 +87,9 @@ namespace GL
 
 	private:
 		GLuint id;
+		
+		Program( const Program& );
+		const Program& operator=( const Program& );
 	};
 }
 

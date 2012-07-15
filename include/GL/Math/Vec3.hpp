@@ -46,7 +46,7 @@ namespace GL
 		friend Vec3 operator/( const Vec3& v, float n );
 		friend Vec3 operator/( float n, const Vec3& v );
 
-		const Vec3 Cross( const Vec3& v );
+		const Vec3 Cross( const Vec3& v ) const;
 
 		float Dot( const Vec3& v ) const;
 		float Angle( const Vec3& v ) const;

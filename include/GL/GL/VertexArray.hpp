@@ -41,12 +41,15 @@ namespace GL
 
 		operator GLuint() const;
 
-		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, const Type::type_t& type, uint count, uint stride, intptr_t offset );
+		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, Type::type_t type, uint count, uint stride, intptr_t offset );
 
 		void BindElements( const VertexBuffer& elements );
 
 	private:
 		GLuint id;
+		
+		VertexArray( const VertexArray& );
+		const VertexArray& operator=( const VertexArray& );
 	};
 }
 

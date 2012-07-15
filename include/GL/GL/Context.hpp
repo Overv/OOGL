@@ -111,6 +111,8 @@ namespace GL
 		friend class Window;
 		
 		Context();
+		Context( const Context& );
+		const Context& operator=( const Context& );
 
 		bool owned;
 

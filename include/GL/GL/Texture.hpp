@@ -194,25 +194,28 @@ namespace GL
 	{
 	public:
 		Texture();
-		Texture( const Image& image, const InternalFormat::internal_format_t& internalFormat = InternalFormat::RGBA );
+		Texture( const Image& image, InternalFormat::internal_format_t internalFormat = InternalFormat::RGBA );
 
 		~Texture();
 
 		operator GLuint() const;
 		
-		void Image2D( const GLvoid* data, const DataType::data_type_t& type, const Format::format_t& format, uint width, uint height, const InternalFormat::internal_format_t& internalFormat );
+		void Image2D( const GLvoid* data, DataType::data_type_t type, Format::format_t format, uint width, uint height, InternalFormat::internal_format_t internalFormat );
 		
-		void SetWrapping( const Wrapping::wrapping_t& s );
-		void SetWrapping( const Wrapping::wrapping_t& s, const Wrapping::wrapping_t& t );
-		void SetWrapping( const Wrapping::wrapping_t& s, const Wrapping::wrapping_t& t, const Wrapping::wrapping_t& r );
+		void SetWrapping( Wrapping::wrapping_t s );
+		void SetWrapping( Wrapping::wrapping_t s, Wrapping::wrapping_t t );
+		void SetWrapping( Wrapping::wrapping_t s, Wrapping::wrapping_t t, Wrapping::wrapping_t r );
 
-		void SetFilters( const Filter::filter_t& min, const Filter::filter_t& mag );
+		void SetFilters( Filter::filter_t min, Filter::filter_t mag );
 		void SetBorderColor( const Color& color );
 
 		void GenerateMipmaps();
 
 	private:
 		GLuint id;
+
+		Texture( const Texture& );
+		const Texture& operator=( const Texture& );
 	};
 }
 

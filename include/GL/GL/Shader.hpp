@@ -83,6 +83,9 @@ namespace GL
 
 	private:
 		GLuint id;
+		
+		Shader( const Shader& );
+		const Shader& operator=( const Shader& );
 	};
 }
 
