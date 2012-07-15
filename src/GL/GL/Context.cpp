@@ -57,13 +57,6 @@ namespace GL
 		glDrawElements( mode, count, type, (const GLvoid*)offset );
 	}
 
-	Context::Context()
-	{
-		// Prepare class for using unowned context (i.e. created by external party)
-		LoadExtensions();
-		owned = false;
-	}
-
 	Context Context::UseExistingContext()
 	{
 		return Context();

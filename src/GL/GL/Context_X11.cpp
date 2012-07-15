@@ -80,6 +80,8 @@ namespace GL
 		this->display = display;
 		this->window = window;
 		this->owned = true;
+
+		gettimeofday( &timeOffset, NULL );
 	}
 
 	Context::~Context()
@@ -98,6 +100,23 @@ namespace GL
 	void Context::SetVerticalSync( bool enabled )
 	{
 		glXSwapIntervalSGI( enabled ? 1 : 0 );
+	}
+
+	float Context::Time()
+	{
+		timeval time;
+		gettimeofday( &time, NULL );
+
+		return ( time.tv_sec - timeOffset.tv_sec ) * 1000.0f + ( time.tv_usec - timeOffset.tv_usec ) / 1000.0f;
+	}
+
+	Context::Context()
+	{
+		// Prepare class for using unowned context (i.e. created by external party)
+		LoadExtensions();
+		owned = false;
+
+		gettimeofday( &timeOffset, NULL );
 	}
 }
 

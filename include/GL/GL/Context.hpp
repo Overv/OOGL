@@ -103,6 +103,8 @@ namespace GL
 		void DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices );
 		void DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type );
 
+		float Time();
+
 		static Context UseExistingContext();
 
 		~Context();
@@ -119,14 +121,17 @@ namespace GL
 
 		HDC dc;
 		HGLRC context;
+
+		LARGE_INTEGER timeOffset;
 #elif defined( OOGL_PLATFORM_LINUX )
 		Context( uchar color, uchar depth, uchar stencil, uint antialias, Display* display, int screen, ::Window window );
-
 
 		GLXWindow glxWindow;
 		GLXContext context;
 		Display* display;
 		::Window window;
+
+		timeval timeOffset;
 #endif
 	};
 }

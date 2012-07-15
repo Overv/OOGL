@@ -94,6 +94,8 @@ namespace GL
 
 		this->dc = dc;
 		this->owned = true;
+
+		QueryPerformanceCounter( &timeOffset );
 	}
 	
 	Context::~Context()
@@ -112,6 +114,24 @@ namespace GL
 	void Context::SetVerticalSync( bool enabled )
 	{
 		wglSwapIntervalEXT( enabled ? 1 : 0 );
+	}
+
+	float Context::Time()
+	{
+		LARGE_INTEGER time, freq;
+		QueryPerformanceCounter( &time );
+		QueryPerformanceFrequency( &freq );
+
+		return ( ( time.QuadPart - timeOffset.QuadPart ) * 1000 / freq.QuadPart ) / 1000.0f;
+	}
+
+	Context::Context()
+	{
+		// Prepare class for using unowned context (i.e. created by external party)
+		LoadExtensions();
+		owned = false;
+
+		QueryPerformanceCounter( &timeOffset );
 	}
 }
 
