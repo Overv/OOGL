@@ -66,6 +66,9 @@ namespace GL
 
 	private:
 		GLuint id;
+		
+		VertexBuffer( const VertexBuffer& );
+		const VertexBuffer& operator=( const VertexBuffer& );
 	};
 }
 

@@ -119,7 +119,10 @@ namespace GL
 		void EnableFullscreen( bool enabled, int width = 0, int height = 0 );
 		void WindowEvent( const XEvent& event );
 		static Bool CheckEvent( Display*, XEvent* event, XPointer userData );
-#endif
+#endif		
+
+		Window( const Window& ) { }
+		const Window& operator=( const Window& ) { }
 
 		Key::key_t TranslateKey( uint code );
 	};
