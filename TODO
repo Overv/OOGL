@@ -1,3 +1,4 @@
+- Add constructor to Context to use it when an OpenGL context is created through different means
 - Framebuffers
 - Support for 1D and 3D textures
 - Mesh class for loading 3D models from files
