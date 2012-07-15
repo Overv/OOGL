@@ -79,22 +79,24 @@ namespace GL
 
 		this->display = display;
 		this->window = window;
+		this->owned = true;
 	}
 
 	Context::~Context()
 	{
+		if ( !owned ) return;
+
 		glXMakeCurrent( display, 0, NULL );
 		glXDestroyContext( display, context );
 	}
 
 	void Context::Activate()
 	{
-		if ( glXGetCurrentContext() != context ) glXMakeCurrent( display, window, context );
+		if ( owned && glXGetCurrentContext() != context ) glXMakeCurrent( display, window, context );
 	}
 
 	void Context::SetVerticalSync( bool enabled )
 	{
-		Activate();
 		glXSwapIntervalSGI( enabled ? 1 : 0 );
 	}
 }

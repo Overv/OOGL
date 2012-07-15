@@ -93,22 +93,24 @@ namespace GL
 		DestroyWindow( dummyWindow );
 
 		this->dc = dc;
+		this->owned = true;
 	}
 	
 	Context::~Context()
 	{
+		if ( !owned ) return;
+
 		wglMakeCurrent( dc, NULL );
 		wglDeleteContext( context );
 	}
 
 	void Context::Activate()
 	{
-		if ( wglGetCurrentContext() != context ) wglMakeCurrent( dc, context );
+		if ( owned && wglGetCurrentContext() != context ) wglMakeCurrent( dc, context );
 	}
 
 	void Context::SetVerticalSync( bool enabled )
 	{
-		Activate();
 		wglSwapIntervalEXT( enabled ? 1 : 0 );
 	}
 }

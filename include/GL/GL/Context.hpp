@@ -103,10 +103,16 @@ namespace GL
 		void DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices );
 		void DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type );
 
-	private:
-		friend class Window;
+		static Context UseExistingContext();
 
 		~Context();
+
+	private:
+		friend class Window;
+		
+		Context();
+
+		bool owned;
 
 #if defined( OOGL_PLATFORM_WINDOWS )
 		Context( uchar color, uchar depth, uchar stencil, uint antialias, HDC dc );
