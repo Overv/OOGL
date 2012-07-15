@@ -107,7 +107,7 @@ namespace GL
 		timeval time;
 		gettimeofday( &time, NULL );
 
-		return ( time.tv_sec - timeOffset.tv_sec ) * 1000.0f + ( time.tv_usec - timeOffset.tv_usec ) / 1000.0f;
+		return time.tv_sec - timeOffset.tv_sec + ( time.tv_usec - timeOffset.tv_usec ) / 1000000.0f;
 	}
 
 	Context::Context()
