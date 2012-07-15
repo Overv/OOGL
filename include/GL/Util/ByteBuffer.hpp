@@ -112,8 +112,8 @@ namespace GL
 		uint ptr;
 		bool littleEndian;
 
-		ByteReader( const ByteReader& ) { }
-		const ByteReader& operator=( const ByteReader& ) { }
+		ByteReader( const ByteReader& );
+		const ByteReader& operator=( const ByteReader& );
 	};
 
 	/*
@@ -174,6 +174,9 @@ namespace GL
 	private:
 		std::vector<uchar> buffer;
 		bool littleEndian;
+
+		ByteWriter( const ByteWriter& );
+		const ByteWriter& operator=( const ByteWriter& );
 	};
 }
 
