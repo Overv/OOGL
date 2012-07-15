@@ -111,6 +111,9 @@ namespace GL
 		uint length;
 		uint ptr;
 		bool littleEndian;
+
+		ByteReader( const ByteReader& ) { }
+		const ByteReader& operator=( const ByteReader& ) { }
 	};
 
 	/*

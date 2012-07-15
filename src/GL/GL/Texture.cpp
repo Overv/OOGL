@@ -31,7 +31,7 @@ namespace GL
 		glGenTextures( 1, &id );
 	}
 
-	Texture::Texture( const Image& image, const InternalFormat::internal_format_t& internalFormat )
+	Texture::Texture( const Image& image, InternalFormat::internal_format_t internalFormat )
 	{
 		PUSHSTATE()
 
@@ -60,7 +60,7 @@ namespace GL
 		return id;
 	}
 
-	void Texture::Image2D( const GLvoid* data, const DataType::data_type_t& type, const Format::format_t& format, uint width, uint height, const InternalFormat::internal_format_t& internalFormat )
+	void Texture::Image2D( const GLvoid* data, DataType::data_type_t type, Format::format_t format, uint width, uint height, InternalFormat::internal_format_t internalFormat )
 	{
 		PUSHSTATE()
 
@@ -70,7 +70,7 @@ namespace GL
 		POPSTATE()
 	}
 
-	void Texture::SetWrapping( const Wrapping::wrapping_t& s )
+	void Texture::SetWrapping( Wrapping::wrapping_t s )
 	{
 		PUSHSTATE()
 
@@ -82,7 +82,7 @@ namespace GL
 		POPSTATE()
 	}
 
-	void Texture::SetWrapping( const Wrapping::wrapping_t& s, const Wrapping::wrapping_t& t )
+	void Texture::SetWrapping( Wrapping::wrapping_t s, Wrapping::wrapping_t t )
 	{
 		PUSHSTATE()
 
@@ -95,7 +95,7 @@ namespace GL
 		POPSTATE()
 	}
 
-	void Texture::SetWrapping( const Wrapping::wrapping_t& s, const Wrapping::wrapping_t& t, const Wrapping::wrapping_t& r )
+	void Texture::SetWrapping( Wrapping::wrapping_t s, Wrapping::wrapping_t t, Wrapping::wrapping_t r )
 	{
 		PUSHSTATE()
 
@@ -107,7 +107,7 @@ namespace GL
 		POPSTATE()
 	}
 
-	void Texture::SetFilters( const Filter::filter_t& min, const Filter::filter_t& mag )
+	void Texture::SetFilters( Filter::filter_t min, Filter::filter_t mag )
 	{
 		PUSHSTATE()
 
