@@ -1,4 +1,4 @@
-- Add method to get accurate time
-- Framebuffers
+- Extend framebuffer class to be more configurable by using Renderbuffer and Texture classes
+- Add exceptions for fbo and texture size
 - Support for 1D and 3D textures
 - Mesh class for loading 3D models from files

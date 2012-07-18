@@ -100,6 +100,19 @@ GLGENERATEMIPMAP glGenerateMipmap;
 	GLACTIVETEXTURE glActiveTexture;
 #endif
 
+GLGENFRAMEBUFFERS glGenFramebuffers;
+GLDELETEFRAMEBUFFERS glDeleteFramebuffers;
+GLFRAMEBUFFERTEXTURE2D glFramebufferTexture2D;
+GLFRAMEBUFFERRENDERBUFFER glFramebufferRenderbuffer;
+GLBINDFRAMEBUFFER glBindFramebuffer;
+GLGETFRAMEBUFFERATTACHMENTPARAMETERIV glGetFramebufferAttachmentParameteriv;
+GLCHECKFRAMEBUFFERSTATUS glCheckFramebufferStatus;
+
+GLGENRENDERBUFFERS glGenRenderbuffers;
+GLDELETERENDERBUFFERS glDeleteRenderbuffers;
+GLRENDERBUFFERSTORAGE glRenderbufferStorage;
+GLBINDRENDERBUFFER glBindRenderbuffer;
+
 namespace GL
 {
 	bool extensionsLoaded = false;
@@ -196,5 +209,18 @@ namespace GL
 		#ifndef GL_VERSION_1_3
 			glActiveTexture = (GLACTIVETEXTURE)LoadExtension( "glActiveTexture" );
 		#endif
+
+		glGenFramebuffers = (GLGENFRAMEBUFFERS)LoadExtension( "glGenFramebuffers" );
+		glDeleteFramebuffers = (GLDELETEFRAMEBUFFERS)LoadExtension( "glDeleteFramebuffers" );
+		glFramebufferTexture2D = (GLFRAMEBUFFERTEXTURE2D)LoadExtension( "glFramebufferTexture2D" );
+		glFramebufferRenderbuffer = (GLFRAMEBUFFERRENDERBUFFER)LoadExtension( "glFramebufferRenderbuffer" );
+		glBindFramebuffer = (GLBINDFRAMEBUFFER)LoadExtension( "glBindFramebuffer" );
+		glGetFramebufferAttachmentParameteriv = (GLGETFRAMEBUFFERATTACHMENTPARAMETERIV)LoadExtension( "glGetFramebufferAttachmentParameteriv" );
+		glCheckFramebufferStatus = (GLCHECKFRAMEBUFFERSTATUS)LoadExtension( "glCheckFramebufferStatus" );
+
+		glGenRenderbuffers = (GLGENRENDERBUFFERS)LoadExtension( "glGenRenderbuffers" );
+		glDeleteRenderbuffers = (GLDELETERENDERBUFFERS)LoadExtension( "glDeleteRenderbuffers" );
+		glRenderbufferStorage = (GLRENDERBUFFERSTORAGE)LoadExtension( "glRenderbufferStorage" );
+		glBindRenderbuffer = (GLBINDRENDERBUFFER)LoadExtension( "glBindRenderbuffer" );
 	}
 }

@@ -21,51 +21,39 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
-
-/*
-	Platform and type configuration
-*/
+#ifndef OOGL_FBO_HPP
+#define OOGL_FBO_HPP
 
 #include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Vec4.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
-#include <GL/GL/VertexBuffer.hpp>
-#include <GL/GL/VertexArray.hpp>
 #include <GL/GL/Texture.hpp>
-#include <GL/GL/Framebuffer.hpp>
 
-/*
-	Utilities
-*/
+namespace GL
+{
+	/*
+		Exceptions
+	*/
+	class FramebufferException : public std::exception 
+	{
+		virtual const char* what() const throw()
+		{
+			return "Framebuffer could not be created!";
+		}
+	};
 
-#include <GL/Util/Color.hpp>
-#include <GL/Util/Image.hpp>
+	/*
+		Frame buffer
+	*/
+	class Framebuffer
+	{
+	public:
+		Framebuffer( uint width, uint height );
+		~Framebuffer();
+
+		operator GLuint() const;
+
+	private:
+		GLuint id, rbo, tex;
+	};
+}
 
 #endif

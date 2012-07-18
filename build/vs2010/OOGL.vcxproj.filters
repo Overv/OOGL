@@ -144,6 +144,9 @@
     <ClInclude Include="..\..\include\GL\GL\Texture.hpp">
       <Filter>Header Files\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\GL\Framebuffer.hpp">
+      <Filter>Header Files\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
@@ -411,6 +414,9 @@
       <Filter>Source Files\Util\zlib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\GL\GL\Texture.cpp">
+      <Filter>Source Files\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GL\GL\Framebuffer.cpp">
       <Filter>Source Files\GL</Filter>
     </ClCompile>
   </ItemGroup>

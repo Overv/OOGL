@@ -28,6 +28,7 @@
 #include <GL/GL/Program.hpp>
 #include <GL/GL/VertexArray.hpp>
 #include <GL/GL/Texture.hpp>
+#include <GL/GL/Framebuffer.hpp>
 #include <GL/Util/Color.hpp>
 #include <exception>
 
@@ -99,6 +100,9 @@ namespace GL
 		void UseProgram( const Program& program );
 
 		void BindTexture( const Texture& texture, uchar unit );
+		
+		void BindFramebuffer( const Framebuffer& framebuffer );
+		void BindFramebuffer();
 
 		void DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices );
 		void DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type );
@@ -115,6 +119,7 @@ namespace GL
 		Context();
 
 		bool owned;
+		GLint defaultViewport[4];
 
 #if defined( OOGL_PLATFORM_WINDOWS )
 		Context( uchar color, uchar depth, uchar stencil, uint antialias, HDC dc );

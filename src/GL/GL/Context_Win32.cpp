@@ -95,6 +95,8 @@ namespace GL
 		this->dc = dc;
 		this->owned = true;
 
+		glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
+
 		QueryPerformanceCounter( &timeOffset );
 	}
 	
@@ -130,6 +132,8 @@ namespace GL
 		// Prepare class for using unowned context (i.e. created by external party)
 		LoadExtensions();
 		owned = false;
+
+		glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
 
 		QueryPerformanceCounter( &timeOffset );
 	}

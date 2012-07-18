@@ -45,6 +45,31 @@ namespace GL
 		glBindTexture( GL_TEXTURE_2D, texture );
 	}
 
+	void Context::BindFramebuffer( const Framebuffer& framebuffer )
+	{
+		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, framebuffer );
+		
+		// Set viewport to frame buffer size
+		GLint obj, width, height;
+		glGetFramebufferAttachmentParameteriv( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &obj );
+
+		GLint res; glGetIntegerv( GL_TEXTURE_BINDING_2D, &res );
+			glBindTexture( GL_TEXTURE_2D, obj );
+			glGetTexLevelParameteriv( GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width );
+			glGetTexLevelParameteriv( GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height );
+		glBindTexture( GL_TEXTURE_2D, res );
+
+		glViewport( 0, 0, width, height );
+	}
+
+	void Context::BindFramebuffer()
+	{
+		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, 0 );
+
+		// Set viewport to default frame buffer size
+		glViewport( defaultViewport[0], defaultViewport[1], defaultViewport[2], defaultViewport[3] );
+	}
+
 	void Context::DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices )
 	{
 		glBindVertexArray( vao );

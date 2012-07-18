@@ -81,6 +81,8 @@ namespace GL
 		this->window = window;
 		this->owned = true;
 
+		glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
+
 		gettimeofday( &timeOffset, NULL );
 	}
 
@@ -115,6 +117,8 @@ namespace GL
 		// Prepare class for using unowned context (i.e. created by external party)
 		LoadExtensions();
 		owned = false;
+
+		glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
 
 		gettimeofday( &timeOffset, NULL );
 	}

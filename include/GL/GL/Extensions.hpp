@@ -376,6 +376,67 @@ extern GLGENERATEMIPMAP glGenerateMipmap;
 #define GL_BGRA 0x80E1
 
 /*
+	Frame buffers
+*/
+
+#define GL_DRAW_FRAMEBUFFER 0x8D40
+
+#define GL_COLOR_ATTACHMENT0 0x8CE0
+#define GL_COLOR_ATTACHMENT1 0x8CE1
+#define GL_COLOR_ATTACHMENT2 0x8CE2
+#define GL_COLOR_ATTACHMENT3 0x8CE3
+#define GL_COLOR_ATTACHMENT4 0x8CE4
+#define GL_COLOR_ATTACHMENT5 0x8CE5
+#define GL_COLOR_ATTACHMENT6 0x8CE6
+#define GL_COLOR_ATTACHMENT7 0x8CE7
+#define GL_COLOR_ATTACHMENT8 0x8CE8
+#define GL_COLOR_ATTACHMENT9 0x8CE9
+#define GL_COLOR_ATTACHMENT10 0x8CEA
+#define GL_COLOR_ATTACHMENT11 0x8CEB
+#define GL_COLOR_ATTACHMENT12 0x8CEC
+#define GL_COLOR_ATTACHMENT13 0x8CED
+#define GL_COLOR_ATTACHMENT14 0x8CEE
+#define GL_COLOR_ATTACHMENT15 0x8CEF
+#define GL_DEPTH_ATTACHMENT 0x8D00
+
+#define GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE 0x8CD0
+#define GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME 0x8CD1
+
+#define GL_DRAW_FRAMEBUFFER_BINDING 0x8CA6
+#define GL_FRAMEBUFFER_COMPLETE 0x8CD5
+
+typedef void ( APIENTRYP GLGENFRAMEBUFFERS ) ( GLsizei n, GLuint* framebuffers );
+extern GLGENFRAMEBUFFERS glGenFramebuffers;
+typedef void ( APIENTRYP GLDELETEFRAMEBUFFERS ) ( GLsizei n, const GLuint* framebuffers );
+extern GLDELETEFRAMEBUFFERS glDeleteFramebuffers;
+typedef void ( APIENTRYP GLFRAMEBUFFERTEXTURE2D ) ( GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level );
+extern GLFRAMEBUFFERTEXTURE2D glFramebufferTexture2D;
+typedef void ( APIENTRYP GLFRAMEBUFFERRENDERBUFFER ) ( GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer );
+extern GLFRAMEBUFFERRENDERBUFFER glFramebufferRenderbuffer;
+typedef void ( APIENTRYP GLBINDFRAMEBUFFER ) ( GLenum target, GLuint framebuffer );
+extern GLBINDFRAMEBUFFER glBindFramebuffer;
+typedef void ( APIENTRYP GLGETFRAMEBUFFERATTACHMENTPARAMETERIV ) ( GLenum target, GLenum attachment, GLenum pname, GLint* params );
+extern GLGETFRAMEBUFFERATTACHMENTPARAMETERIV glGetFramebufferAttachmentParameteriv;
+typedef GLenum ( APIENTRYP GLCHECKFRAMEBUFFERSTATUS ) ( GLenum target );
+extern GLCHECKFRAMEBUFFERSTATUS glCheckFramebufferStatus;
+
+/*
+	Render buffers
+*/
+
+#define GL_RENDERBUFFER 0x8D41
+#define GL_MAX_RENDERBUFFER_SIZE 0x84E8
+
+typedef void ( APIENTRYP GLGENRENDERBUFFERS ) ( GLsizei n, GLuint* renderbuffers );
+extern GLGENRENDERBUFFERS glGenRenderbuffers;
+typedef void ( APIENTRYP GLDELETERENDERBUFFERS ) ( GLsizei n, const GLuint* renderbuffers );
+extern GLDELETERENDERBUFFERS glDeleteRenderbuffers;
+typedef void ( APIENTRYP GLRENDERBUFFERSTORAGE ) ( GLenum target, GLenum internalformat, GLsizei width, GLsizei height );
+extern GLRENDERBUFFERSTORAGE glRenderbufferStorage;
+typedef void ( APIENTRYP GLBINDRENDERBUFFER ) ( GLenum target, GLuint renderbuffer );
+extern GLBINDRENDERBUFFER glBindRenderbuffer;
+
+/*
 	Extension loader
 */
 
