@@ -92,8 +92,8 @@ namespace GL
 		Color* image;
 		ushort width, height;
 
-		Image( const Image& ) { }
-		const Image& operator=( const Image& ) { }
+		Image( const Image& );
+		const Image& operator=( const Image& );
 		
 		void LoadBMP( ByteReader& data );
 		void SaveBMP( const std::string& filename );
