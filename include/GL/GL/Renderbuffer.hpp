@@ -21,45 +21,33 @@
 
 #pragma once
 
-#ifndef OOGL_FBO_HPP
-#define OOGL_FBO_HPP
+#ifndef OOGL_RBO_HPP
+#define OOGL_RBO_HPP
 
 #include <GL/GL/Texture.hpp>
-#include <GL/GL/Renderbuffer.hpp>
 
 namespace GL
 {
 	/*
-		Exceptions
+		Render buffer
 	*/
-	class FramebufferException : public std::exception 
-	{
-		virtual const char* what() const throw()
-		{
-			return "Framebuffer could not be created!";
-		}
-	};
-
-	/*
-		Frame buffer
-	*/
-	class Framebuffer
+	class Renderbuffer
 	{
 	public:
-		Framebuffer( const Framebuffer& other );
-		Framebuffer( uint width, uint height );
-		~Framebuffer();
+		Renderbuffer();
+		Renderbuffer( const Renderbuffer& other );
+		Renderbuffer( uint width, uint height, InternalFormat::internal_format_t format );
+
+		~Renderbuffer();
 
 		operator GLuint() const;
-		const Framebuffer& operator=( const Framebuffer& other );
+		const Renderbuffer& operator=( const Renderbuffer& other );
 
-		const Texture& GetTexture();
+		void Storage( uint width, uint height, InternalFormat::internal_format_t format );
 
 	private:
 		static GC gc;
 		GLuint obj;
-		Texture color;
-		Renderbuffer depth;
 	};
 }
 

@@ -24,8 +24,6 @@
 #ifndef OOGL_VERTEXARRAY_HPP
 #define OOGL_VERTEXARRAY_HPP
 
-#include <GL/Platform.hpp>
-#include <GL/GL/Extensions.hpp>
 #include <GL/GL/VertexBuffer.hpp>
 
 namespace GL

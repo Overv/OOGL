@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\include\GL\GL\Framebuffer.hpp" />
     <ClInclude Include="..\..\include\GL\GL\GC.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Program.hpp" />
+    <ClInclude Include="..\..\include\GL\GL\Renderbuffer.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Shader.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Texture.hpp" />
     <ClInclude Include="..\..\include\GL\GL\VertexArray.hpp" />
@@ -51,6 +52,7 @@
     <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Extensions.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Framebuffer.cpp" />
+    <ClCompile Include="..\..\src\GL\GL\Renderbuffer.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Texture.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Program.cpp" />
     <ClCompile Include="..\..\src\GL\GL\Shader.cpp" />

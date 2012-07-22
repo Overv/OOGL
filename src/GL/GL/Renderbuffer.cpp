@@ -19,48 +19,47 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#pragma once
-
-#ifndef OOGL_FBO_HPP
-#define OOGL_FBO_HPP
-
-#include <GL/GL/Texture.hpp>
 #include <GL/GL/Renderbuffer.hpp>
 
 namespace GL
 {
-	/*
-		Exceptions
-	*/
-	class FramebufferException : public std::exception 
+	Renderbuffer::Renderbuffer()
 	{
-		virtual const char* what() const throw()
-		{
-			return "Framebuffer could not be created!";
-		}
-	};
+		gc.Create( obj, glGenRenderbuffers, glDeleteRenderbuffers );
+	}
 
-	/*
-		Frame buffer
-	*/
-	class Framebuffer
+	Renderbuffer::Renderbuffer( const Renderbuffer& other )
 	{
-	public:
-		Framebuffer( const Framebuffer& other );
-		Framebuffer( uint width, uint height );
-		~Framebuffer();
+		gc.Copy( other.obj, obj );
+	}
 
-		operator GLuint() const;
-		const Framebuffer& operator=( const Framebuffer& other );
+	Renderbuffer::Renderbuffer( uint width, uint height, InternalFormat::internal_format_t format )
+	{
+		gc.Create( obj, glGenRenderbuffers, glDeleteRenderbuffers );
+		Storage( width, height, format );
+	}
 
-		const Texture& GetTexture();
+	Renderbuffer::~Renderbuffer()
+	{
+		gc.Destroy( obj );
+	}
 
-	private:
-		static GC gc;
-		GLuint obj;
-		Texture color;
-		Renderbuffer depth;
-	};
+	Renderbuffer::operator GLuint() const
+	{
+		return obj;
+	}
+
+	const Renderbuffer& Renderbuffer::operator=( const Renderbuffer& other )
+	{
+		gc.Copy( other.obj, obj, true );
+		return *this;
+	}
+
+	void Renderbuffer::Storage( uint width, uint height, InternalFormat::internal_format_t format )
+	{
+		glBindRenderbuffer( GL_RENDERBUFFER, obj );
+		glRenderbufferStorage( GL_RENDERBUFFER, format, width, height );
+	}
+
+	GC Renderbuffer::gc;
 }
-
-#endif

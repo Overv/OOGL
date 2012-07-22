@@ -20,31 +20,33 @@
 */
 
 #include <GL/GL/Framebuffer.hpp>
-#include <GL/GL/Extensions.hpp>
 
 #define PUSHSTATE() GLint restoreId; glGetIntegerv( GL_DRAW_FRAMEBUFFER_BINDING, &restoreId );
 #define POPSTATE() glBindFramebuffer( GL_DRAW_FRAMEBUFFER, restoreId );
 
 namespace GL
 {
+	Framebuffer::Framebuffer( const Framebuffer& other )
+	{
+		gc.Copy( other.obj, obj );
+		color = other.color;
+		depth = other.depth;
+	}
+
 	Framebuffer::Framebuffer( uint width, uint height )
 	{
 		PUSHSTATE()
-
-		glGenFramebuffers( 1, &id );
-		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, id );
-
+		
+		gc.Create( obj, glGenFramebuffers, glDeleteFramebuffers );
+		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, obj );
+		
 		// Create renderbuffer to hold depth buffer
-		glGenRenderbuffers( 1, &rbo );
-		glBindRenderbuffer( GL_RENDERBUFFER, rbo );
-		glRenderbufferStorage( GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height );
-		glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo );
+		depth.Storage( width, height, InternalFormat::DepthComponent );
+		glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth );
 
 		// Create texture to hold color buffer
-		glGenTextures( 1, &tex );
-		glBindTexture( GL_TEXTURE_2D, tex );
-		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0 );
-		glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex, 0 );
+		color.Image2D( 0, DataType::UnsignedByte, Format::RGBA, width, height, InternalFormat::RGBA );
+		glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0 );
 
 		// Check
 		if ( glCheckFramebufferStatus( GL_DRAW_FRAMEBUFFER ) != GL_FRAMEBUFFER_COMPLETE )
@@ -55,13 +57,27 @@ namespace GL
 
 	Framebuffer::~Framebuffer()
 	{
-		glDeleteTextures( 1, &tex );
-		glDeleteRenderbuffers( 1, &rbo );
-		glDeleteFramebuffers( 1, &id );
+		gc.Destroy( obj );
 	}
 
 	Framebuffer::operator GLuint() const
 	{
-		return id;
+		return obj;
 	}
+
+	const Framebuffer& Framebuffer::operator=( const Framebuffer& other )
+	{
+		gc.Copy( other.obj, obj, true );
+		color = other.color;
+		depth = other.depth;
+		
+		return *this;
+	}
+
+	const Texture& Framebuffer::GetTexture()
+	{
+		return color;
+	}
+
+	GC Framebuffer::gc;
 }
