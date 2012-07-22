@@ -49,8 +49,6 @@ namespace GL
 			
 			this->d = d;
 			this->d2 = 0;
-
-			printf( "%p [C] (%d)\n", this, obj );
 		}
 
 		int Create( const GLuint& obj, deleteFunc2 d2 )
@@ -59,8 +57,6 @@ namespace GL
 
 			this->d = 0;
 			this->d2 = d2;
-
-			printf( "%p [C2] (%d)\n", this, obj );
 			
 			return obj;
 		}
@@ -78,7 +74,7 @@ namespace GL
 		{
 			if ( --refs[obj] == 0 )
 			{
-				if ( d != 0 ) { d( 1, &obj ); printf( "%p [D] (%d)\n", this, obj ); } else { d2( obj ); printf( "%p [D2] (%d)\n", this, obj ); }
+				if ( d != 0 ) d( 1, &obj ); else d2( obj );
 				refs.erase( obj );
 			}
 		}

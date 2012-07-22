@@ -47,7 +47,7 @@ namespace GL
 	{
 	public:
 		Framebuffer( const Framebuffer& other );
-		Framebuffer( uint width, uint height );
+		Framebuffer( uint width, uint height, uchar color = 32, uchar depth = 24 );
 		~Framebuffer();
 
 		operator GLuint() const;
@@ -58,8 +58,8 @@ namespace GL
 	private:
 		static GC gc;
 		GLuint obj;
-		Texture color;
-		Renderbuffer depth;
+		Texture texColor;
+		Renderbuffer rboDepth;
 	};
 }
 

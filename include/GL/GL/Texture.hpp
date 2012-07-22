@@ -47,6 +47,7 @@ namespace GL
 			CompressedSignedRedRGTC1 = GL_COMPRESSED_SIGNED_RED_RGTC1,
 			CompressedSignedRGRGTC2 = GL_COMPRESSED_SIGNED_RG_RGTC2,
 			CompressedSRGB = GL_COMPRESSED_SRGB,
+			DepthStencil = GL_DEPTH_STENCIL,
 			Depth24Stencil8 = GL_DEPTH24_STENCIL8,
 			Depth32FStencil8 = GL_DEPTH32F_STENCIL8,
 			DepthComponent = GL_DEPTH_COMPONENT,

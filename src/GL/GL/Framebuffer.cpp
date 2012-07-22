@@ -29,24 +29,40 @@ namespace GL
 	Framebuffer::Framebuffer( const Framebuffer& other )
 	{
 		gc.Copy( other.obj, obj );
-		color = other.color;
-		depth = other.depth;
+		texColor = other.texColor;
+		rboDepth = other.rboDepth;
 	}
 
-	Framebuffer::Framebuffer( uint width, uint height )
+	Framebuffer::Framebuffer( uint width, uint height, uchar color, uchar depth )
 	{
 		PUSHSTATE()
-		
+
+		// Determine appropriate formats
+		InternalFormat::internal_format_t colorFormat;
+		if ( color == 24 ) colorFormat = InternalFormat::RGB;
+		else if ( color == 32 ) colorFormat = InternalFormat::RGBA;
+		else throw FramebufferException();
+
+		InternalFormat::internal_format_t depthFormat;
+		if ( depth == 8 ) depthFormat = InternalFormat::DepthComponent;
+		else if ( depth == 16 ) depthFormat = InternalFormat::DepthComponent16;
+		else if ( depth == 24 ) depthFormat = InternalFormat::DepthComponent24;
+		else if ( depth == 32 ) depthFormat = InternalFormat::DepthComponent32F;
+		else throw FramebufferException();
+
+		// Create FBO		
 		gc.Create( obj, glGenFramebuffers, glDeleteFramebuffers );
 		glBindFramebuffer( GL_DRAW_FRAMEBUFFER, obj );
-		
-		// Create renderbuffer to hold depth buffer
-		depth.Storage( width, height, InternalFormat::DepthComponent );
-		glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth );
 
 		// Create texture to hold color buffer
-		color.Image2D( 0, DataType::UnsignedByte, Format::RGBA, width, height, InternalFormat::RGBA );
-		glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color, 0 );
+		texColor.Image2D( 0, DataType::UnsignedByte, Format::RGBA, width, height, colorFormat );
+		glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColor, 0 );
+		
+		// Create renderbuffer to hold depth buffer
+		if ( depth > 0 ) {
+			rboDepth.Storage( width, height, depthFormat );
+			glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth );
+		}
 
 		// Check
 		if ( glCheckFramebufferStatus( GL_DRAW_FRAMEBUFFER ) != GL_FRAMEBUFFER_COMPLETE )
@@ -68,15 +84,15 @@ namespace GL
 	const Framebuffer& Framebuffer::operator=( const Framebuffer& other )
 	{
 		gc.Copy( other.obj, obj, true );
-		color = other.color;
-		depth = other.depth;
+		texColor = other.texColor;
+		rboDepth = other.rboDepth;
 		
 		return *this;
 	}
 
 	const Texture& Framebuffer::GetTexture()
 	{
-		return color;
+		return texColor;
 	}
 
 	GC Framebuffer::gc;
