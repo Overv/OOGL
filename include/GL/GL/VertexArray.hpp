@@ -37,19 +37,20 @@ namespace GL
 	{
 	public:
 		VertexArray();
+		VertexArray( const VertexArray& other );
+
 		~VertexArray();
 
 		operator GLuint() const;
+		const VertexArray& operator=( const VertexArray& other );
 
 		void BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, Type::type_t type, uint count, uint stride, intptr_t offset );
 
 		void BindElements( const VertexBuffer& elements );
 
 	private:
-		GLuint id;
-		
-		VertexArray( const VertexArray& );
-		const VertexArray& operator=( const VertexArray& );
+		static GC gc;
+		GLuint obj;
 	};
 }
 

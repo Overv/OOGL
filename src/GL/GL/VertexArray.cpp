@@ -25,22 +25,33 @@ namespace GL
 {
 	VertexArray::VertexArray()
 	{
-		glGenVertexArrays( 1, &id );
+		gc.Create( obj, glGenVertexArrays, glDeleteVertexArrays );
+	}
+
+	VertexArray::VertexArray( const VertexArray& other )
+	{
+		gc.Copy( other.obj, obj );
 	}
 
 	VertexArray::~VertexArray()
 	{
-		glDeleteVertexArrays( 1, &id );
+		gc.Destroy( obj );
 	}
 
 	VertexArray::operator GLuint() const
 	{
-		return id;
+		return obj;
+	}
+
+	const VertexArray& VertexArray::operator=( const VertexArray& other )
+	{
+		gc.Copy( other.obj, obj, true );
+		return *this;
 	}
 
 	void VertexArray::BindAttribute( const Attribute& attribute, const VertexBuffer& buffer, Type::type_t type, uint count, uint stride, intptr_t offset )
 	{
-		glBindVertexArray( id );
+		glBindVertexArray( obj );
 		glBindBuffer( GL_ARRAY_BUFFER, buffer );
 		glEnableVertexAttribArray( attribute );
 		glVertexAttribPointer( attribute, count, type, GL_FALSE, stride, (const GLvoid*)offset );
@@ -48,7 +59,9 @@ namespace GL
 
 	void VertexArray::BindElements( const VertexBuffer& elements )
 	{
-		glBindVertexArray( id );
+		glBindVertexArray( obj );
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, elements );
 	}
+
+	GC VertexArray::gc;
 }

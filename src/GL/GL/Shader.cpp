@@ -24,40 +24,51 @@
 
 namespace GL
 {
+	Shader::Shader( const Shader& other )
+	{
+		gc.Copy( other.obj, obj );
+	}
+
 	Shader::Shader( ShaderType::shader_type_t shader )
 	{
-		id = glCreateShader( shader );
+		obj = gc.Create( glCreateShader( shader ), glDeleteShader );
 	}
 
 	Shader::Shader( ShaderType::shader_type_t shader, const std::string& code )
 	{
-		id = glCreateShader( shader );
+		obj = gc.Create( glCreateShader( shader ), glDeleteShader );
 		Source( code );
 		Compile();
 	}
 
 	Shader::~Shader()
 	{
-		glDeleteShader( id );
+		gc.Destroy( obj );
 	}
 
 	Shader::operator GLuint() const
 	{
-		return id;
+		return obj;
+	}
+
+	const Shader& Shader::operator=( const Shader& other )
+	{
+		gc.Copy( other.obj, obj, true );
+		return *this;
 	}
 
 	void Shader::Source( const std::string& code )
 	{
 		const char* c = code.c_str();
-		glShaderSource( id, 1, &c, NULL );
+		glShaderSource( obj, 1, &c, NULL );
 	}
 
 	void Shader::Compile()
 	{
 		GLint res;
 
-		glCompileShader( id );
-		glGetShaderiv( id, GL_COMPILE_STATUS, &res );
+		glCompileShader( obj );
+		glGetShaderiv( obj, GL_COMPILE_STATUS, &res );
 
 		if ( res == GL_FALSE )
 			throw CompileException( GetInfoLog() );
@@ -66,15 +77,17 @@ namespace GL
 	std::string Shader::GetInfoLog()
 	{
 		GLint res;
-		glGetShaderiv( id, GL_INFO_LOG_LENGTH, &res );
+		glGetShaderiv( obj, GL_INFO_LOG_LENGTH, &res );
 
 		if ( res > 0 )
 		{
 			std::string infoLog( res, 0 );
-			glGetShaderInfoLog( id, res, &res, &infoLog[0] );
+			glGetShaderInfoLog( obj, res, &res, &infoLog[0] );
 			return infoLog;
 		} else {
 			return "";
 		}
 	}
+
+	GC Shader::gc;
 }

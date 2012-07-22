@@ -26,34 +26,47 @@ namespace GL
 {
 	VertexBuffer::VertexBuffer()
 	{
-		glGenBuffers( 1, &id );
+		gc.Create( obj, glGenBuffers, glDeleteBuffers );
+	}
+
+	VertexBuffer::VertexBuffer( const VertexBuffer& other )
+	{
+		gc.Copy( other.obj, obj );
 	}
 
 	VertexBuffer::VertexBuffer( const void* data, size_t length, BufferUsage::buffer_usage_t usage )
 	{
-		glGenBuffers( 1, &id );
+		gc.Create( obj, glGenBuffers, glDeleteBuffers );
 		Data( data, length, usage );
 	}
 
 	VertexBuffer::~VertexBuffer()
 	{
-		glDeleteBuffers( 1, &id );
+		gc.Destroy( obj );
 	}
 
 	VertexBuffer::operator GLuint() const
 	{
-		return id;
+		return obj;
+	}
+
+	const VertexBuffer& VertexBuffer::operator=( const VertexBuffer& other )
+	{
+		gc.Copy( other.obj, obj, true );
+		return *this;
 	}
 
 	void VertexBuffer::Data( const void* data, size_t length, BufferUsage::buffer_usage_t usage )
 	{
-		glBindBuffer( GL_ARRAY_BUFFER, id );
+		glBindBuffer( GL_ARRAY_BUFFER, obj );
 		glBufferData( GL_ARRAY_BUFFER, length, data, usage );
 	}
 
 	void VertexBuffer::SubData( const void* data, size_t offset, size_t length )
 	{
-		glBindBuffer( GL_ARRAY_BUFFER, id );
+		glBindBuffer( GL_ARRAY_BUFFER, obj );
 		glBufferSubData( GL_ARRAY_BUFFER, offset, length, data );
 	}
+
+	GC VertexBuffer::gc;
 }

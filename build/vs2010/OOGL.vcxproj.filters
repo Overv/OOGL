@@ -147,6 +147,9 @@
     <ClInclude Include="..\..\include\GL\GL\Framebuffer.hpp">
       <Filter>Header Files\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\GL\GL\GC.hpp">
+      <Filter>Header Files\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">

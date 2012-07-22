@@ -26,39 +26,50 @@ namespace GL
 {
 	Program::Program()
 	{
-		id = glCreateProgram();
+		obj = gc.Create( glCreateProgram(), glDeleteProgram );
+	}
+
+	Program::Program( const Program& other )
+	{
+		gc.Copy( other.obj, obj );
 	}
 
 	Program::Program( const Shader& vertex, const Shader& fragment )
 	{
-		id = glCreateProgram();
+		obj = gc.Create( glCreateProgram(), glDeleteProgram );
 		Attach( vertex );
 		Attach( fragment );
 		Link();
-		glUseProgram( id );
+		glUseProgram( obj );
 	}
 
 	Program::~Program()
 	{
-		glDeleteProgram( id );
+		gc.Destroy( obj );
 	}
 
 	Program::operator GLuint() const
 	{
-		return id;
+		return obj;
+	}
+
+	const Program& Program::operator=( const Program& other )
+	{
+		gc.Copy( other.obj, obj, true );
+		return *this;
 	}
 
 	void Program::Attach( const Shader& shader )
 	{
-		glAttachShader( id, shader );
+		glAttachShader( obj, shader );
 	}
 
 	void Program::Link()
 	{
 		GLint res;
 
-		glLinkProgram( id );
-		glGetProgramiv( id, GL_LINK_STATUS, &res );
+		glLinkProgram( obj );
+		glGetProgramiv( obj, GL_LINK_STATUS, &res );
 
 		if ( res == GL_FALSE )
 			throw LinkException( GetInfoLog() );
@@ -67,12 +78,12 @@ namespace GL
 	std::string Program::GetInfoLog()
 	{
 		GLint res;
-		glGetProgramiv( id, GL_INFO_LOG_LENGTH, &res );
+		glGetProgramiv( obj, GL_INFO_LOG_LENGTH, &res );
 
 		if ( res > 0 )
 		{
 			std::string infoLog( res, 0 );
-			glGetProgramInfoLog( id, res, &res, &infoLog[0] );
+			glGetProgramInfoLog( obj, res, &res, &infoLog[0] );
 			return infoLog;
 		} else {
 			return "";
@@ -81,12 +92,12 @@ namespace GL
 
 	Attribute Program::GetAttribute( const std::string& name )
 	{
-		return glGetAttribLocation( id, name.c_str() );
+		return glGetAttribLocation( obj, name.c_str() );
 	}
 
 	Uniform Program::GetUniform( const std::string& name )
 	{
-		return glGetUniformLocation( id, name.c_str() );
+		return glGetUniformLocation( obj, name.c_str() );
 	}
 
 	void Program::SetUniform( const Uniform& uniform, int value )
@@ -143,4 +154,6 @@ namespace GL
 	{
 		glUniformMatrix4fv( uniform, 1, GL_FALSE, value.m );
 	}
+
+	GC Program::gc;
 }

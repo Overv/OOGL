@@ -25,6 +25,7 @@
 #define OOGL_SHADER_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/GL/GC.hpp>
 #include <GL/GL/Extensions.hpp>
 #include <exception>
 #include <string>
@@ -69,12 +70,14 @@ namespace GL
 	class Shader
 	{
 	public:
+		Shader( const Shader& other );
 		Shader( ShaderType::shader_type_t type );
 		Shader( ShaderType::shader_type_t type, const std::string& code );
 
 		~Shader();
 
 		operator GLuint() const;
+		const Shader& operator=( const Shader& other );
 
 		void Source( const std::string& code );
 		void Compile();
@@ -82,10 +85,8 @@ namespace GL
 		std::string GetInfoLog();
 
 	private:
-		GLuint id;
-		
-		Shader( const Shader& );
-		const Shader& operator=( const Shader& );
+		static GC gc;
+		GLuint obj;
 	};
 }
 

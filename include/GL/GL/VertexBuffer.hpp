@@ -25,6 +25,7 @@
 #define OOGL_VERTEXBUFFER_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/GL/GC.hpp>
 #include <GL/GL/Extensions.hpp>
 
 namespace GL
@@ -55,20 +56,20 @@ namespace GL
 	{
 	public:
 		VertexBuffer();
+		VertexBuffer( const VertexBuffer& other );
 		VertexBuffer( const void* data, size_t length, BufferUsage::buffer_usage_t usage );
 
 		~VertexBuffer();
 
 		operator GLuint() const;
+		const VertexBuffer& operator=( const VertexBuffer& other );
 
 		void Data( const void* data, size_t length, BufferUsage::buffer_usage_t usage );
 		void SubData( const void* data, size_t offset, size_t length );
 
 	private:
-		GLuint id;
-		
-		VertexBuffer( const VertexBuffer& );
-		const VertexBuffer& operator=( const VertexBuffer& );
+		static GC gc;
+		GLuint obj;
 	};
 }
 

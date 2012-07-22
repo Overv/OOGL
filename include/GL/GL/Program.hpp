@@ -25,6 +25,7 @@
 #define OOGL_PROGRAM_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/GL/GC.hpp>
 #include <GL/GL/Extensions.hpp>
 #include <GL/GL/Shader.hpp>
 #include <GL/Math/Mat3.hpp>
@@ -59,11 +60,13 @@ namespace GL
 	{
 	public:
 		Program();
+		Program( const Program& program );
 		Program( const Shader& vertex, const Shader& fragment );
 
 		~Program();
 
 		operator GLuint() const;
+		const Program& operator=( const Program& other );
 
 		void Attach( const Shader& shader );
 		void Link();
@@ -86,10 +89,8 @@ namespace GL
 		void SetUniform( const Uniform& uniform, const Mat4& value );
 
 	private:
-		GLuint id;
-		
-		Program( const Program& );
-		const Program& operator=( const Program& );
+		static GC gc;
+		GLuint obj;
 	};
 }
 

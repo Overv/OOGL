@@ -25,6 +25,7 @@
 #define OOGL_TEXTURE_HPP
 
 #include <GL/Platform.hpp>
+#include <GL/GL/GC.hpp>
 #include <GL/GL/Extensions.hpp>
 #include <GL/Util/Image.hpp>
 
@@ -194,11 +195,13 @@ namespace GL
 	{
 	public:
 		Texture();
+		Texture( const Texture& other );
 		Texture( const Image& image, InternalFormat::internal_format_t internalFormat = InternalFormat::RGBA );
 
 		~Texture();
 
 		operator GLuint() const;
+		const Texture& operator=( const Texture& other );
 		
 		void Image2D( const GLvoid* data, DataType::data_type_t type, Format::format_t format, uint width, uint height, InternalFormat::internal_format_t internalFormat );
 		
@@ -212,10 +215,8 @@ namespace GL
 		void GenerateMipmaps();
 
 	private:
-		GLuint id;
-
-		Texture( const Texture& );
-		const Texture& operator=( const Texture& );
+		static GC gc;
+		GLuint obj;
 	};
 }
 

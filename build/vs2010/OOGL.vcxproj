@@ -14,6 +14,7 @@
     <ClInclude Include="..\..\include\GL\GL\Context.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Extensions.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Framebuffer.hpp" />
+    <ClInclude Include="..\..\include\GL\GL\GC.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Program.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Shader.hpp" />
     <ClInclude Include="..\..\include\GL\GL\Texture.hpp" />
