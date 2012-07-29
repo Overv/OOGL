@@ -2,7 +2,7 @@
 
 CC = g++
 CCC = gcc
-CCFLAGS = -O3 -Wall -Wextra -Werror -std=c++11
+CCFLAGS = -O3 -Wall -Wextra -Werror -std=c++0x
 
 # Final library
 
