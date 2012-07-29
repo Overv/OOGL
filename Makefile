@@ -2,7 +2,7 @@
 
 CC = g++
 CCC = gcc
-CCFLAGS = -O3 -Wall -Wextra -Werror
+CCFLAGS = -O3 -Wall -Wextra -Werror -std=c++11
 
 # Final library
 
@@ -10,8 +10,8 @@ libjpeg = $(patsubst src/GL/Util/libjpeg/%.c,bin/%.o,$(wildcard src/GL/Util/libj
 libpng = $(patsubst src/GL/Util/libpng/%.c,bin/%.o,$(wildcard src/GL/Util/libpng/*.c))
 zlib = $(patsubst src/GL/Util/zlib/%.c,bin/%.o,$(wildcard src/GL/Util/zlib/*.c))
 
-bin/OOGL.a: bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Texture.o bin/Renderbuffer.o bin/Framebuffer.o bin/Image.o $(libjpeg) $(libpng) $(zlib)
-	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Texture.o bin/Renderbuffer.o bin/Framebuffer.o bin/Image.o $(libjpeg) $(libpng) $(zlib)
+bin/OOGL.a: bin bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Texture.o bin/Renderbuffer.o bin/Framebuffer.o bin/Image.o bin/Mesh.o $(libjpeg) $(libpng) $(zlib)
+	ar rcs bin/OOGL.a bin/Mat3.o bin/Mat4.o bin/Vec2.o bin/Vec3.o bin/Vec4.o bin/Window.o bin/Window_X11.o bin/Extensions.o bin/Context.o bin/Context_X11.o bin/Shader.o bin/Program.o bin/VertexBuffer.o bin/VertexArray.o bin/Texture.o bin/Renderbuffer.o bin/Framebuffer.o bin/Image.o bin/Mesh.o $(libjpeg) $(libpng) $(zlib)
 
 # 3D Math
 
@@ -75,6 +75,9 @@ bin/Framebuffer.o: src/GL/GL/Framebuffer.cpp
 bin/Image.o: src/GL/Util/Image.cpp
 	$(CC) $(CCFLAGS) -c src/GL/Util/Image.cpp -o bin/Image.o -I include -I src
 
+bin/Mesh.o: src/GL/Util/Mesh.cpp
+	$(CC) $(CCFLAGS) -c src/GL/Util/Mesh.cpp -o bin/Mesh.o -I include -I src
+
 bin/%.o: src/GL/Util/libjpeg/%.c
 	$(CCC) -O3 -c $< -o $(patsubst src/GL/Util/libjpeg/%.c,bin/%.o,$<)
 
@@ -83,6 +86,10 @@ bin/%.o: src/GL/Util/libpng/%.c
 
 bin/%.o: src/GL/Util/zlib/%.c
 	$(CCC) -O3 -c $< -o $(patsubst src/GL/Util/zlib/%.c,bin/%.o,$<)
+
+# Bin folder
+bin:
+	mkdir bin
 
 # Clean
 clean:

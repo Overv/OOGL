@@ -51,7 +51,7 @@ namespace GL
 			GLX_DEPTH_SIZE, depth,
 			GLX_STENCIL_SIZE, stencil,
 			GLX_SAMPLE_BUFFERS, antialias > 1 ? GL_TRUE : GL_FALSE,
-			GLX_SAMPLES, antialias > 1 ? antialias : 0,
+			GLX_SAMPLES, antialias > 1 ? (int)antialias : 0,
 			0
 		};
 
