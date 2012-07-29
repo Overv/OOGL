@@ -32,6 +32,7 @@
     <ClInclude Include="..\..\include\GL\Util\ByteBuffer.hpp" />
     <ClInclude Include="..\..\include\GL\Util\Color.hpp" />
     <ClInclude Include="..\..\include\GL\Util\Image.hpp" />
+    <ClInclude Include="..\..\include\GL\Util\Mesh.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Event.hpp" />
     <ClInclude Include="..\..\include\GL\Window\Window.hpp" />
     <ClInclude Include="..\..\src\GL\Util\libpng\png.h" />
@@ -127,6 +128,7 @@
     <ClCompile Include="..\..\src\GL\Util\libpng\pngwrite.c" />
     <ClCompile Include="..\..\src\GL\Util\libpng\pngwtran.c" />
     <ClCompile Include="..\..\src\GL\Util\libpng\pngwutil.c" />
+    <ClCompile Include="..\..\src\GL\Util\Mesh.cpp" />
     <ClCompile Include="..\..\src\GL\Util\zlib\adler32.c" />
     <ClCompile Include="..\..\src\GL\Util\zlib\compress.c" />
     <ClCompile Include="..\..\src\GL\Util\zlib\crc32.c" />

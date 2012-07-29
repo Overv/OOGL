@@ -40,6 +40,19 @@ namespace GL
 		Data( data, length, usage );
 	}
 
+	VertexBuffer::VertexBuffer( const Mesh& mesh, BufferUsage::buffer_usage_t usage, std::function<void ( const Vertex& v, VertexDataBuffer& data )> f )
+	{
+		VertexDataBuffer data;
+		const Vertex* vertices = mesh.Vertices();
+		uint count = mesh.VertexCount();
+
+		for ( uint i = 0; i < count; i++ )
+			f( vertices[i], data );
+
+		gc.Create( obj, glGenBuffers, glDeleteBuffers );
+		Data( data.Pointer(), data.Size(), usage );
+	}
+
 	VertexBuffer::~VertexBuffer()
 	{
 		gc.Destroy( obj );

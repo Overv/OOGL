@@ -64,6 +64,18 @@ namespace GL
 			Points = GL_POINTS,
 		};
 	}
+
+	/*
+		Capabilities to enable/disable
+	*/
+	namespace Capability
+	{
+		enum capability_t
+		{
+			DepthTest = GL_DEPTH_TEST,
+			CullFace = GL_CULL_FACE
+		};
+	}
 		
 	/*
 		Exceptions
@@ -93,6 +105,9 @@ namespace GL
 		void Activate();
 		
 		void SetVerticalSync( bool enabled );
+
+		void Enable( Capability::capability_t capability );
+		void Disable( Capability::capability_t capability );
 
 		void ClearColor( const Color& col );
 		void Clear( Buffer::buffer_t buffers = Buffer::Color | Buffer::Depth );

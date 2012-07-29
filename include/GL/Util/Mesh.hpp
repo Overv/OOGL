@@ -21,52 +21,40 @@
 
 #pragma once
 
-#ifndef OOGL_HPP
-#define OOGL_HPP
+#ifndef OOGL_MESH_HPP
+#define OOGL_MESH_HPP
 
-/*
-	Platform and type configuration
-*/
-
-#include <GL/Platform.hpp>
-
-/*
-	3D math
-*/
-
-#include <GL/Math/Vec2.hpp>
-#include <GL/Math/Vec3.hpp>
-#include <GL/Math/Vec4.hpp>
-#include <GL/Math/Mat3.hpp>
-#include <GL/Math/Mat4.hpp>
-#include <GL/Math/Util.hpp>
-
-/*
-	Window management
-*/
-
-#include <GL/Window/Window.hpp>
-#include <GL/Window/Event.hpp>
-
-/*
-	OpenGL
-*/
-
-#include <GL/GL/Extensions.hpp>
-#include <GL/GL/Context.hpp>
-#include <GL/GL/Shader.hpp>
-#include <GL/GL/Program.hpp>
-#include <GL/GL/VertexBuffer.hpp>
-#include <GL/GL/VertexArray.hpp>
-#include <GL/GL/Texture.hpp>
-#include <GL/GL/Framebuffer.hpp>
-
-/*
-	Utilities
-*/
-
-#include <GL/Util/Color.hpp>
 #include <GL/Util/Image.hpp>
-#include <GL/Util/Mesh.hpp>
+#include <GL/Math/Vec3.hpp>
+#include <GL/Math/Vec2.hpp>
+#include <vector>
+
+namespace GL
+{
+	/*
+		Internal vertex class
+	*/
+	struct Vertex
+	{
+		Vec3 Pos;
+		Vec2 Tex;
+		Vec3 Normal;
+	};
+
+	/*
+		3D mesh container
+	*/
+	class Mesh
+	{
+	public:
+		Mesh( const std::string& filename );
+
+		const Vertex* Vertices() const;
+		int VertexCount() const;
+
+	private:
+		std::vector<Vertex> vertices;
+	};
+}
 
 #endif

@@ -25,7 +25,6 @@
 #define OOGL_GC_HPP
 
 #include <GL/Platform.hpp>
-#include <cstdio> // temp
 #include <map>
 
 namespace GL
@@ -33,9 +32,15 @@ namespace GL
 	/*
 		OpenGL object creation/destruction function prototypes
 	*/
-	typedef void ( APIENTRYP createFunc ) ( GLsizei, GLuint* );
-	typedef void ( APIENTRYP deleteFunc ) ( GLsizei, const GLuint* );
-	typedef void ( APIENTRYP deleteFunc2 ) ( GLuint );
+#if defined( OOGL_PLATFORM_WINDOWS )
+	typedef void ( __stdcall * createFunc ) ( GLsizei, GLuint* );
+	typedef void ( __stdcall * deleteFunc ) ( GLsizei, const GLuint* );
+	typedef void ( __stdcall * deleteFunc2 ) ( GLuint );
+#elif defined( OOGL_PLATFORM_LINUX )
+	typedef void ( * createFunc ) ( GLsizei, GLuint* );
+	typedef void ( * deleteFunc ) ( GLsizei, const GLuint* );
+	typedef void ( * deleteFunc2 ) ( GLuint );
+#endif
 
 	/*
 		OpenGL object garbage collector

@@ -24,6 +24,16 @@
 
 namespace GL
 {
+	void Context::Enable( Capability::capability_t capability )
+	{
+		glEnable( capability );
+	}
+
+	void Context::Disable( Capability::capability_t capability )
+	{
+		glDisable( capability );
+	}
+
 	void Context::ClearColor( const Color& col )
 	{
 		glClearColor( col.R / 255.0f, col.G / 255.0f, col.B / 255.0f, col.A / 255.0f );
