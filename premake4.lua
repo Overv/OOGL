@@ -21,15 +21,6 @@ solution "OOGL"
 	zlib = { "src/GL/Util/zlib/*.c" }
 
 	newoption {
-		trigger			= "with-imageloader",
-		description	= "Build the image loader"
-	}
-	newoption {
-		trigger			= "with-meshloader",
-		description	= "Build the mesh loader"
-	}
-
-	newoption {
 		trigger			= "build",
 		value				= "TYPE",
 		description	= "Which type of library to output",
@@ -40,11 +31,6 @@ solution "OOGL"
 	}
 
 	if( _OPTIONS['build'] == nil ) then _OPTIONS['build'] = shared end
-
-	configuration "with-imageloader"
-		defines { "OOGL_USE_IMAGELOADER" }
-	configuration "with-meshloader"
-		defines { "OOGL_USE_MESHLOADER" }
 
 	project "OOGL"
 		if( _OPTIONS['build'] == "shared" ) then
