@@ -6,7 +6,7 @@ OOGL (Object-oriented OpenGL) is a C++ library that wraps the functionality of t
 
 To start using this library, all you need is Windows or a Linux distro and a working OpenGL driver that supports at the least OpenGL 3.2. Any libraries that OOGL depends on are included in the source, so building is as simple as
 
-	git://github.com/Overv/OOGL.git
+	git clone git://github.com/Overv/OOGL.git
 	cd OOGL
 	premake4 gmake/vs2008/vs2010
 
