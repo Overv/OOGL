@@ -23,6 +23,7 @@
 #ifdef _MSC_VER
 #pragma warning( disable : 4611 )
 #endif
+#ifdef OOGL_USE_IMAGELOADER
 
 #include <GL/Util/Image.hpp>
 #include <GL/Util/libjpeg/jpeglib.h>
@@ -617,3 +618,4 @@ namespace GL
 		fclose( file );
 	}
 }
+#endif /* OOGL_USE_IMAGELOADER */

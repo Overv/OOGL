@@ -16,3 +16,9 @@
 *.lib
 *.o
 *.a
+
+# Directories
+
+build/
+obj/
+bin/
