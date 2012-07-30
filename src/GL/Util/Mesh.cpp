@@ -23,6 +23,8 @@
 #include <GL/Math/Vec3.hpp>
 #include <fstream>
 
+#ifndef OOGL_NO_MESHLOADER
+
 namespace GL
 {
 	/*
@@ -243,4 +245,4 @@ namespace GL
 		return vertices.size();
 	}
 }
-
+#endif /* OOGL_NO_MESHLOADER */
