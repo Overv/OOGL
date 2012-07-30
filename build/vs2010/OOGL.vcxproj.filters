@@ -1,438 +1,88 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Math">
-      <UniqueIdentifier>{53c4e165-b541-456d-a362-4dc872f9816f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Math">
-      <UniqueIdentifier>{da60f632-2ced-4606-a01b-9c24195d2285}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Window">
-      <UniqueIdentifier>{02440307-c66a-4f9a-aabd-cad79a818220}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Window">
-      <UniqueIdentifier>{54ba179a-df70-4eff-98d0-eb29c9ef328f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GL">
-      <UniqueIdentifier>{d94b9fcc-62a0-45cf-862c-4030aa234557}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GL">
-      <UniqueIdentifier>{7ea08471-5e46-43e8-aadb-4df461c640cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Util">
-      <UniqueIdentifier>{9f35dd22-54da-402f-b010-27b00a241fe0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Util">
-      <UniqueIdentifier>{1aa6c945-0c8b-4bb8-a63d-49afde75a7a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Util\libjpeg">
-      <UniqueIdentifier>{3edc7525-9a50-473e-86d4-98b4ecd3c853}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Util\libpng">
-      <UniqueIdentifier>{feb94dd3-322e-48b5-84b3-e9c1c89b4814}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Util\zlib">
-      <UniqueIdentifier>{100d2b00-44b7-43e4-9c08-1f5a5e22b24f}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\include\GL\OOGL.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Math\Vec2.hpp">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Math\Vec3.hpp">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Math\Mat3.hpp">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Math\Mat4.hpp">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Math\Util.hpp">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Window\Window.hpp">
-      <Filter>Header Files\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Window\Event.hpp">
-      <Filter>Header Files\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Context.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Platform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Extensions.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Program.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Shader.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\VertexBuffer.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\VertexArray.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Math\Vec4.hpp">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Util\Image.hpp">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Util\Color.hpp">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Util\ByteBuffer.hpp">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\libpng\png.h">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\libpng\pngconf.h">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\crc32.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\deflate.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\inffast.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\inffixed.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\inflate.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\inftrees.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\trees.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\zconf.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\zlib.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GL\Util\zlib\zutil.h">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Texture.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Framebuffer.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\GC.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\GL\Renderbuffer.hpp">
-      <Filter>Header Files\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\GL\Util\Mesh.hpp">
-      <Filter>Header Files\Util</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Math\Vec3.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Math\Mat3.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Math\Mat4.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp">
-      <Filter>Source Files\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Window\Window.cpp">
-      <Filter>Source Files\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Context.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Extensions.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Program.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Shader.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\VertexBuffer.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\VertexArray.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Math\Vec4.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\Image.cpp">
-      <Filter>Source Files\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jaricom.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcapimin.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcapistd.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcarith.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jccoefct.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jccolor.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcdctmgr.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jchuff.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcinit.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcmainct.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcmarker.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcmaster.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcomapi.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcparam.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcprepct.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jcsample.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jctrans.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdapimin.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdapistd.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdarith.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdatadst.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdatasrc.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdcoefct.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdcolor.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jddctmgr.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdhuff.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdinput.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmainct.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmarker.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmaster.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdmerge.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdpostct.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdsample.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jdtrans.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jerror.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jfdctflt.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jfdctfst.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jfdctint.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jidctflt.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jidctfst.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jidctint.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jmemmgr.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jmemnobs.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jquant1.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jquant2.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libjpeg\jutils.c">
-      <Filter>Source Files\Util\libjpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\png.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngerror.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pnggccrd.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngget.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngmem.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngpread.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngread.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngrio.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngrtran.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngrutil.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngset.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngtrans.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngvcrd.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngwio.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngwrite.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngwtran.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\libpng\pngwutil.c">
-      <Filter>Source Files\Util\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\adler32.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\compress.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\crc32.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\deflate.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\inffast.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\inflate.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\inftrees.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\trees.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\uncompr.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\zlib\zutil.c">
-      <Filter>Source Files\Util\zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Texture.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Framebuffer.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\GL\Renderbuffer.cpp">
-      <Filter>Source Files\GL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GL\Util\Mesh.cpp">
-      <Filter>Source Files\Util</Filter>
-    </ClCompile>
-  </ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{3FF06376-63EC-440E-AA34-39A01FB65167}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\GL">
+			<UniqueIdentifier>{E9CC918C-BA31-2725-4D04-AB35681865D4}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\GL\Math">
+			<UniqueIdentifier>{A62E8928-4021-EFB2-A78D-388C4499D75B}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\GL\Util">
+			<UniqueIdentifier>{14B60D21-5230-7DAD-9759-95DCFEDC992E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\GL\GL">
+			<UniqueIdentifier>{55324126-C15A-E41E-707C-E1B6DB23647E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\GL\Window">
+			<UniqueIdentifier>{58C5D843-014D-9479-DD3B-2FCEE102884B}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\GL\Math\Vec3.cpp">
+			<Filter>src\GL\Math</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Math\Mat4.cpp">
+			<Filter>src\GL\Math</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Math\Mat3.cpp">
+			<Filter>src\GL\Math</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Math\Vec2.cpp">
+			<Filter>src\GL\Math</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Math\Vec4.cpp">
+			<Filter>src\GL\Math</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Util\Mesh.cpp">
+			<Filter>src\GL\Util</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Util\Image.cpp">
+			<Filter>src\GL\Util</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Framebuffer.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Renderbuffer.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Context_X11.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Extensions.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\VertexArray.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Texture.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Program.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\VertexBuffer.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Shader.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Context_Win32.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\GL\Context.cpp">
+			<Filter>src\GL\GL</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Window\Window_Win32.cpp">
+			<Filter>src\GL\Window</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Window\Window_X11.cpp">
+			<Filter>src\GL\Window</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\GL\Window\Window.cpp">
+			<Filter>src\GL\Window</Filter>
+		</ClCompile>
+	</ItemGroup>
 </Project>
