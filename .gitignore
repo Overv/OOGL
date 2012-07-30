@@ -16,3 +16,7 @@
 *.lib
 *.o
 *.a
+
+# Linux debug files
+
+*.d
