@@ -24,6 +24,8 @@
 #pragma warning( disable : 4611 )
 #endif
 
+#ifndef OOGL_NO_IMAGELOADER
+
 #include <GL/Util/Image.hpp>
 #include <GL/Util/libjpeg/jpeglib.h>
 #include <GL/Util/libpng/png.h>
@@ -617,3 +619,5 @@ namespace GL
 		fclose( file );
 	}
 }
+
+#endif /* OOGL_NO_IMAGELOADER */
