@@ -8,9 +8,9 @@ To start using this library, all you need is Windows or a Linux distro and a wor
 
 	git://github.com/Overv/OOGL.git
 	cd OOGL
-	make
+	premake4 (gmake/vs2008/vs2010/xcode)
 
-or pressing F7 after loading the project in Visual Studio on Windows. To find out how to get started, have a look at the [wiki](https://github.com/Overv/OOGL/wiki).
+Included in the build directory are the latest build files for Linux (Makefiles), Mac OSX (XCode), and Windows (VS2010)
 
 ## Sample
 

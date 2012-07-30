@@ -17,8 +17,6 @@
 *.o
 *.a
 
-# Directories
+# Linux debug files
 
-build/
-obj/
-bin/
+*.d
