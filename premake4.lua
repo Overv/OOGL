@@ -21,16 +21,6 @@ solution "OOGL"
 	zlib = { "src/GL/Util/zlib/*.c" }
 
 	newoption {
-		trigger			= "without-meshloader",
-		description	= "Do NOT build the mesh loader"
-	}
-
-	newoption {
-		trigger			= "without-imageloader",
-		description	= "Do NOT build the image loader"
-	}
-
-	newoption {
 		trigger			= "build",
 		value				= "TYPE",
 		description	= "Which type of library to output",
@@ -41,12 +31,6 @@ solution "OOGL"
 	}
 
 	if( _OPTIONS['build'] == nil ) then _OPTIONS['build'] = shared end
-
-	configuration "without-meshloader"
-		defines { "OOGL_NO_MESHLOADER" }
-
-	configuration "without-imageloader"
-		defines { "OOGL_NO_IMAGELOADER" }
 
 	project "OOGL"
 		if( _OPTIONS['build'] == "shared" ) then
