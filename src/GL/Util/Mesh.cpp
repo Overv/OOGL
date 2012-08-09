@@ -19,8 +19,6 @@
 	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 */
 
-#ifdef OOGL_USE_MESHLOADER
-
 #include <GL/Util/Mesh.hpp>
 #include <GL/Math/Vec3.hpp>
 #include <fstream>
@@ -245,5 +243,3 @@ namespace GL
 		return vertices.size();
 	}
 }
-
-#endif /* OOGL_USE_MESHLOADER */
