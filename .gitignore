@@ -13,6 +13,7 @@
 # Xcode files
 *.pbxproj
 *.xcuserstate
+*.xcodeproj
 
 # Binaries
 
