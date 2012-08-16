@@ -15,6 +15,7 @@
 *.xcuserstate
 *.xcodeproj
 *.xcworkspace
+*.xcuserdatad
 
 # Binaries
 
