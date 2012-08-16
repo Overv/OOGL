@@ -14,6 +14,7 @@
 *.pbxproj
 *.xcuserstate
 *.xcodeproj
+*.xcworkspace
 
 # Binaries
 
