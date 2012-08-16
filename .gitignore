@@ -11,9 +11,7 @@
 *.suo
 
 # Xcode files
-*.pbxproj
 *.xcuserstate
-*.xcodeproj
 *.xcworkspace
 *.xcuserdatad
 
