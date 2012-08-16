@@ -32,6 +32,11 @@
 #include <GL/Util/Color.hpp>
 #include <exception>
 
+#ifdef OOGL_PLATFORM_OSX
+#include <objc/objc.h>
+#include <OpenGL/OpenGL.h>
+#endif
+
 namespace GL
 {
 	/*
@@ -152,6 +157,15 @@ namespace GL
 		::Window window;
 
 		timeval timeOffset;
+#elif defined( OOGL_PLATFORM_OSX )
+        Context( uchar color, uchar depth, uchar stencil, uint antialias);
+        
+        id GetNSOpenGLContext()
+        {
+            return context;
+        }
+        
+        __strong id context;
 #endif
 	};
 }
