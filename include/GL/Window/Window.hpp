@@ -128,7 +128,10 @@ namespace GL
         // therefore classes must be weakly typed with id.
         
         // NSWindow*
-        __strong id window;
+        id window;
+        
+        // OOGLAppDelegate*
+        id delegate;
     
         void SendEvent(GL::Event event);
         
