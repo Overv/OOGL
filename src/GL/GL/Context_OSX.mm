@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Jack Karamanian. All rights reserved.
 //
 
-#include <GL/Context.hpp>
+#include <GL/GL/Context.hpp>
 #include <OpenGL/OpenGL.h>
 #include <Cocoa/Cocoa.h>
 
