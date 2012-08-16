@@ -85,20 +85,32 @@ namespace GL {
     ev.Type        = GL::Event::event_t::MouseMove;
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
     ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
-    ev.Mouse.Delta = 0; // Find delta
+    ev.Mouse.Delta = theEvent.scrollingDeltaY;
     
     windowInterface->SendEvent(ev);
     
 }
 
 -(void)mouseUp:(NSEvent *)theEvent {
+    GL::Event ev;
+    ev.Type        = GL::Event::event_t::MouseUp;
+    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    ev.Mouse.Delta = theEvent.scrollingDeltaY;
     
+    windowInterface->SendEvent(ev);
 
 }
 
 
 -(void)mouseDown:(NSEvent *)theEvent {
+    GL::Event ev;
+    ev.Type        = GL::Event::event_t::MouseDown;
+    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    ev.Mouse.Delta = theEvent.scrollingDeltaY;
     
+    windowInterface->SendEvent(ev);
 }
 
 -(BOOL)canBecomeKeyView {
@@ -149,6 +161,7 @@ namespace GL {
     {
         open = true;
         delegate = [[OOGLAppDelegate alloc] initWithOOGLWindow:this];
+        
         // Initialize the shared NSApplication
         [NSApplication sharedApplication];
         [NSApp setDelegate:delegate];
@@ -166,7 +179,7 @@ namespace GL {
         
         
         window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
-        //[window setDelegate:delegate];
+        [window setDelegate:delegate];
         [window setAcceptsMouseMovedEvents:YES];
                 [window setIsVisible:YES];
         
@@ -175,6 +188,7 @@ namespace GL {
         NSOpenGLContext *ctxt = GetContext().GetNSOpenGLContext();
         OOGLView *glView = [[OOGLView alloc] initWithOOGLWindow:this];
         glView.openGLContext = ctxt;
+        
         [window setContentView:glView];
         [window makeFirstResponder:glView];
         [window makeKeyAndOrderFront:nil];
@@ -183,7 +197,7 @@ namespace GL {
     
     Window::~Window()
     {
-    
+        delete context;
     }
     
     void Window::SetPos(int x, int y)
@@ -194,7 +208,6 @@ namespace GL {
     void Window::SetSize(uint width, uint height)
     {
        [window setSize:NSMakeSize(width, height)];
-
     }
     
     void Window::SetTitle(const std::string &title)
