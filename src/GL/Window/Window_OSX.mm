@@ -12,7 +12,11 @@
 #ifdef OOGL_PLATFORM_OSX
 
 namespace GL {
-    class WindowInterface {
+    GL::Key::key_t TranslateMacKeycode(ushort code);
+    
+    // A class to interact with the private state of a Window.
+    class WindowInterface
+    {
         GL::Window *window;
     public:
         WindowInterface(GL::Window *window)
@@ -23,6 +27,11 @@ namespace GL {
         void SendEvent(GL::Event ev)
         {
             window->SendEvent(ev);
+        }
+        
+        void Close()
+        {
+            window->open = false;
         }
     };
 }
@@ -50,7 +59,7 @@ namespace GL {
 -(void)keyUp:(NSEvent *)theEvent {
     GL::Event ev;
     ev.Type        = GL::Event::event_t::KeyUp;
-    ev.Key.Code    = [self translateMacKeycode:theEvent.keyCode];
+    ev.Key.Code    = GL::TranslateMacKeycode(theEvent.keyCode);
     ev.Key.Shift   = theEvent.modifierFlags & NSShiftKeyMask;
     ev.Key.Alt     = theEvent.modifierFlags & NSAlternateKeyMask;
     ev.Key.Control = theEvent.modifierFlags & NSControlKeyMask;
@@ -62,7 +71,7 @@ namespace GL {
 -(void)keyDown:(NSEvent *)theEvent {
     GL::Event ev;
     ev.Type        = GL::Event::event_t::KeyDown;
-    ev.Key.Code    = [self translateMacKeycode:theEvent.keyCode];
+    ev.Key.Code    = GL::TranslateMacKeycode(theEvent.keyCode);
     ev.Key.Shift   = theEvent.modifierFlags & NSShiftKeyMask;
     ev.Key.Alt     = theEvent.modifierFlags & NSAlternateKeyMask;
     ev.Key.Control = theEvent.modifierFlags & NSControlKeyMask;
@@ -92,8 +101,161 @@ namespace GL {
     
 }
 
--(GL::Key::key_t)translateMacKeycode:(unsigned short)code {
+-(BOOL)canBecomeKeyView {
+    return YES;
+}
+
+-(void)dealloc {
+    delete windowInterface;
+}
+
+@end
+
+@interface OOGLAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
+
+-(id)initWithOOGLWindow:(GL::Window*) window;
+
+@end
+
+@implementation OOGLAppDelegate {
+    GL::WindowInterface *windowInterface;
+}
+
+-(id)initWithOOGLWindow:(GL::Window *)window {
+    self = [super init];
     
+    if (self) {
+        windowInterface = new GL::WindowInterface(window);
+    }
+    
+    return self;
+}
+-(void)applicationDidHide:(NSNotification *)notification {
+   
+}
+-(void)windowWillClose:(NSNotification *)notification {
+    windowInterface->Close();
+}
+
+-(void)dealloc {
+    delete windowInterface;
+}
+
+@end
+
+namespace GL {
+    
+    Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
+    {
+        open = true;
+        delegate = [[OOGLAppDelegate alloc] initWithOOGLWindow:this];
+        // Initialize the shared NSApplication
+        [NSApplication sharedApplication];
+        [NSApp setDelegate:delegate];
+        [NSApp activateIgnoringOtherApps:YES];
+        
+        // Thank you GLFW.
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+        
+        SetFrontProcess(&psn);
+        
+        context = nullptr;
+        NSRect rect = NSMakeRect(0, 0, width, height);
+        NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask;
+        
+        
+        window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
+        //[window setDelegate:delegate];
+        [window setAcceptsMouseMovedEvents:YES];
+                [window setIsVisible:YES];
+        
+        [window setTitle:@(title.c_str())];
+        
+        NSOpenGLContext *ctxt = GetContext().GetNSOpenGLContext();
+        OOGLView *glView = [[OOGLView alloc] initWithOOGLWindow:this];
+        glView.openGLContext = ctxt;
+        [window setContentView:glView];
+        [window makeFirstResponder:glView];
+        [window makeKeyAndOrderFront:nil];
+        [window makeKeyWindow];
+    }
+    
+    Window::~Window()
+    {
+    
+    }
+    
+    void Window::SetPos(int x, int y)
+    {
+        [window setPosition:CGPointMake(x, y)];
+    }
+    
+    void Window::SetSize(uint width, uint height)
+    {
+       [window setSize:NSMakeSize(width, height)];
+
+    }
+    
+    void Window::SetTitle(const std::string &title)
+    {
+        [window setTitle:@(title.c_str())];
+    }
+    
+    void Window::SetVisible(bool visible)
+    {
+        [window setVisible:visible];
+    }
+    
+    void Window::Close()
+    {
+        [window setVisible:NO];
+        this->open = false;
+    }
+    
+    bool Window::GetEvent(GL::Event &ev)
+    {
+        NSEvent *event = nil;
+        do {
+            event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantPast] inMode:NSDefaultRunLoopMode dequeue:YES];
+            
+            [NSApp sendEvent:event];
+            [NSApp updateWindows];
+        } while (event);
+		// Return oldest event - if available
+		if ( events.empty() ) return false;
+		
+		ev = events.front();
+		events.pop();
+        
+		return true;
+    }
+    
+    void Window::SendEvent(GL::Event event)
+    {
+        events.push(event);
+    }
+    
+    Context& Window::GetContext(uchar color, uchar depth, uchar stencil, uchar antialias)
+    {
+        if ( context )
+			return *context;
+		else
+			return *( context = new Context( color, depth, stencil, antialias) );
+    }
+    
+    void Window::Present()
+    {
+        context->Activate();
+
+        [context->GetNSOpenGLContext() flushBuffer];
+    }
+    
+    
+}
+
+GL::Key::key_t GL::TranslateMacKeycode(ushort code)
+{
     // Thank you for this extremely convienent
     // mac keycode table GLFW!
     static const GL::Key::key_t table[128] =
@@ -227,152 +389,8 @@ namespace GL {
         /* 7e */ GL::Key::key_t::Up,
         /* 7f */ GL::Key::key_t::Unknown,
     };
-
+    
     return table[code];
-    
-}
-
--(BOOL)canBecomeKeyView {
-    return YES;
-}
-
--(void)dealloc {
-    delete windowInterface;
-}
-
-@end
-
-@interface OOGLAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
-
-@end
-
-@implementation OOGLAppDelegate
--(void)applicationDidHide:(NSNotification *)notification {
-   
-}
--(void)windowDidResignKey:(NSNotification *)notification {
-     
-}
-
-@end
-
-id delegate;
-
-
-namespace GL {
-    
-    Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
-    {
-        open = true;
-        delegate = [[OOGLAppDelegate alloc] init];
-        // Initialize the shared NSApplication
-        [NSApplication sharedApplication];
-        [NSApp setDelegate:delegate];
-        [NSApp activateIgnoringOtherApps:YES];
-        
-        // Thank you GLFW.
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
-        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        
-        SetFrontProcess(&psn);
-        
-        context = nullptr;
-        NSRect rect = NSMakeRect(0, 0, width, height);
-        NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask;
-        
-        
-        window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
-        //[window setDelegate:delegate];
-        [window setAcceptsMouseMovedEvents:YES];
-                [window setIsVisible:YES];
-        
-        [window setTitle:@(title.c_str())];
-        
-        NSOpenGLContext *ctxt = GetContext().GetNSOpenGLContext();
-        OOGLView *glView = [[OOGLView alloc] initWithOOGLWindow:this];
-        glView.openGLContext = ctxt;
-        [window setContentView:glView];
-        [window makeFirstResponder:glView];
-        [window makeKeyAndOrderFront:nil];
-        [window makeKeyWindow];
-    }
-    
-    Window::~Window()
-    {
-    
-    }
-    
-    void Window::SetPos(int x, int y)
-    {
-        [window setPosition:CGPointMake(x, y)];
-    }
-    
-    void Window::SetSize(uint width, uint height)
-    {
-       [window setSize:NSMakeSize(width, height)];
-
-    }
-    
-    void Window::SetTitle(const std::string &title)
-    {
-        [window setTitle:@(title.c_str())];
-    }
-    
-    void Window::SetVisible(bool visible)
-    {
-        [window setVisible:visible];
-    }
-    
-    void Window::Close()
-    {
-        [window setVisible:NO];
-        this->open = false;
-    }
-    
-    bool Window::GetEvent(GL::Event &ev)
-    {
-        NSEvent *event = nil;
-        do {
-            event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantPast] inMode:NSDefaultRunLoopMode dequeue:YES];
-            
-            [NSApp sendEvent:event];
-            [NSApp updateWindows];
-        } while (event);
-		// Return oldest event - if available
-		if ( events.empty() ) return false;
-		
-		ev = events.front();
-		events.pop();
-        
-		return true;
-    }
-    
-    void Window::SendEvent(GL::Event event)
-    {
-        events.push(event);
-    }
-    
-    Context& Window::GetContext(uchar color, uchar depth, uchar stencil, uchar antialias)
-    {
-        if ( context )
-			return *context;
-		else
-			return *( context = new Context( color, depth, stencil, antialias) );
-    }
-    
-    void Window::Present()
-    {
-        
-        
-        context->Activate();
-        
-        
-        [context->GetNSOpenGLContext() flushBuffer];
-        //[window display];
-        
-    }
-    
-    
 }
 
 #endif
