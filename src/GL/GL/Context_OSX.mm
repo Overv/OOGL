@@ -11,6 +11,7 @@
 #include <Cocoa/Cocoa.h>
 
 namespace GL {
+    
     Context::Context( uchar color, uchar depth, uchar stencil, uint antialias ){
         NSOpenGLPixelFormatAttribute params[] = {
 

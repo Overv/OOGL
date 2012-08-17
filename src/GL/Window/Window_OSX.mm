@@ -31,6 +31,7 @@ namespace GL {
         
         void Close()
         {
+            window->SendEvent({.Type = GL::Event::Close});
             window->open = false;
         }
     };
@@ -92,6 +93,7 @@ namespace GL {
 }
 
 -(void)mouseUp:(NSEvent *)theEvent {
+    // TODO: Add buttons.
     GL::Event ev;
     ev.Type        = GL::Event::event_t::MouseUp;
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
@@ -235,6 +237,7 @@ namespace GL {
             [NSApp sendEvent:event];
             [NSApp updateWindows];
         } while (event);
+        
 		// Return oldest event - if available
 		if ( events.empty() ) return false;
 		
