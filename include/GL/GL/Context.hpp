@@ -73,10 +73,47 @@ namespace GL
 		enum capability_t
 		{
 			DepthTest = GL_DEPTH_TEST,
+			StencilTest = GL_STENCIL_TEST,
 			CullFace = GL_CULL_FACE
 		};
 	}
-		
+
+	/*
+		Stencil test functions
+	*/
+	namespace TestFunction
+	{
+		enum test_function_t
+		{
+			Never = GL_NEVER,
+			Less = GL_LESS,
+			LessEqual = GL_LEQUAL,
+			Greater = GL_GREATER,
+			GreaterEqual = GL_GEQUAL,
+			Equal = GL_EQUAL,
+			NotEqual = GL_NOTEQUAL,
+			Always = GL_ALWAYS
+		};
+	}
+
+	/*
+		Stencil operation
+	*/
+	namespace StencilAction
+	{
+		enum stencil_action_t
+		{
+			Keep = GL_KEEP,
+			Zero = GL_ZERO,
+			Replace = GL_REPLACE,
+			Increase = GL_INCR,
+			IncreaseWrap = GL_INCR_WRAP,
+			Decrease = GL_DECR,
+			DecreaseWrap = GL_DECR_WRAP,
+			Invert = GL_INVERT
+		};
+	}
+
 	/*
 		Exceptions
 	*/
@@ -111,6 +148,13 @@ namespace GL
 
 		void ClearColor( const Color& col );
 		void Clear( Buffer::buffer_t buffers = Buffer::Color | Buffer::Depth );
+
+		void DepthMask( bool writeEnabled );
+		void StencilMask( bool writeEnabled );
+		void StencilMask( uint mask );
+
+		void StencilFunc( TestFunction::test_function_t function, int reference, uint mask = ~0 );
+		void StencilOp( StencilAction::stencil_action_t fail, StencilAction::stencil_action_t zfail, StencilAction::stencil_action_t pass );
 
 		void UseProgram( const Program& program );
 

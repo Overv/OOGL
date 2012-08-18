@@ -44,6 +44,31 @@ namespace GL
 		glClear( buffers );
 	}
 
+	void Context::DepthMask( bool writeEnabled )
+	{
+		glDepthMask( writeEnabled ? GL_TRUE : GL_FALSE );
+	}
+
+	void Context::StencilMask( bool writeEnabled )
+	{
+		glStencilMask( writeEnabled ? ~0 : 0 );
+	}
+
+	void Context::StencilMask( uint mask )
+	{
+		glStencilMask( mask );
+	}
+
+	void Context::StencilFunc( TestFunction::test_function_t function, int reference, uint mask )
+	{
+		glStencilFunc( function, reference, mask );
+	}
+
+	void Context::StencilOp( StencilAction::stencil_action_t fail, StencilAction::stencil_action_t zfail, StencilAction::stencil_action_t pass )
+	{
+		glStencilOp( fail, zfail, pass );
+	}
+
 	void Context::UseProgram( const Program& program )
 	{
 		glUseProgram( program );

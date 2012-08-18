@@ -440,6 +440,13 @@ typedef void ( APIENTRYP GLBINDRENDERBUFFER ) ( GLenum target, GLuint renderbuff
 extern GLBINDRENDERBUFFER glBindRenderbuffer;
 
 /*
+	Stencil test
+*/
+
+#define GL_INCR_WRAP 0x8507
+#define GL_DECR_WRAP 0x8508
+
+/*
 	Extension loader
 */
 
