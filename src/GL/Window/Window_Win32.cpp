@@ -104,9 +104,11 @@ namespace GL
 
 	Window::~Window()
 	{
-		if ( !open ) return;
-		
-		Close();
+		if ( context ) delete context;
+
+		DestroyWindow( window );
+
+		UnregisterClass( "OGLWINDOW", GetModuleHandle( NULL ) );
 	}
 
 	void Window::SetPos( int x, int y )
@@ -137,12 +139,7 @@ namespace GL
 
 	void Window::Close()
 	{
-		if ( context ) delete context;
-
-		DestroyWindow( window );
-
-		UnregisterClass( "OGLWINDOW", GetModuleHandle( NULL ) );
-
+		CloseWindow( window );
 		open = false;
 	}
 
