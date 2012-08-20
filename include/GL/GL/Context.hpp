@@ -32,6 +32,11 @@
 #include <GL/Util/Color.hpp>
 #include <exception>
 
+// Xlib interference
+#ifdef OOGL_PLATFORM_LINUX
+#undef Always
+#endif
+
 namespace GL
 {
 	/*
