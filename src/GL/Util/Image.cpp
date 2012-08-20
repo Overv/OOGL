@@ -58,7 +58,7 @@ namespace GL
 		{
 			for ( uint y = 0; y < height; y++ )
 			{
-				uint o = ( x + y * width ) * sizeof( uchar );
+				uint o = ( x + y * width ) * sizeof( Color );
 				image[ x + y * width ] = Color( pixels[o+0], pixels[o+1], pixels[o+2], pixels[o+3] );
 			}
 		}

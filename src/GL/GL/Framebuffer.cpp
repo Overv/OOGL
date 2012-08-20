@@ -56,6 +56,8 @@ namespace GL
 
 		// Create texture to hold color buffer
 		texColor.Image2D( 0, DataType::UnsignedByte, Format::RGBA, width, height, colorFormat );
+		texColor.SetWrapping( GL::Wrapping::ClampEdge, GL::Wrapping::ClampEdge );
+		texColor.SetFilters( GL::Filter::Linear, GL::Filter::Linear );
 		glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColor, 0 );
 		
 		// Create renderbuffer to hold depth buffer
