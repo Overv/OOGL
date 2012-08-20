@@ -12,8 +12,6 @@
 #import <Cocoa/Cocoa.h>
 
 namespace GL {
-    GL::Key::key_t TranslateMacKeycode(ushort code);
-    
     // A class to interact with the private state of a Window.
     class WindowInterface
     {
@@ -23,10 +21,18 @@ namespace GL {
         
         void SendEvent(GL::Event ev);
         
+        void SetFocus(bool focus);
+        
         GL::Key::key_t TranslateKey(uint code);
         
         void Close();
     };
+    
+    GL::Event MakeWindowEvent(NSWindow *window);
+    
+    GL::Key::key_t TranslateMacKeycode(ushort code);
+    
+    GL::MouseButton::mouse_button_t TranslateMacMouseButton(NSEventType eventType);
 }
 
 @interface OOGLView: NSOpenGLView
@@ -67,7 +73,7 @@ namespace GL {
         window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
         [window setDelegate:delegate];
         [window setAcceptsMouseMovedEvents:YES];
-                [window setIsVisible:YES];
+        [window setIsVisible:YES];
         
         [window setTitle:@(title.c_str())];
         
@@ -131,11 +137,6 @@ namespace GL {
 		return true;
     }
     
-    void Window::SendEvent(GL::Event event)
-    {
-        events.push(event);
-    }
-    
     Context& Window::GetContext(uchar color, uchar depth, uchar stencil, uchar antialias)
     {
         if ( context )
@@ -148,7 +149,7 @@ namespace GL {
     {
         context->Activate();
 
-        [context->GetNSOpenGLContext() flushBuffer];
+        [context->context flushBuffer];
     }
     
     Key::key_t Window::TranslateKey(uint code)
@@ -158,7 +159,12 @@ namespace GL {
 
     void WindowInterface::SendEvent(GL::Event ev)
     {
-        window->SendEvent(ev);
+        window->events.push(ev);
+    }
+    
+    void WindowInterface::SetFocus(bool focus)
+    {
+        window->focus = focus;
     }
     
     GL::Key::key_t WindowInterface::TranslateKey(uint code)
@@ -168,7 +174,11 @@ namespace GL {
     
     void WindowInterface::Close()
     {
-        window->SendEvent({.Type = GL::Event::Close});
+        GL::Event ev = GL::MakeWindowEvent(window->window);
+        
+        ev.Type = GL::Event::Close;
+        
+        SendEvent(ev);
         window->open = false;
     }
 
@@ -187,9 +197,22 @@ namespace GL {
     
     return self;
 }
--(void)applicationDidHide:(NSNotification *)notification {
+
+-(void)windowDidBecomeKey:(NSNotification *)notification {
+    GL::Event ev = GL::MakeWindowEvent(notification.object);
+    ev.Type      = GL::Event::Focus;
+    
+    windowInterface->SendEvent(ev);
+}
+
+-(void)windowDidResignKey:(NSNotification *)notification {
+    GL::Event ev = GL::MakeWindowEvent(notification.object);
+    ev.Type      = GL::Event::Blur;
+    
+    windowInterface->SendEvent(ev);
     
 }
+
 -(void)windowWillClose:(NSNotification *)notification {
     windowInterface->Close();
 }
@@ -250,12 +273,12 @@ namespace GL {
 }
 
 -(void)mouseUp:(NSEvent *)theEvent {
-    // TODO: Add buttons.
     GL::Event ev;
     ev.Type        = GL::Event::event_t::MouseUp;
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
     ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
     ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    ev.Mouse.Button = GL::TranslateMacMouseButton(theEvent.type);
     
     windowInterface->SendEvent(ev);
     
@@ -268,6 +291,7 @@ namespace GL {
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
     ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
     ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    ev.Mouse.Button = GL::TranslateMacMouseButton(theEvent.type);
     
     windowInterface->SendEvent(ev);
 }
@@ -283,6 +307,38 @@ namespace GL {
 @end
 
 namespace GL {
+    
+    GL::Event MakeWindowEvent(NSWindow *window)
+    {
+        GL::Event ev;
+        ev.Window.X      = window.frame.origin.x;
+        ev.Window.Y      = window.frame.origin.y;
+        ev.Window.Width  = window.frame.size.width;
+        ev.Window.Height = window.frame.size.height;
+        
+        return ev;
+    }
+    
+    GL::MouseButton::mouse_button_t TranslateMacMouseButton(NSEventType eventType)
+    {
+        switch (eventType) {
+            case NSLeftMouseDown:
+            case NSLeftMouseUp:
+                return MouseButton::Left;
+                
+            case NSRightMouseDown:
+            case NSRightMouseUp:
+                return MouseButton::Right;
+                
+            case NSOtherMouseDown:
+            case NSOtherMouseUp:
+                // Is this correct?
+                return MouseButton::Middle;
+                
+            default:
+                break;
+        }
+    }
 
     GL::Key::key_t TranslateMacKeycode(ushort code)
     {
