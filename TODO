@@ -1,4 +1,4 @@
 - Support for materials in the Mesh class
 - Ability to create textures directly from memory buffers
 - Support for 1D and 3D textures
-- Stencil buffer functions
+- Allow more customization for framebuffers (e.g. use of texture for depth buffer)
