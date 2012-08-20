@@ -12,6 +12,7 @@
 #import <Cocoa/Cocoa.h>
 
 namespace GL {
+    
     // A class to interact with the private state of a Window.
     class WindowInterface
     {
@@ -51,6 +52,8 @@ namespace GL {
     
     Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
     {
+        // TODO: Act upon the window styles.
+        
         open = true;
         delegate = [[OOGLAppDelegate alloc] initWithOOGLWindow:this];
         
@@ -258,7 +261,6 @@ namespace GL {
     ev.Key.Control = theEvent.modifierFlags & NSControlKeyMask;
     
     windowInterface->SendEvent(ev);
-    
 }
 
 -(void)mouseMoved:(NSEvent *)theEvent {
