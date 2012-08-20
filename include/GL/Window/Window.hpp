@@ -132,8 +132,6 @@ namespace GL
         
         // OOGLAppDelegate*
         id delegate;
-    
-        void SendEvent(GL::Event event);
         
         friend class WindowInterface;
 #endif
