@@ -171,12 +171,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)..\..\lib\</OutDir>
-    <IntDir>$(SolutionDir)..\..\lib\</IntDir>
+    <IntDir>$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)-d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\..\lib\</OutDir>
-    <IntDir>$(SolutionDir)..\..\lib\</IntDir>
+    <IntDir>$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

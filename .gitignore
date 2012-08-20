@@ -12,14 +12,12 @@
 
 # Binaries
 
-*.obj
-*.lib
 *.o
 *.a
 
 # Directories
 
-build/
-obj/
 lib/
 bin/
+Debug/
+Release/

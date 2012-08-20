@@ -3,6 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OOGL", "OOGL.vcxproj", "{703B0D81-C965-404C-B62F-71B617D293B4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Triangle", "Triangle\Triangle.vcxproj", "{15B89564-8ABE-444A-824A-CBA22F945DFB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{703B0D81-C965-404C-B62F-71B617D293B4} = {703B0D81-C965-404C-B62F-71B617D293B4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StencilReflection", "StencilReflection\StencilReflection.vcxproj", "{B9FBA9A4-D211-493F-9BD8-3550E808F051}"
+	ProjectSection(ProjectDependencies) = postProject
+		{703B0D81-C965-404C-B62F-71B617D293B4} = {703B0D81-C965-404C-B62F-71B617D293B4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShadowMapping", "ShadowMapping\ShadowMapping.vcxproj", "{CD4A2F77-E41E-4FD7-91AB-46A7EFF46FE9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{703B0D81-C965-404C-B62F-71B617D293B4} = {703B0D81-C965-404C-B62F-71B617D293B4}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +28,18 @@ Global
 		{703B0D81-C965-404C-B62F-71B617D293B4}.Debug|Win32.Build.0 = Debug|Win32
 		{703B0D81-C965-404C-B62F-71B617D293B4}.Release|Win32.ActiveCfg = Release|Win32
 		{703B0D81-C965-404C-B62F-71B617D293B4}.Release|Win32.Build.0 = Release|Win32
+		{15B89564-8ABE-444A-824A-CBA22F945DFB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{15B89564-8ABE-444A-824A-CBA22F945DFB}.Debug|Win32.Build.0 = Debug|Win32
+		{15B89564-8ABE-444A-824A-CBA22F945DFB}.Release|Win32.ActiveCfg = Release|Win32
+		{15B89564-8ABE-444A-824A-CBA22F945DFB}.Release|Win32.Build.0 = Release|Win32
+		{B9FBA9A4-D211-493F-9BD8-3550E808F051}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B9FBA9A4-D211-493F-9BD8-3550E808F051}.Debug|Win32.Build.0 = Debug|Win32
+		{B9FBA9A4-D211-493F-9BD8-3550E808F051}.Release|Win32.ActiveCfg = Release|Win32
+		{B9FBA9A4-D211-493F-9BD8-3550E808F051}.Release|Win32.Build.0 = Release|Win32
+		{CD4A2F77-E41E-4FD7-91AB-46A7EFF46FE9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CD4A2F77-E41E-4FD7-91AB-46A7EFF46FE9}.Debug|Win32.Build.0 = Debug|Win32
+		{CD4A2F77-E41E-4FD7-91AB-46A7EFF46FE9}.Release|Win32.ActiveCfg = Release|Win32
+		{CD4A2F77-E41E-4FD7-91AB-46A7EFF46FE9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
