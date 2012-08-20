@@ -26,6 +26,9 @@
 
 #include <GL/Platform.hpp>
 
+// Extensions already loaded on OS X
+#ifndef OOGL_PLATFORM_OSX
+
 /*
 	OpenGL context creation/configuration
 */
@@ -454,5 +457,7 @@ namespace GL
 {
 	extern void LoadExtensions();
 }
+
+#endif
 
 #endif

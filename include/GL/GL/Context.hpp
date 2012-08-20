@@ -33,7 +33,7 @@
 #include <exception>
 
 // Xlib interference
-#ifdef OOGL_PLATFORM_LINUX
+#if defined(OOGL_PLATFORM_LINUX)
 #undef Always
 #endif
 
@@ -201,6 +201,15 @@ namespace GL
 		::Window window;
 
 		timeval timeOffset;
+#elif defined( OOGL_PLATFORM_OSX )
+        Context( uchar color, uchar depth, uchar stencil, uint antialias);
+        
+        id GetNSOpenGLContext()
+        {
+            return context;
+        }
+        
+        __strong id context;
 #endif
 	};
 }

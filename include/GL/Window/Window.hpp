@@ -31,6 +31,10 @@
 #include <cstring>
 #include <queue>
 
+#ifdef OOGL_PLATFORM_OSX
+    #include <objc/objc.h>
+#endif
+
 namespace GL
 {
 	/*
@@ -119,7 +123,18 @@ namespace GL
 		void EnableFullscreen( bool enabled, int width = 0, int height = 0 );
 		void WindowEvent( const XEvent& event );
 		static Bool CheckEvent( Display*, XEvent* event, XPointer userData );
-#endif		
+#elif defined( OOGL_PLATFORM_OSX )
+        // Strong Objective-C types can't be put in a C++ header file,
+        // therefore classes must be weakly typed with id.
+        
+        // NSWindow*
+        id window;
+        
+        // OOGLAppDelegate*
+        id delegate;
+        
+        friend class WindowInterface;
+#endif
 
 		Window( const Window& );
 		const Window& operator=( const Window& );

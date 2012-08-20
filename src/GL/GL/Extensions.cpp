@@ -30,6 +30,9 @@
 	GLXSWAPINTERVALSGI glXSwapIntervalSGI;
 #endif
 
+// Extensions already loaded on OS X
+#ifndef OOGL_PLATFORM_OSX
+
 GLCOMPILESHADER glCompileShader;
 GLCREATESHADER glCreateShader;
 GLDELETESHADER glDeleteShader;
@@ -224,3 +227,5 @@ namespace GL
 		glBindRenderbuffer = (GLBINDRENDERBUFFER)LoadExtension( "glBindRenderbuffer" );
 	}
 }
+
+#endif

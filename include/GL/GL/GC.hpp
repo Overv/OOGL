@@ -36,7 +36,7 @@ namespace GL
 	typedef void ( __stdcall * createFunc ) ( GLsizei, GLuint* );
 	typedef void ( __stdcall * deleteFunc ) ( GLsizei, const GLuint* );
 	typedef void ( __stdcall * deleteFunc2 ) ( GLuint );
-#elif defined( OOGL_PLATFORM_LINUX )
+#elif defined( OOGL_PLATFORM_LINUX ) || defined(OOGL_PLATFORM_OSX)
 	typedef void ( * createFunc ) ( GLsizei, GLuint* );
 	typedef void ( * deleteFunc ) ( GLsizei, const GLuint* );
 	typedef void ( * deleteFunc2 ) ( GLuint );
