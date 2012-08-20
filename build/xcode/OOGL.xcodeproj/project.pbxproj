@@ -7,30 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C618AAF215DC99860008EC10 /* Context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5815DC99850008EC10 /* Context.hpp */; };
-		C618AAF315DC99860008EC10 /* Extensions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5915DC99850008EC10 /* Extensions.hpp */; };
-		C618AAF415DC99860008EC10 /* Framebuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5A15DC99850008EC10 /* Framebuffer.hpp */; };
-		C618AAF515DC99860008EC10 /* GC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5B15DC99850008EC10 /* GC.hpp */; };
-		C618AAF615DC99860008EC10 /* Program.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5C15DC99850008EC10 /* Program.hpp */; };
-		C618AAF715DC99860008EC10 /* Renderbuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5D15DC99850008EC10 /* Renderbuffer.hpp */; };
-		C618AAF815DC99860008EC10 /* Shader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5E15DC99850008EC10 /* Shader.hpp */; };
-		C618AAF915DC99860008EC10 /* Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5F15DC99850008EC10 /* Texture.hpp */; };
-		C618AAFA15DC99860008EC10 /* VertexArray.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6015DC99850008EC10 /* VertexArray.hpp */; };
-		C618AAFB15DC99860008EC10 /* VertexBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6115DC99850008EC10 /* VertexBuffer.hpp */; };
-		C618AAFC15DC99860008EC10 /* Mat3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6315DC99850008EC10 /* Mat3.hpp */; };
-		C618AAFD15DC99860008EC10 /* Mat4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6415DC99850008EC10 /* Mat4.hpp */; };
-		C618AAFE15DC99860008EC10 /* Util.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6515DC99850008EC10 /* Util.hpp */; };
-		C618AAFF15DC99860008EC10 /* Vec2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6615DC99850008EC10 /* Vec2.hpp */; };
-		C618AB0015DC99860008EC10 /* Vec3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6715DC99850008EC10 /* Vec3.hpp */; };
-		C618AB0115DC99860008EC10 /* Vec4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6815DC99850008EC10 /* Vec4.hpp */; };
-		C618AB0215DC99860008EC10 /* OOGL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6915DC99850008EC10 /* OOGL.hpp */; };
-		C618AB0315DC99860008EC10 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6A15DC99850008EC10 /* Platform.hpp */; };
-		C618AB0415DC99860008EC10 /* ByteBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6C15DC99850008EC10 /* ByteBuffer.hpp */; };
-		C618AB0515DC99860008EC10 /* Color.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6D15DC99850008EC10 /* Color.hpp */; };
-		C618AB0615DC99860008EC10 /* Image.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6E15DC99850008EC10 /* Image.hpp */; };
-		C618AB0715DC99860008EC10 /* Mesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6F15DC99850008EC10 /* Mesh.hpp */; };
-		C618AB0815DC99860008EC10 /* Event.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA7115DC99850008EC10 /* Event.hpp */; };
-		C618AB0915DC99860008EC10 /* Window.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA7215DC99850008EC10 /* Window.hpp */; };
+		C618AAF215DC99860008EC10 /* Context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5815DC99850008EC10 /* Context.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF315DC99860008EC10 /* Extensions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5915DC99850008EC10 /* Extensions.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF415DC99860008EC10 /* Framebuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5A15DC99850008EC10 /* Framebuffer.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF515DC99860008EC10 /* GC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5B15DC99850008EC10 /* GC.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF615DC99860008EC10 /* Program.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5C15DC99850008EC10 /* Program.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF715DC99860008EC10 /* Renderbuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5D15DC99850008EC10 /* Renderbuffer.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF815DC99860008EC10 /* Shader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5E15DC99850008EC10 /* Shader.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAF915DC99860008EC10 /* Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5F15DC99850008EC10 /* Texture.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAFA15DC99860008EC10 /* VertexArray.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6015DC99850008EC10 /* VertexArray.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAFB15DC99860008EC10 /* VertexBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6115DC99850008EC10 /* VertexBuffer.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAFC15DC99860008EC10 /* Mat3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6315DC99850008EC10 /* Mat3.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAFD15DC99860008EC10 /* Mat4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6415DC99850008EC10 /* Mat4.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAFE15DC99860008EC10 /* Util.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6515DC99850008EC10 /* Util.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AAFF15DC99860008EC10 /* Vec2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6615DC99850008EC10 /* Vec2.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0015DC99860008EC10 /* Vec3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6715DC99850008EC10 /* Vec3.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0115DC99860008EC10 /* Vec4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6815DC99850008EC10 /* Vec4.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0215DC99860008EC10 /* OOGL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6915DC99850008EC10 /* OOGL.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0315DC99860008EC10 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6A15DC99850008EC10 /* Platform.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0415DC99860008EC10 /* ByteBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6C15DC99850008EC10 /* ByteBuffer.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0515DC99860008EC10 /* Color.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6D15DC99850008EC10 /* Color.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0615DC99860008EC10 /* Image.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6E15DC99850008EC10 /* Image.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0715DC99860008EC10 /* Mesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA6F15DC99850008EC10 /* Mesh.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0815DC99860008EC10 /* Event.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA7115DC99850008EC10 /* Event.hpp */; settings = {ATTRIBUTES = (); }; };
+		C618AB0915DC99860008EC10 /* Window.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA7215DC99850008EC10 /* Window.hpp */; settings = {ATTRIBUTES = (); }; };
 		C618AB0A15DC99860008EC10 /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C618AA7615DC99850008EC10 /* Context.cpp */; };
 		C618AB0B15DC99860008EC10 /* Context_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = C618AA7715DC99850008EC10 /* Context_OSX.mm */; };
 		C618AB0C15DC99860008EC10 /* Context_Win32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C618AA7815DC99850008EC10 /* Context_Win32.cpp */; };
@@ -154,7 +154,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C618AA4115DC992D0008EC10 /* OOGL.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = OOGL.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		C618AA4115DC992D0008EC10 /* OOGL.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = OOGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C618AA4515DC992D0008EC10 /* OOGL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OOGL-Prefix.pch"; sourceTree = "<group>"; };
 		C618AA4615DC992D0008EC10 /* OOGLProj.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OOGLProj.xcconfig; sourceTree = "<group>"; };
 		C618AA4715DC992D0008EC10 /* OOGLTarget.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OOGLTarget.xcconfig; sourceTree = "<group>"; };
@@ -332,7 +332,7 @@
 		C618AA4215DC992D0008EC10 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C618AA4115DC992D0008EC10 /* OOGL.dylib */,
+				C618AA4115DC992D0008EC10 /* OOGL.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -690,7 +690,7 @@
 			);
 			name = OOGL;
 			productName = OOGL;
-			productReference = C618AA4115DC992D0008EC10 /* OOGL.dylib */;
+			productReference = C618AA4115DC992D0008EC10 /* OOGL.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
