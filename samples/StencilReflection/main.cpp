@@ -24,7 +24,7 @@ int main()
 		uniform float transparency;
 		void main()
 		{
-			outColor = transparency * texture2D( tex, Coords );
+			outColor = transparency * texture( tex, Coords );
 		}
 	) );
 	GL::Program program( vert, frag );
