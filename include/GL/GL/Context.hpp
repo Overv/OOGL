@@ -202,14 +202,16 @@ namespace GL
 
 		timeval timeOffset;
 #elif defined( OOGL_PLATFORM_OSX )
-        Context( uchar color, uchar depth, uchar stencil, uint antialias);
+        Context( uchar color, uchar depth, uchar stencil, uint antialias, id window);
+        
+        timeval timeOffset;
         
         id GetNSOpenGLContext()
         {
             return context;
         }
         
-        __strong id context;
+        id context;
 #endif
 	};
 }
