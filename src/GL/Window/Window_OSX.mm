@@ -24,6 +24,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 namespace GL {
     
     // A class to interact with the private state of a Window.
@@ -130,7 +131,6 @@ namespace GL {
     
     void Window::Close()
     {
-        [window setVisible:NO];
         this->open = false;
     }
     
@@ -159,13 +159,12 @@ namespace GL {
         if ( context )
 			return *context;
 		else
-			return *( context = new Context( color, depth, stencil, antialias) );
+			return *( context = new Context( color, depth, stencil, antialias, window) );
     }
     
     void Window::Present()
     {
         context->Activate();
-
         [context->context flushBuffer];
     }
     
@@ -282,7 +281,11 @@ namespace GL {
     ev.Type        = GL::Event::event_t::MouseMove;
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
     ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
-    ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    
+    if(theEvent.hasPreciseScrollingDeltas)
+        ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    else
+        ev.Mouse.Delta = 0;
     
     windowInterface->SendEvent(ev);
     
@@ -293,8 +296,14 @@ namespace GL {
     ev.Type        = GL::Event::event_t::MouseUp;
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
     ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
-    ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    
+    
     ev.Mouse.Button = GL::TranslateMacMouseButton(theEvent.type);
+    
+    if(theEvent.hasPreciseScrollingDeltas)
+        ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    else
+        ev.Mouse.Delta = 0;
     
     windowInterface->SendEvent(ev);
     
@@ -306,8 +315,13 @@ namespace GL {
     ev.Type        = GL::Event::event_t::MouseDown;
     ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
     ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
-    ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    
     ev.Mouse.Button = GL::TranslateMacMouseButton(theEvent.type);
+    
+    if(theEvent.hasPreciseScrollingDeltas)
+        ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    else
+        ev.Mouse.Delta = 0;
     
     windowInterface->SendEvent(ev);
 }
