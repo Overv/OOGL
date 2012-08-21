@@ -854,6 +854,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.7;
 				SUPPORTED_PLATFORMS = macosx;
+				SYMROOT = build;
 				USER_HEADER_SEARCH_PATHS = ../../src;
 			};
 			name = Debug;
@@ -880,6 +881,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx10.7;
 				SUPPORTED_PLATFORMS = macosx;
+				SYMROOT = build;
 				USER_HEADER_SEARCH_PATHS = ../../src;
 			};
 			name = Release;
