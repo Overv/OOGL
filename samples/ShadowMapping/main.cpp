@@ -1,10 +1,12 @@
 #include <GL/OOGL.hpp>
 #include <cmath>
+#include <iostream>
 
 int main()
 {
-	GL::Window window(800, 600, "Shadow mapping");
-	GL::Context& gl = window.GetContext(24, 24, 0, 4);
+    std::cin.get();
+	GL::Window window;
+	GL::Context& gl = window.GetContext();
 	gl.Enable(GL::Capability::DepthTest);
 	gl.Enable(GL::Capability::CullFace);
 
@@ -81,16 +83,16 @@ int main()
 			lightCoord.y = ( lightCoord.y + 1.0 ) / 2.0;
 			lightCoord.z = ( lightCoord.z + 1.0 ) / 2.0;
 
-			vec4 rawLightDepth = texture2D(texLight, lightCoord.xy) * 255.0;
+			vec4 rawLightDepth = texture(texLight, lightCoord.xy) * 255.0;
 			float lightDepth = (rawLightDepth.r * 65536.0 + rawLightDepth.g * 256.0 + rawLightDepth.b) / 16777216.0;
 			
 			// Determine if fragment is in shadow or determine diffuse lighting
 			float diffuse = max(dot(Normal, normalize(lightPos - Pos)), 0) * 0.8 + 0.2;
 
 			if (lightDepth < lightCoord.z - 0.0001)
-				outColor = texture2D(texCrate, Texcoord) * 0.2;
+				outColor = texture(texCrate, Texcoord) * 0.2;
 			else
-				outColor = texture2D(texCrate, Texcoord) * diffuse;
+				outColor = texture(texCrate, Texcoord) * diffuse;
 		}
 	));
 	GL::Program normalProgram(normalVert, normalFrag);

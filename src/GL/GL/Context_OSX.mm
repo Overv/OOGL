@@ -69,4 +69,10 @@ namespace GL {
         GLint sync = enabled ? 1 : 0;
         [[NSOpenGLContext currentContext] setValues:&sync forParameter:NSOpenGLCPSwapInterval];
     }
+    
+    float Context::Time()
+    {
+        
+        return 0.0f;
+    }
 }
