@@ -54,12 +54,13 @@ namespace GL
 		const Framebuffer& operator=( const Framebuffer& other );
 
 		const Texture& GetTexture();
+		const Texture& GetDepthTexture();
 
 	private:
 		static GC gc;
 		GLuint obj;
 		Texture texColor;
-		Renderbuffer rboDepth;
+		Texture texDepth;
 	};
 }
 

@@ -30,7 +30,7 @@ namespace GL
 	{
 		gc.Copy( other.obj, obj );
 		texColor = other.texColor;
-		rboDepth = other.rboDepth;
+		texDepth = other.texDepth;
 	}
 
 	Framebuffer::Framebuffer( uint width, uint height, uchar color, uchar depth )
@@ -62,8 +62,11 @@ namespace GL
 		
 		// Create renderbuffer to hold depth buffer
 		if ( depth > 0 ) {
-			rboDepth.Storage( width, height, depthFormat );
-			glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth );
+			glBindTexture( GL_TEXTURE_2D, texDepth );
+			glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0 );
+			texDepth.SetWrapping( GL::Wrapping::ClampEdge, GL::Wrapping::ClampEdge );
+			texDepth.SetFilters( GL::Filter::Nearest, GL::Filter::Nearest );
+			glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texDepth, 0 );
 		}
 
 		// Check
@@ -87,7 +90,7 @@ namespace GL
 	{
 		gc.Copy( other.obj, obj, true );
 		texColor = other.texColor;
-		rboDepth = other.rboDepth;
+		texDepth = other.texDepth;
 		
 		return *this;
 	}
@@ -95,6 +98,11 @@ namespace GL
 	const Texture& Framebuffer::GetTexture()
 	{
 		return texColor;
+	}
+
+	const Texture& Framebuffer::GetDepthTexture()
+	{
+		return texDepth;
 	}
 
 	GC Framebuffer::gc;
