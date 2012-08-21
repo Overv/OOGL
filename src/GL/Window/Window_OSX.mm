@@ -24,6 +24,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 namespace GL {
     
     // A class to interact with the private state of a Window.
@@ -158,13 +159,12 @@ namespace GL {
         if ( context )
 			return *context;
 		else
-			return *( context = new Context( color, depth, stencil, antialias) );
+			return *( context = new Context( color, depth, stencil, antialias, window) );
     }
     
     void Window::Present()
     {
         context->Activate();
-
         [context->context flushBuffer];
     }
     
