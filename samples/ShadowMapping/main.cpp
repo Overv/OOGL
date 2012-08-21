@@ -70,15 +70,15 @@ int main()
 			lightCoord.y = ( lightCoord.y + 1.0 ) / 2.0;
 			lightCoord.z = ( lightCoord.z + 1.0 ) / 2.0;
 
-			float lightDepth = texture2D( texLight, lightCoord.xy ).z;
+			float lightDepth = texture( texLight, lightCoord.xy ).z;
 			
 			// Determine if fragment is in shadow or determine diffuse lighting
 			float diffuse = max( dot( Normal, normalize( lightPos - Pos ) ), 0 ) * 0.8 + 0.2;
 
 			if ( lightDepth < lightCoord.z - 0.0001 )
-				outColor = texture2D( texCrate, Texcoord ) * 0.2;
+				outColor = texture( texCrate, Texcoord ) * 0.2;
 			else
-				outColor = texture2D( texCrate, Texcoord ) * diffuse;
+				outColor = texture( texCrate, Texcoord ) * diffuse;
 		}
 	));
 	GL::Program normalProgram( normalVert, normalFrag );
