@@ -10,6 +10,13 @@
 *.pdb
 *.suo
 
+# Xcode/OSX files
+
+*.xcuserstate
+*.xcworkspace
+*.xcuserdatad
+*.DS_Store
+
 # Binaries
 
 *.o

@@ -1,10 +1,14 @@
 #include <GL/OOGL.hpp>
 #include <cmath>
+#include <iostream>
 
 int main()
 {
-	GL::Window window( 800, 600, "Shadow mapping" );
-	GL::Context& gl = window.GetContext( 24, 24, 0, 4 );
+	GL::Window window( 800, 600, "OpenGL Window", GL::WindowStyle::Close );
+	GL::Context& gl = window.GetContext( 24, 24, 8, 4 );
+
+	gl.Enable(GL::Capability::DepthTest);
+	gl.Enable(GL::Capability::CullFace);
 
 	// Setup scene drawing
 	GL::Mesh sceneMesh( "scene.obj" );
@@ -70,15 +74,27 @@ int main()
 			lightCoord.y = ( lightCoord.y + 1.0 ) / 2.0;
 			lightCoord.z = ( lightCoord.z + 1.0 ) / 2.0;
 
+<<<<<<< HEAD
 			float lightDepth = texture( texLight, lightCoord.xy ).z;
+=======
+			vec4 rawLightDepth = texture(texLight, lightCoord.xy) * 255.0;
+			float lightDepth = (rawLightDepth.r * 65536.0 + rawLightDepth.g * 256.0 + rawLightDepth.b) / 16777216.0;
+>>>>>>> osx
 			
 			// Determine if fragment is in shadow or determine diffuse lighting
 			float diffuse = max( dot( Normal, normalize( lightPos - Pos ) ), 0 ) * 0.8 + 0.2;
 
+<<<<<<< HEAD
 			if ( lightDepth < lightCoord.z - 0.0001 )
 				outColor = texture( texCrate, Texcoord ) * 0.2;
 			else
 				outColor = texture( texCrate, Texcoord ) * diffuse;
+=======
+			if (lightDepth < lightCoord.z - 0.0001)
+				outColor = texture(texCrate, Texcoord) * 0.2;
+			else
+				outColor = texture(texCrate, Texcoord) * diffuse;
+>>>>>>> osx
 		}
 	));
 	GL::Program normalProgram( normalVert, normalFrag );

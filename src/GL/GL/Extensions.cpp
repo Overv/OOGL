@@ -21,6 +21,8 @@
 
 #include <GL/GL/Extensions.hpp>
 
+#if OOGL_LOAD_EXTENSIONS
+
 #if defined( OOGL_PLATFORM_WINDOWS )
 	WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
 	WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
@@ -224,3 +226,5 @@ namespace GL
 		glBindRenderbuffer = (GLBINDRENDERBUFFER)LoadExtension( "glBindRenderbuffer" );
 	}
 }
+
+#endif

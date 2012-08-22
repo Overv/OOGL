@@ -41,6 +41,8 @@
 	#include <sys/time.h>
 #elif defined( __APPLE__ )
 	#define OOGL_PLATFORM_OSX
+	#include <objc/objc.h>
+    #include <OpenGL/gl3.h>
 #endif
 
 /*
