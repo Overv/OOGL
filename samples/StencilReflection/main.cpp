@@ -69,7 +69,13 @@ int main()
 	GL::Event ev;
 	while ( window.IsOpen() )
 	{
-		while ( window.GetEvent( ev ) );
+		while ( window.GetEvent( ev ) )
+        {
+            if( ev.Type == GL::Event::KeyDown && ev.Key.Code == GL::Key::Escape )
+            {
+                window.Close();
+            }
+        }
 
 		gl.ClearColor( GL::Color( 255, 255, 255, 255 ) );
 
