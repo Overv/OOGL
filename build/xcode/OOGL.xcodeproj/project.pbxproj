@@ -151,7 +151,21 @@
 		C618AB7F15DC99860008EC10 /* Window_X11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C618AAF115DC99860008EC10 /* Window_X11.cpp */; };
 		C618AB8115DC9F870008EC10 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8015DC9F870008EC10 /* OpenGL.framework */; };
 		C618AB8315DC9F990008EC10 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8215DC9F990008EC10 /* Cocoa.framework */; };
+		C6F6C3B615E458B500CF6333 /* OOGL.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C618AA4115DC992D0008EC10 /* OOGL.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C6F6C3B415E456F300CF6333 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PROJECT_DIR)/../../lib";
+			dstSubfolderSpec = 0;
+			files = (
+				C6F6C3B615E458B500CF6333 /* OOGL.a in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C618AA4115DC992D0008EC10 /* OOGL.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = OOGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -683,6 +697,7 @@
 				C618AA3D15DC992D0008EC10 /* Sources */,
 				C618AA3E15DC992D0008EC10 /* Frameworks */,
 				C618AA3F15DC992D0008EC10 /* Headers */,
+				C6F6C3B415E456F300CF6333 /* CopyFiles */,
 			);
 			buildRules = (
 			);
