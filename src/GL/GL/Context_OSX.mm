@@ -25,11 +25,9 @@
 
 namespace GL {
     
-    Context::Context( uchar color, uchar depth, uchar stencil, uint antialias, id window )
+    Context::Context(uchar color, uchar depth, uchar stencil, uint antialias, id window)
     {
-        owned = true;
         NSOpenGLPixelFormatAttribute params[] = {
-
             NSOpenGLPFAColorSize, color,
             NSOpenGLPFADepthSize, depth,
             NSOpenGLPFAStencilSize, stencil, 
@@ -39,28 +37,33 @@ namespace GL {
             0
         };
         
-        NSOpenGLPixelFormat *format = [[NSOpenGLPixelFormat alloc] initWithAttributes:params];
+        NSOpenGLPixelFormat* format = [[NSOpenGLPixelFormat alloc] initWithAttributes:params];
         
         this->context = [[NSOpenGLContext alloc] initWithFormat:format shareContext:nil];
         [context makeCurrentContext];
+        
         glViewport(0, 0, [window frame].size.width, [window frame].size.height);
         glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
         
-        
         gettimeofday(&timeOffset, NULL);
+        
+        owned = true;
     }
     
     Context::Context()
 	{
-		
 		owned = false;
-        // TODO: I don't know what to do here.
-		glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
+        
+		glGetIntegerv(GL_VIEWPORT, (GLint*)&defaultViewport);
+        
+        gettimeofday(&timeOffset, NULL);
         
 	}
     
     Context::~Context()
     {
+        if ( !owned ) return;
+        
         // TODO: Add teardown stuff
         // Does ARC clean up the context?
     }
@@ -80,8 +83,8 @@ namespace GL {
     float Context::Time()
     {
         timeval time;
-		gettimeofday( &time, NULL );
+		gettimeofday(&time, NULL);
         
-		return time.tv_sec - timeOffset.tv_sec + ( time.tv_usec - timeOffset.tv_usec ) / 1000000.0f;
+		return time.tv_sec - timeOffset.tv_sec + (time.tv_usec - timeOffset.tv_usec) / 1000000.0f;
     }
 }

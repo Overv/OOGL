@@ -34,7 +34,7 @@ namespace GL {
     class WindowInterface
     {
     public:
-        WindowInterface(GL::Window *window) : window(window) { }
+        WindowInterface(GL::Window *window) : window(window) {}
         
         void SendEvent(GL::Event ev);
         
@@ -44,10 +44,10 @@ namespace GL {
         
         void Close();
     private:
-        GL::Window *window;
+        GL::Window* window;
     };
     
-    GL::Event MakeWindowEvent(NSWindow *window);
+    GL::Event MakeWindowEvent(NSWindow* window);
     
     GL::Key::key_t TranslateMacKeycode(ushort code);
     
@@ -69,7 +69,7 @@ namespace GL {
 
 namespace GL {
     
-    Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
+    Window::Window(uint width, uint height, const std::string& title, WindowStyle::window_style_t style)
     {
         open = true;
         context = nullptr;
@@ -83,7 +83,7 @@ namespace GL {
         // Really thank you.
         // I banged my head against my keyboard
         // for days trying to figure this out.
-        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        ProcessSerialNumber psn = {0, kCurrentProcess};
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
         SetFrontProcess(&psn);
 
@@ -105,15 +105,15 @@ namespace GL {
             // TODO: Add fullscreen.
         }
         
-        window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
+        window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
         [window setDelegate:delegate];
         [window setAcceptsMouseMovedEvents:YES];
         [window setIsVisible:YES];
         
         [window setTitle:@(title.c_str())];
         
-        NSOpenGLContext *ctxt = GetContext().GetNSOpenGLContext();
-        OOGLView *glView = [[OOGLView alloc] initWithOOGLWindow:this];
+        NSOpenGLContext* ctxt = GetContext().GetNSOpenGLContext();
+        OOGLView* glView = [[OOGLView alloc] initWithOOGLWindow:this];
         glView.openGLContext = ctxt;
         
         [window setContentView:glView];
@@ -153,7 +153,7 @@ namespace GL {
         this->open = false;
     }
     
-    bool Window::GetEvent(GL::Event &ev)
+    bool Window::GetEvent(GL::Event& ev)
     {
         // Poll events
         NSEvent *event = nil;
@@ -164,7 +164,6 @@ namespace GL {
             [NSApp updateWindows];
         } while (event);
         
-        // From Window_X11.cpp
 		// Return oldest event - if available
 		if ( events.empty() ) return false;
 		
@@ -179,7 +178,7 @@ namespace GL {
         if ( context )
 			return *context;
 		else
-			return *( context = new Context( color, depth, stencil, antialias, window) );
+			return *(context = new Context( color, depth, stencil, antialias, window));
     }
     
     void Window::Present()
@@ -224,7 +223,7 @@ namespace GL {
     GL::WindowInterface *windowInterface;
 }
 
--(id)initWithOOGLWindow:(GL::Window *)window {
+-(id)initWithOOGLWindow:(GL::Window*)window {
     self = [super init];
     
     if (self) {
@@ -234,21 +233,21 @@ namespace GL {
     return self;
 }
 
--(void)windowDidBecomeKey:(NSNotification *)notification {
+-(void)windowDidBecomeKey:(NSNotification*)notification {
     GL::Event ev = GL::MakeWindowEvent(notification.object);
-    ev.Type      = GL::Event::Focus;
+    ev.Type = GL::Event::Focus;
     
     windowInterface->SendEvent(ev);
 }
 
--(void)windowDidResignKey:(NSNotification *)notification {
+-(void)windowDidResignKey:(NSNotification*)notification {
     GL::Event ev = GL::MakeWindowEvent(notification.object);
-    ev.Type      = GL::Event::Blur;
+    ev.Type = GL::Event::Blur;
     
     windowInterface->SendEvent(ev);
 }
 
--(void)windowWillClose:(NSNotification *)notification {
+-(void)windowWillClose:(NSNotification*)notification {
     windowInterface->Close();
 }
 
@@ -259,7 +258,7 @@ namespace GL {
 @end
 
 @implementation OOGLView {
-    GL::WindowInterface *windowInterface;
+    GL::WindowInterface* windowInterface;
 }
 
 -(id)initWithOOGLWindow:(GL::Window*)window {
@@ -272,34 +271,34 @@ namespace GL {
     return self;
 }
 
--(void)keyUp:(NSEvent *)theEvent {
+-(void)keyUp:(NSEvent*)theEvent {
     GL::Event ev;
-    ev.Type        = GL::Event::event_t::KeyUp;
-    ev.Key.Code    = GL::TranslateMacKeycode(theEvent.keyCode);
-    ev.Key.Shift   = theEvent.modifierFlags & NSShiftKeyMask;
-    ev.Key.Alt     = theEvent.modifierFlags & NSAlternateKeyMask;
+    ev.Type = GL::Event::event_t::KeyUp;
+    ev.Key.Code = GL::TranslateMacKeycode(theEvent.keyCode);
+    ev.Key.Shift = theEvent.modifierFlags & NSShiftKeyMask;
+    ev.Key.Alt = theEvent.modifierFlags & NSAlternateKeyMask;
     ev.Key.Control = theEvent.modifierFlags & NSControlKeyMask;
     
     windowInterface->SendEvent(ev);
     
 }
 
--(void)keyDown:(NSEvent *)theEvent {
+-(void)keyDown:(NSEvent*)theEvent {
     GL::Event ev;
-    ev.Type        = GL::Event::event_t::KeyDown;
-    ev.Key.Code    = GL::TranslateMacKeycode(theEvent.keyCode);
-    ev.Key.Shift   = theEvent.modifierFlags & NSShiftKeyMask;
-    ev.Key.Alt     = theEvent.modifierFlags & NSAlternateKeyMask;
+    ev.Type = GL::Event::event_t::KeyDown;
+    ev.Key.Code = GL::TranslateMacKeycode(theEvent.keyCode);
+    ev.Key.Shift = theEvent.modifierFlags & NSShiftKeyMask;
+    ev.Key.Alt = theEvent.modifierFlags & NSAlternateKeyMask;
     ev.Key.Control = theEvent.modifierFlags & NSControlKeyMask;
     
     windowInterface->SendEvent(ev);
 }
 
--(void)mouseMoved:(NSEvent *)theEvent {
+-(void)mouseMoved:(NSEvent*)theEvent {
     GL::Event ev;
-    ev.Type        = GL::Event::event_t::MouseMove;
-    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
-    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    ev.Type = GL::Event::event_t::MouseMove;
+    ev.Mouse.X = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y = [self.window mouseLocationOutsideOfEventStream].y;
     
     if(theEvent.hasPreciseScrollingDeltas)
         ev.Mouse.Delta = theEvent.scrollingDeltaY;
@@ -310,11 +309,11 @@ namespace GL {
     
 }
 
--(void)mouseDragged:(NSEvent *)theEvent {
+-(void)mouseDragged:(NSEvent*)theEvent {
     GL::Event ev;
-    ev.Type        = GL::Event::event_t::MouseMove;
-    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
-    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    ev.Type = GL::Event::event_t::MouseMove;
+    ev.Mouse.X = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y = [self.window mouseLocationOutsideOfEventStream].y;
     
     if(theEvent.hasPreciseScrollingDeltas)
         ev.Mouse.Delta = theEvent.scrollingDeltaY;
@@ -326,11 +325,11 @@ namespace GL {
 
 }
 
--(void)mouseUp:(NSEvent *)theEvent {
+-(void)mouseUp:(NSEvent*)theEvent {
     GL::Event ev;
-    ev.Type        = GL::Event::event_t::MouseUp;
-    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
-    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    ev.Type = GL::Event::event_t::MouseUp;
+    ev.Mouse.X = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y = [self.window mouseLocationOutsideOfEventStream].y;
     
     
     ev.Mouse.Button = GL::TranslateMacMouseButton(theEvent.type);
@@ -345,11 +344,11 @@ namespace GL {
 }
 
 
--(void)mouseDown:(NSEvent *)theEvent {
+-(void)mouseDown:(NSEvent*)theEvent {
     GL::Event ev;
-    ev.Type        = GL::Event::event_t::MouseDown;
-    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
-    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    ev.Type = GL::Event::event_t::MouseDown;
+    ev.Mouse.X = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y = [self.window mouseLocationOutsideOfEventStream].y;
     
     ev.Mouse.Button = GL::TranslateMacMouseButton(theEvent.type);
     
@@ -373,11 +372,11 @@ namespace GL {
 
 namespace GL {
     
-    GL::Event MakeWindowEvent(NSWindow *window)
+    GL::Event MakeWindowEvent(NSWindow* window)
     {
         GL::Event ev;
-        ev.Window.X      = window.frame.origin.x;
-        ev.Window.Y      = window.frame.origin.y;
+        ev.Window.X = window.frame.origin.x;
+        ev.Window.Y = window.frame.origin.y;
         ev.Window.Width  = window.frame.size.width;
         ev.Window.Height = window.frame.size.height;
         
@@ -407,8 +406,6 @@ namespace GL {
 
     GL::Key::key_t TranslateMacKeycode(ushort code)
     {
-        // Thank you for this extremely convienent
-        // mac keycode table GLFW!
         static const GL::Key::key_t table[128] =
         {
             /* 00 */ GL::Key::key_t::A,
