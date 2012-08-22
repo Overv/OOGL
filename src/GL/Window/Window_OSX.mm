@@ -233,6 +233,13 @@ namespace GL {
     return self;
 }
 
+-(void)windowDidResize:(NSNotification *)notification {
+    GL::Event ev = GL::MakeWindowEvent(notification.object);
+    ev.Type = GL::Event::Resize;
+    
+    windowInterface->SendEvent(ev);
+}
+
 -(void)windowDidBecomeKey:(NSNotification*)notification {
     GL::Event ev = GL::MakeWindowEvent(notification.object);
     ev.Type = GL::Event::Focus;
