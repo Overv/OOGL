@@ -39,6 +39,10 @@ namespace GL {
 
         NSOpenGLPixelFormat* format = [[NSOpenGLPixelFormat alloc] initWithAttributes:params];
         
+        if(format == nil)
+        {
+            throw GL::PixelFormatException();
+        }
         
         this->context = [[NSOpenGLContext alloc] initWithFormat:format shareContext:nil];
         [context makeCurrentContext];
@@ -47,7 +51,7 @@ namespace GL {
         glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
         
         gettimeofday(&timeOffset, NULL);
-        
+    
         owned = true;
     }
     
