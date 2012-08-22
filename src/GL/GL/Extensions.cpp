@@ -21,6 +21,8 @@
 
 #include <GL/GL/Extensions.hpp>
 
+#if OOGL_LOAD_EXTENSIONS
+
 #if defined( OOGL_PLATFORM_WINDOWS )
 	WGLCREATECONTEXTATTRIBSARB wglCreateContextAttribsARB;
 	WGLCHOOSEPIXELFORMATARB wglChoosePixelFormatARB;
@@ -29,9 +31,6 @@
 	GLXCREATECONTEXTATTRIBSARB glXCreateContextAttribsARB;
 	GLXSWAPINTERVALSGI glXSwapIntervalSGI;
 #endif
-
-// Extensions already loaded on OS X
-#ifndef OOGL_PLATFORM_OSX
 
 GLCOMPILESHADER glCompileShader;
 GLCREATESHADER glCreateShader;

@@ -18,19 +18,21 @@
      IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
      CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
  */
+
+// Huge thanks go Camilla Berglund of the GLFW project for providing the basis for OS X keycode table,
+// as well as the snippet of Carbon code that brings the process to the front.
+
 #include <GL/Window/Window.hpp>
 
 #ifdef OOGL_PLATFORM_OSX
 
 #import <Cocoa/Cocoa.h>
 
-
 namespace GL {
     
     // A class to interact with the private state of a Window.
     class WindowInterface
     {
-        GL::Window *window;
     public:
         WindowInterface(GL::Window *window) : window(window) { }
         
@@ -41,6 +43,8 @@ namespace GL {
         GL::Key::key_t TranslateKey(uint code);
         
         void Close();
+    private:
+        GL::Window *window;
     };
     
     GL::Event MakeWindowEvent(NSWindow *window);
@@ -48,6 +52,7 @@ namespace GL {
     GL::Key::key_t TranslateMacKeycode(ushort code);
     
     GL::MouseButton::mouse_button_t TranslateMacMouseButton(NSEventType eventType);
+
 }
 
 @interface OOGLView: NSOpenGLView
@@ -66,9 +71,8 @@ namespace GL {
     
     Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
     {
-        // TODO: Act upon the window styles.
-        
         open = true;
+        context = nullptr;
         delegate = [[OOGLAppDelegate alloc] initWithOOGLWindow:this];
         
         // Initialize the shared NSApplication
@@ -76,16 +80,30 @@ namespace GL {
         [NSApp setDelegate:delegate];
         [NSApp activateIgnoringOtherApps:YES];
         
-        // Thank you GLFW.
+        // Really thank you.
+        // I banged my head against my keyboard
+        // for days trying to figure this out.
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        
         SetFrontProcess(&psn);
-        
-        context = nullptr;
+
         NSRect rect = NSMakeRect(0, 0, width, height);
-        NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask;
+        NSUInteger styleMask = NSTitledWindowMask;
         
+        if(style & WindowStyle::Close)
+        {
+            styleMask |= NSClosableWindowMask;
+        }
+        
+        if(style & WindowStyle::Resize)
+        {
+            styleMask |= NSResizableWindowMask;
+        }
+        
+        if(style & WindowStyle::Fullscreen)
+        {
+            // TODO: Add fullscreen.
+        }
         
         window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
         [window setDelegate:delegate];
@@ -102,6 +120,7 @@ namespace GL {
         [window makeFirstResponder:glView];
         [window makeKeyAndOrderFront:nil];
         [window makeKeyWindow];
+
     }
     
     Window::~Window()
@@ -126,7 +145,7 @@ namespace GL {
     
     void Window::SetVisible(bool visible)
     {
-        [window setVisible:visible];
+        [window setVisible:visible]; // Does bool to BOOL conversion work?
     }
     
     void Window::Close()
@@ -136,6 +155,7 @@ namespace GL {
     
     bool Window::GetEvent(GL::Event &ev)
     {
+        // Poll events
         NSEvent *event = nil;
         do {
             event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantPast] inMode:NSDefaultRunLoopMode dequeue:YES];
@@ -226,7 +246,6 @@ namespace GL {
     ev.Type      = GL::Event::Blur;
     
     windowInterface->SendEvent(ev);
-    
 }
 
 -(void)windowWillClose:(NSNotification *)notification {
@@ -289,6 +308,22 @@ namespace GL {
     
     windowInterface->SendEvent(ev);
     
+}
+
+-(void)mouseDragged:(NSEvent *)theEvent {
+    GL::Event ev;
+    ev.Type        = GL::Event::event_t::MouseMove;
+    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    
+    if(theEvent.hasPreciseScrollingDeltas)
+        ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    else
+        ev.Mouse.Delta = 0;
+    
+    windowInterface->SendEvent(ev);
+
+
 }
 
 -(void)mouseUp:(NSEvent *)theEvent {

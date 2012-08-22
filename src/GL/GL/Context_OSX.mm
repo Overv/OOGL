@@ -21,12 +21,12 @@
 
 #include <GL/GL/Context.hpp>
 #include <Cocoa/Cocoa.h>
-#include <sys/time.h>
 
 namespace GL {
     
     Context::Context( uchar color, uchar depth, uchar stencil, uint antialias, id window )
     {
+        owned = true;
         NSOpenGLPixelFormatAttribute params[] = {
 
             NSOpenGLPFAColorSize, color,
@@ -44,7 +44,7 @@ namespace GL {
         [context makeCurrentContext];
         glViewport(0, 0, [window frame].size.width, [window frame].size.height);
         glGetIntegerv( GL_VIEWPORT, (GLint*)&defaultViewport );
-        owned = true;
+        
         
         gettimeofday(&timeOffset, NULL);
     }
