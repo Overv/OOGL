@@ -24,7 +24,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 namespace GL {
     
     // A class to interact with the private state of a Window.
@@ -289,6 +288,22 @@ namespace GL {
     
     windowInterface->SendEvent(ev);
     
+}
+
+-(void)mouseDragged:(NSEvent *)theEvent {
+    GL::Event ev;
+    ev.Type        = GL::Event::event_t::MouseMove;
+    ev.Mouse.X     = [self.window mouseLocationOutsideOfEventStream].x;
+    ev.Mouse.Y     = [self.window mouseLocationOutsideOfEventStream].y;
+    
+    if(theEvent.hasPreciseScrollingDeltas)
+        ev.Mouse.Delta = theEvent.scrollingDeltaY;
+    else
+        ev.Mouse.Delta = 0;
+    
+    windowInterface->SendEvent(ev);
+
+
 }
 
 -(void)mouseUp:(NSEvent *)theEvent {
