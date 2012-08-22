@@ -129,6 +129,8 @@ namespace GL
         // OOGLAppDelegate*
         id delegate;
         
+        bool fullscreen;
+        
         friend class WindowInterface;
 #endif
 

@@ -100,12 +100,14 @@ namespace GL {
             styleMask |= NSResizableWindowMask;
         }
         
-        if(style & WindowStyle::Fullscreen)
+        if((fullscreen = style & WindowStyle::Fullscreen))
         {
-            // TODO: Add fullscreen.
+            styleMask = NSBorderlessWindowMask;
+            rect = [[NSScreen mainScreen] frame];
         }
         
-        window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
+        window = [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:[NSScreen mainScreen]];
+        
         [window setDelegate:delegate];
         [window setAcceptsMouseMovedEvents:YES];
         [window setIsVisible:YES];
@@ -120,6 +122,16 @@ namespace GL {
         [window makeFirstResponder:glView];
         [window makeKeyAndOrderFront:nil];
         [window makeKeyWindow];
+        
+        if(fullscreen)
+        {
+            [window setLevel:NSMainMenuWindowLevel + 1];
+            [window setOpaque:YES];
+            [window setHidesOnDeactivate:YES];
+            NSDictionary *options = @{ };
+            [glView enterFullScreenMode:[NSScreen mainScreen] withOptions:options];
+            
+        }
 
     }
     
@@ -151,6 +163,11 @@ namespace GL {
     void Window::Close()
     {
         this->open = false;
+        if(fullscreen)
+        {
+            NSDictionary *options = @{ };
+            [[window contentView] exitFullScreenModeWithOptions:options];
+        }
     }
     
     bool Window::GetEvent(GL::Event& ev)
@@ -214,7 +231,8 @@ namespace GL {
         ev.Type = GL::Event::Close;
         
         SendEvent(ev);
-        window->open = false;
+        
+        window->Close();
     }
 
 }
@@ -231,6 +249,13 @@ namespace GL {
     }
     
     return self;
+}
+
+-(void)windowDidResize:(NSNotification *)notification {
+    GL::Event ev = GL::MakeWindowEvent(notification.object);
+    ev.Type = GL::Event::Resize;
+    
+    windowInterface->SendEvent(ev);
 }
 
 -(void)windowDidBecomeKey:(NSNotification*)notification {
