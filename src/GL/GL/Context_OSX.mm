@@ -32,12 +32,13 @@ namespace GL {
             NSOpenGLPFADepthSize, depth,
             NSOpenGLPFAStencilSize, stencil, 
             NSOpenGLPFASamples, antialias,
-            NSOpenGLPFADoubleBuffer, 1,
+            NSOpenGLPFADoubleBuffer,
             NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
             0
         };
-        
+
         NSOpenGLPixelFormat* format = [[NSOpenGLPixelFormat alloc] initWithAttributes:params];
+        
         
         this->context = [[NSOpenGLContext alloc] initWithFormat:format shareContext:nil];
         [context makeCurrentContext];
@@ -64,8 +65,7 @@ namespace GL {
     {
         if ( !owned ) return;
         
-        // TODO: Add teardown stuff
-        // Does ARC clean up the context?
+        [NSOpenGLContext clearCurrentContext];
     }
     
     void Context::Activate()
