@@ -26,7 +26,7 @@
 
 #include <GL/Platform.hpp>
 
-#if OOGL_LOAD_EXTENSIONS
+#ifndef OOGL_PLATFORM_OSX
 
 /*
 	OpenGL context creation/configuration

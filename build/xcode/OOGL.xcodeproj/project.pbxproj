@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650B6C9815E51E2800B46760 /* OOGL-d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 650B6C9715E51E2800B46760 /* OOGL-d.a */; };
+		650B6C9915E51EC700B46760 /* OOGL-d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 650B6C9715E51E2800B46760 /* OOGL-d.a */; };
+		650B6C9A15E51EFF00B46760 /* OOGL-d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 650B6C9715E51E2800B46760 /* OOGL-d.a */; };
 		C618AAF215DC99860008EC10 /* Context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5815DC99850008EC10 /* Context.hpp */; settings = {ATTRIBUTES = (); }; };
 		C618AAF315DC99860008EC10 /* Extensions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5915DC99850008EC10 /* Extensions.hpp */; settings = {ATTRIBUTES = (); }; };
 		C618AAF415DC99860008EC10 /* Framebuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C618AA5A15DC99850008EC10 /* Framebuffer.hpp */; settings = {ATTRIBUTES = (); }; };
@@ -151,9 +154,7 @@
 		C618AB7F15DC99860008EC10 /* Window_X11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C618AAF115DC99860008EC10 /* Window_X11.cpp */; };
 		C618AB8115DC9F870008EC10 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8015DC9F870008EC10 /* OpenGL.framework */; };
 		C618AB8315DC9F990008EC10 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8215DC9F990008EC10 /* Cocoa.framework */; };
-		C6F6C3B615E458B500CF6333 /* OOGL.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C618AA4115DC992D0008EC10 /* OOGL.a */; };
 		C6F6C3EA15E4722500CF6333 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6F6C3D315E4706F00CF6333 /* main.cpp */; };
-		C6F6C3EB15E4725300CF6333 /* OOGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AA4115DC992D0008EC10 /* OOGL.a */; };
 		C6F6C3EC15E4725F00CF6333 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8215DC9F990008EC10 /* Cocoa.framework */; };
 		C6F6C3ED15E472BE00CF6333 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8015DC9F870008EC10 /* OpenGL.framework */; };
 		C6F6C3FC15E4734B00CF6333 /* platform.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6F6C3CE15E4706F00CF6333 /* platform.obj */; };
@@ -161,11 +162,9 @@
 		C6F6C3FE15E4734B00CF6333 /* tank.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6F6C3D015E4706F00CF6333 /* tank.jpg */; };
 		C6F6C3FF15E4734B00CF6333 /* tank.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6F6C3D115E4706F00CF6333 /* tank.obj */; };
 		C6F6C40015E4735900CF6333 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6F6C3CD15E4706F00CF6333 /* main.cpp */; };
-		C6F6C40315E4736F00CF6333 /* OOGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AA4115DC992D0008EC10 /* OOGL.a */; };
 		C6F6C40515E4737500CF6333 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F6C40415E4737500CF6333 /* Cocoa.framework */; };
 		C6F6C40715E4737C00CF6333 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F6C40615E4737C00CF6333 /* OpenGL.framework */; };
 		C6F6C41815E4743800CF6333 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6F6C3C915E4706F00CF6333 /* main.cpp */; };
-		C6F6C41915E4743B00CF6333 /* OOGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AA4115DC992D0008EC10 /* OOGL.a */; };
 		C6F6C41A15E4744000CF6333 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8015DC9F870008EC10 /* OpenGL.framework */; };
 		C6F6C41B15E4744400CF6333 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C618AB8215DC9F990008EC10 /* Cocoa.framework */; };
 		C6F6C41C15E4745B00CF6333 /* scene.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6F6C3CA15E4706F00CF6333 /* scene.obj */; };
@@ -173,7 +172,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C6F6C3E815E4721F00CF6333 /* PBXContainerItemProxy */ = {
+		650B6C9415E51DFD00B46760 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C618AA3815DC992D0008EC10 /* Project object */;
 			proxyType = 1;
@@ -203,7 +202,6 @@
 			dstPath = "$(PROJECT_DIR)/../../lib";
 			dstSubfolderSpec = 0;
 			files = (
-				C6F6C3B615E458B500CF6333 /* OOGL.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +241,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C618AA4115DC992D0008EC10 /* OOGL.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = OOGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		650B6C9715E51E2800B46760 /* OOGL-d.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "OOGL-d.a"; path = "../../lib/OOGL-d.a"; sourceTree = "<group>"; };
+		C618AA4115DC992D0008EC10 /* OOGL-d.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "OOGL-d.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C618AA4515DC992D0008EC10 /* OOGL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OOGL-Prefix.pch"; sourceTree = "<group>"; };
 		C618AA4615DC992D0008EC10 /* OOGLProj.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OOGLProj.xcconfig; sourceTree = "<group>"; };
 		C618AA4715DC992D0008EC10 /* OOGLTarget.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OOGLTarget.xcconfig; sourceTree = "<group>"; };
@@ -400,11 +399,11 @@
 		C6F6C3D015E4706F00CF6333 /* tank.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tank.jpg; sourceTree = "<group>"; };
 		C6F6C3D115E4706F00CF6333 /* tank.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tank.obj; sourceTree = "<group>"; };
 		C6F6C3D315E4706F00CF6333 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C6F6C3DE15E471EE00CF6333 /* Triangle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Triangle; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6F6C3F215E4732A00CF6333 /* StencilReflection */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StencilReflection; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6F6C3DE15E471EE00CF6333 /* Triangle-d */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Triangle-d"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6F6C3F215E4732A00CF6333 /* StencilReflection-d */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "StencilReflection-d"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6F6C40415E4737500CF6333 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		C6F6C40615E4737C00CF6333 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
-		C6F6C40C15E4740800CF6333 /* ShadowMapping */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ShadowMapping; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6F6C40C15E4740800CF6333 /* ShadowMapping-d */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ShadowMapping-d"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -421,7 +420,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6F6C3EB15E4725300CF6333 /* OOGL.a in Frameworks */,
+				650B6C9815E51E2800B46760 /* OOGL-d.a in Frameworks */,
 				C6F6C3ED15E472BE00CF6333 /* OpenGL.framework in Frameworks */,
 				C6F6C3EC15E4725F00CF6333 /* Cocoa.framework in Frameworks */,
 			);
@@ -431,9 +430,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650B6C9915E51EC700B46760 /* OOGL-d.a in Frameworks */,
 				C6F6C40715E4737C00CF6333 /* OpenGL.framework in Frameworks */,
 				C6F6C40515E4737500CF6333 /* Cocoa.framework in Frameworks */,
-				C6F6C40315E4736F00CF6333 /* OOGL.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,9 +440,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650B6C9A15E51EFF00B46760 /* OOGL-d.a in Frameworks */,
 				C6F6C41B15E4744400CF6333 /* Cocoa.framework in Frameworks */,
 				C6F6C41A15E4744000CF6333 /* OpenGL.framework in Frameworks */,
-				C6F6C41915E4743B00CF6333 /* OOGL.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +452,7 @@
 		C618AA3615DC992D0008EC10 = {
 			isa = PBXGroup;
 			children = (
+				650B6C9715E51E2800B46760 /* OOGL-d.a */,
 				C6F6C40615E4737C00CF6333 /* OpenGL.framework */,
 				C6F6C40415E4737500CF6333 /* Cocoa.framework */,
 				C6F6C3C515E4706F00CF6333 /* samples */,
@@ -468,10 +468,10 @@
 		C618AA4215DC992D0008EC10 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C618AA4115DC992D0008EC10 /* OOGL.a */,
-				C6F6C3DE15E471EE00CF6333 /* Triangle */,
-				C6F6C3F215E4732A00CF6333 /* StencilReflection */,
-				C6F6C40C15E4740800CF6333 /* ShadowMapping */,
+				C618AA4115DC992D0008EC10 /* OOGL-d.a */,
+				C6F6C3DE15E471EE00CF6333 /* Triangle-d */,
+				C6F6C3F215E4732A00CF6333 /* StencilReflection-d */,
+				C6F6C40C15E4740800CF6333 /* ShadowMapping-d */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -871,7 +871,7 @@
 			);
 			name = OOGL;
 			productName = OOGL;
-			productReference = C618AA4115DC992D0008EC10 /* OOGL.a */;
+			productReference = C618AA4115DC992D0008EC10 /* OOGL-d.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		C6F6C3DD15E471EE00CF6333 /* Triangle */ = {
@@ -885,11 +885,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				C6F6C3E915E4721F00CF6333 /* PBXTargetDependency */,
+				650B6C9515E51DFD00B46760 /* PBXTargetDependency */,
 			);
 			name = Triangle;
 			productName = Triangle;
-			productReference = C6F6C3DE15E471EE00CF6333 /* Triangle */;
+			productReference = C6F6C3DE15E471EE00CF6333 /* Triangle-d */;
 			productType = "com.apple.product-type.tool";
 		};
 		C6F6C3F115E4732A00CF6333 /* StencilReflection */ = {
@@ -907,7 +907,7 @@
 			);
 			name = StencilReflection;
 			productName = StencilReflection;
-			productReference = C6F6C3F215E4732A00CF6333 /* StencilReflection */;
+			productReference = C6F6C3F215E4732A00CF6333 /* StencilReflection-d */;
 			productType = "com.apple.product-type.tool";
 		};
 		C6F6C40B15E4740800CF6333 /* ShadowMapping */ = {
@@ -925,7 +925,7 @@
 			);
 			name = ShadowMapping;
 			productName = ShadowMapping;
-			productReference = C6F6C40C15E4740800CF6333 /* ShadowMapping */;
+			productReference = C6F6C40C15E4740800CF6333 /* ShadowMapping-d */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -1087,10 +1087,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C6F6C3E915E4721F00CF6333 /* PBXTargetDependency */ = {
+		650B6C9515E51DFD00B46760 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C618AA4015DC992D0008EC10 /* OOGL */;
-			targetProxy = C6F6C3E815E4721F00CF6333 /* PBXContainerItemProxy */;
+			targetProxy = 650B6C9415E51DFD00B46760 /* PBXContainerItemProxy */;
 		};
 		C6F6C40215E4735F00CF6333 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1169,16 +1169,22 @@
 		C618AA4F15DC992D0008EC10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				EXECUTABLE_EXTENSION = a;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				OBJROOT = "Build/$(CONFIGURATION)";
+				PRODUCT_NAME = "$(TARGET_NAME)-d";
+				SYMROOT = ../../lib;
 			};
 			name = Debug;
 		};
 		C618AA5015DC992D0008EC10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				EXECUTABLE_EXTENSION = a;
+				OBJROOT = "Build/$(CONFIGURATION)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = ../../lib;
 			};
 			name = Release;
 		};
@@ -1187,10 +1193,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib\"",
+				);
 				MACH_O_TYPE = mh_execute;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = "Build/$(CONFIGURATION)";
+				PRODUCT_NAME = "$(TARGET_NAME)-d";
 				SDKROOT = macosx10.7;
+				SYMROOT = ../../bin;
 			};
 			name = Debug;
 		};
@@ -1199,10 +1212,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib\"",
+				);
 				MACH_O_TYPE = mh_execute;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = "Build/$(CONFIGURATION)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
+				SYMROOT = ../../bin;
 			};
 			name = Release;
 		};
@@ -1211,10 +1231,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib\"",
+				);
 				MACH_O_TYPE = mh_execute;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				OBJROOT = "Build/$(CONFIGURATION)";
+				PRODUCT_NAME = "$(TARGET_NAME)-d";
 				SDKROOT = macosx10.7;
+				SYMROOT = ../../bin;
 			};
 			name = Debug;
 		};
@@ -1223,10 +1250,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib\"",
+				);
 				MACH_O_TYPE = mh_execute;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = "Build/$(CONFIGURATION)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
+				SYMROOT = ../../bin;
 			};
 			name = Release;
 		};
@@ -1235,10 +1269,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib\"",
+				);
 				MACH_O_TYPE = mh_execute;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				OBJROOT = "Build/$(CONFIGURATION)";
+				PRODUCT_NAME = "$(TARGET_NAME)-d";
 				SDKROOT = macosx10.7;
+				SYMROOT = ../../bin;
 			};
 			name = Debug;
 		};
@@ -1247,10 +1288,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../lib\"",
+				);
 				MACH_O_TYPE = mh_execute;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OBJROOT = "Build/$(CONFIGURATION)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
+				SYMROOT = ../../bin;
 			};
 			name = Release;
 		};
@@ -1282,6 +1330,7 @@
 				C6F6C3E715E471EF00CF6333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C6F6C3F915E4732A00CF6333 /* Build configuration list for PBXNativeTarget "StencilReflection" */ = {
 			isa = XCConfigurationList;
@@ -1290,6 +1339,7 @@
 				C6F6C3FB15E4732A00CF6333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C6F6C41315E4740800CF6333 /* Build configuration list for PBXNativeTarget "ShadowMapping" */ = {
 			isa = XCConfigurationList;
@@ -1298,6 +1348,7 @@
 				C6F6C41515E4740800CF6333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

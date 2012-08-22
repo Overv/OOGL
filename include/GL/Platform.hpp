@@ -30,23 +30,19 @@
 
 #if defined( _WIN32 )
 	#define OOGL_PLATFORM_WINDOWS
-    #define OOGL_LOAD_EXTENSIONS 1
 	#include <Windows.h>
 	#include <WindowsX.h>
 	#include <GL/GL.h>
 #elif defined( __linux__ )
 	#define OOGL_PLATFORM_LINUX
-    #define OOGL_LOAD_EXTENSIONS 1
 	#include <X11/Xlib.h>
 	#include <GL/gl.h>
 	#include <GL/glx.h>
 	#include <sys/time.h>
 #elif defined( __APPLE__ )
 	#define OOGL_PLATFORM_OSX
-    #define OOGL_LOAD_EXTENSIONS 0
 	#include <objc/objc.h>
     #include <OpenGL/gl3.h>
-    #include <sys/time.h>
 #endif
 
 /*

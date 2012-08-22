@@ -21,6 +21,7 @@
 
 #include <GL/GL/Context.hpp>
 #include <Cocoa/Cocoa.h>
+#include <sys/time.h>
 
 namespace GL {
     
