@@ -18,6 +18,10 @@
      IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
      CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
  */
+
+// Huge thanks go Camilla Berglund of the GLFW project for providing the basis for OS X keycode table,
+// as well as the snippet of Carbon code that brings the process to the front.
+
 #include <GL/Window/Window.hpp>
 
 #ifdef OOGL_PLATFORM_OSX
@@ -29,7 +33,6 @@ namespace GL {
     // A class to interact with the private state of a Window.
     class WindowInterface
     {
-        GL::Window *window;
     public:
         WindowInterface(GL::Window *window) : window(window) { }
         
@@ -40,6 +43,8 @@ namespace GL {
         GL::Key::key_t TranslateKey(uint code);
         
         void Close();
+    private:
+        GL::Window *window;
     };
     
     GL::Event MakeWindowEvent(NSWindow *window);
@@ -47,6 +52,7 @@ namespace GL {
     GL::Key::key_t TranslateMacKeycode(ushort code);
     
     GL::MouseButton::mouse_button_t TranslateMacMouseButton(NSEventType eventType);
+
 }
 
 @interface OOGLView: NSOpenGLView
@@ -68,6 +74,7 @@ namespace GL {
         // TODO: Act upon the window styles.
         
         open = true;
+        context = nullptr;
         delegate = [[OOGLAppDelegate alloc] initWithOOGLWindow:this];
         
         // Initialize the shared NSApplication
@@ -75,13 +82,13 @@ namespace GL {
         [NSApp setDelegate:delegate];
         [NSApp activateIgnoringOtherApps:YES];
         
-        // Thank you GLFW.
+        // Really thank you.
+        // I banged my head against my keyboard
+        // for days trying to figure this out.
         ProcessSerialNumber psn = { 0, kCurrentProcess };
         TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-        
         SetFrontProcess(&psn);
-        
-        context = nullptr;
+
         NSRect rect = NSMakeRect(0, 0, width, height);
         NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask;
         
@@ -101,6 +108,7 @@ namespace GL {
         [window makeFirstResponder:glView];
         [window makeKeyAndOrderFront:nil];
         [window makeKeyWindow];
+
     }
     
     Window::~Window()
@@ -125,7 +133,7 @@ namespace GL {
     
     void Window::SetVisible(bool visible)
     {
-        [window setVisible:visible];
+        [window setVisible:visible]; // Does bool to BOOL conversion work?
     }
     
     void Window::Close()
@@ -135,6 +143,7 @@ namespace GL {
     
     bool Window::GetEvent(GL::Event &ev)
     {
+        // Poll events
         NSEvent *event = nil;
         do {
             event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantPast] inMode:NSDefaultRunLoopMode dequeue:YES];
@@ -225,7 +234,6 @@ namespace GL {
     ev.Type      = GL::Event::Blur;
     
     windowInterface->SendEvent(ev);
-    
 }
 
 -(void)windowWillClose:(NSNotification *)notification {
