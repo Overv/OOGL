@@ -31,10 +31,6 @@
 #include <cstring>
 #include <queue>
 
-#ifdef OOGL_PLATFORM_OSX
-    #include <objc/objc.h>
-#endif
-
 namespace GL
 {
 	/*
