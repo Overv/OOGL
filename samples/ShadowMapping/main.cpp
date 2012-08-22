@@ -5,7 +5,7 @@
 int main()
 {
 	GL::Window window( 800, 600, "OpenGL Window", GL::WindowStyle::Close );
-	L::Context& gl = window.GetContext( 24, 24, 8, 4 );
+	GL::Context& gl = window.GetContext( 24, 24, 8, 4 );
 
 	gl.Enable(GL::Capability::DepthTest);
 	gl.Enable(GL::Capability::CullFace);
