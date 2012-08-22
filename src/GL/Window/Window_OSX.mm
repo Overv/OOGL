@@ -71,8 +71,6 @@ namespace GL {
     
     Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
     {
-        // TODO: Act upon the window styles.
-        
         open = true;
         context = nullptr;
         delegate = [[OOGLAppDelegate alloc] initWithOOGLWindow:this];
@@ -90,8 +88,22 @@ namespace GL {
         SetFrontProcess(&psn);
 
         NSRect rect = NSMakeRect(0, 0, width, height);
-        NSUInteger styleMask = NSTitledWindowMask | NSClosableWindowMask;
+        NSUInteger styleMask = NSTitledWindowMask;
         
+        if(style & WindowStyle::Close)
+        {
+            styleMask |= NSClosableWindowMask;
+        }
+        
+        if(style & WindowStyle::Resize)
+        {
+            styleMask |= NSResizableWindowMask;
+        }
+        
+        if(style & WindowStyle::Fullscreen)
+        {
+            // TODO: Add fullscreen.
+        }
         
         window =  [[NSWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered   defer:NO];
         [window setDelegate:delegate];
