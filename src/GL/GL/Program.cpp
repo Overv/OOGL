@@ -43,6 +43,16 @@ namespace GL
 		glUseProgram( obj );
 	}
 
+	Program::Program( const Shader& vertex, const Shader& fragment, const Shader& geometry )
+	{
+		obj = gc.Create( glCreateProgram(), glDeleteProgram );
+		Attach( vertex );
+		Attach( fragment );
+		Attach( geometry );
+		Link();
+		glUseProgram( obj );
+	}
+
 	Program::~Program()
 	{
 		gc.Destroy( obj );

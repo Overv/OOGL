@@ -62,6 +62,7 @@ namespace GL
 		Program();
 		Program( const Program& program );
 		Program( const Shader& vertex, const Shader& fragment );
+		Program( const Shader& vertex, const Shader& fragment, const Shader& geometry );
 
 		~Program();
 
