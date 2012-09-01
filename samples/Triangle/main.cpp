@@ -26,7 +26,7 @@ int main()
 
         gl.Clear();
 
-        gl.DrawArrays( vao, GL::Primitive::Triangle, 0, 3 );
+        gl.DrawArrays( vao, GL::Primitive::Triangles, 0, 3 );
 
         window.Present();
     }

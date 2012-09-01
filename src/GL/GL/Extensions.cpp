@@ -86,6 +86,7 @@ GLDELETEBUFFERS glDeleteBuffers;
 GLBINDBUFFER glBindBuffer;
 GLBUFFERDATA glBufferData;
 GLBUFFERSUBDATA glBufferSubData;
+GLGETBUFFERSUBDATA glGetBufferSubData;
 
 GLGENVERTEXARRAYS glGenVertexArrays;
 GLDELETEVERTEXARRAYS glDeleteVertexArrays;
@@ -112,6 +113,11 @@ GLGENRENDERBUFFERS glGenRenderbuffers;
 GLDELETERENDERBUFFERS glDeleteRenderbuffers;
 GLRENDERBUFFERSTORAGE glRenderbufferStorage;
 GLBINDRENDERBUFFER glBindRenderbuffer;
+
+GLTRANSFORMFEEDBACKVARYINGS glTransformFeedbackVaryings;
+GLBINDBUFFERBASE glBindBufferBase;
+GLBEGINTRANSFORMFEEDBACK glBeginTransformFeedback;
+GLENDTRANSFORMFEEDBACK glEndTransformFeedback;
 
 namespace GL
 {
@@ -196,6 +202,7 @@ namespace GL
 		glBindBuffer = (GLBINDBUFFER)LoadExtension( "glBindBuffer" );
 		glBufferData = (GLBUFFERDATA)LoadExtension( "glBufferData" );
 		glBufferSubData = (GLBUFFERSUBDATA)LoadExtension( "glBufferSubData" );
+		glGetBufferSubData = (GLGETBUFFERSUBDATA)LoadExtension( "glGetBufferSubData" );
 
 		glGenVertexArrays = (GLGENVERTEXARRAYS)LoadExtension( "glGenVertexArrays" );
 		glDeleteVertexArrays = (GLDELETEVERTEXARRAYS)LoadExtension( "glDeleteVertexArrays" );
@@ -222,5 +229,10 @@ namespace GL
 		glDeleteRenderbuffers = (GLDELETERENDERBUFFERS)LoadExtension( "glDeleteRenderbuffers" );
 		glRenderbufferStorage = (GLRENDERBUFFERSTORAGE)LoadExtension( "glRenderbufferStorage" );
 		glBindRenderbuffer = (GLBINDRENDERBUFFER)LoadExtension( "glBindRenderbuffer" );
+
+		glTransformFeedbackVaryings = (GLTRANSFORMFEEDBACKVARYINGS)LoadExtension( "glTransformFeedbackVaryings" );
+		glBindBufferBase = (GLBINDBUFFERBASE)LoadExtension( "glBindBufferBase" );
+		glBeginTransformFeedback = (GLBEGINTRANSFORMFEEDBACK)LoadExtension( "glBeginTransformFeedback" );
+		glEndTransformFeedback = (GLENDTRANSFORMFEEDBACK)LoadExtension( "glEndTransformFeedback" );
 	}
 }

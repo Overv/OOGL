@@ -61,6 +61,7 @@ namespace GL
 	public:
 		Program();
 		Program( const Program& program );
+		Program( const Shader& vertex );
 		Program( const Shader& vertex, const Shader& fragment );
 		Program( const Shader& vertex, const Shader& fragment, const Shader& geometry );
 
@@ -70,6 +71,7 @@ namespace GL
 		const Program& operator=( const Program& other );
 
 		void Attach( const Shader& shader );
+		void TransformFeedbackVaryings( const char** varyings, uint count );
 		void Link();
 
 		std::string GetInfoLog();

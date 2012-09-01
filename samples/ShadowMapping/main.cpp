@@ -136,7 +136,7 @@ int main()
 		GL::Mat4 lightTrans = proj * view;
 		lightProgram.SetUniform( lightProgram.GetUniform( "trans" ), lightTrans );
 		
-		gl.DrawArrays( lightVAO, GL::Primitive::Triangle, 0, sceneMesh.VertexCount() );
+		gl.DrawArrays( lightVAO, GL::Primitive::Triangles, 0, sceneMesh.VertexCount() );
 
 		// Draw crate from eye view
 		gl.BindFramebuffer();
@@ -151,7 +151,7 @@ int main()
 		normalProgram.SetUniform( normalProgram.GetUniform("lightTrans"), lightTrans );
 		normalProgram.SetUniform( normalProgram.GetUniform("lightPos"), lightPos );
 		
-		gl.DrawArrays( normalVAO, GL::Primitive::Triangle, 0, sceneMesh.VertexCount() );
+		gl.DrawArrays( normalVAO, GL::Primitive::Triangles, 0, sceneMesh.VertexCount() );
 
 		// Show result
 		window.Present();

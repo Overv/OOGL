@@ -64,7 +64,7 @@ namespace GL
 	{
 		enum primitive_t
 		{
-			Triangle = GL_TRIANGLES,
+			Triangles = GL_TRIANGLES,
 			Lines = GL_LINES,
 			Points = GL_POINTS,
 		};
@@ -79,7 +79,8 @@ namespace GL
 		{
 			DepthTest = GL_DEPTH_TEST,
 			StencilTest = GL_STENCIL_TEST,
-			CullFace = GL_CULL_FACE
+			CullFace = GL_CULL_FACE,
+			RasterizerDiscard = GL_RASTERIZER_DISCARD
 		};
 	}
 
@@ -167,6 +168,9 @@ namespace GL
 		
 		void BindFramebuffer( const Framebuffer& framebuffer );
 		void BindFramebuffer();
+
+		void BeginTransformFeedback( Primitive::primitive_t mode );
+		void EndTransformFeedback();
 
 		void DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices );
 		void DrawElements( const VertexArray& vao, Primitive::primitive_t mode, intptr_t offset, uint count, uint type );

@@ -102,6 +102,8 @@ namespace GL
 		void Data( const void* data, size_t length, BufferUsage::buffer_usage_t usage );
 		void SubData( const void* data, size_t offset, size_t length );
 
+		void GetSubData( void* data, size_t offset, size_t length );
+
 	private:
 		static GC gc;
 		GLuint obj;

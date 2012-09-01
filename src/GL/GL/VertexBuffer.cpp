@@ -81,5 +81,11 @@ namespace GL
 		glBufferSubData( GL_ARRAY_BUFFER, offset, length, data );
 	}
 
+	void VertexBuffer::GetSubData( void* data, size_t offset, size_t length )
+	{
+		glBindBuffer( GL_ARRAY_BUFFER, obj );
+		glGetBufferSubData( GL_ARRAY_BUFFER, offset, length, data );
+	}
+
 	GC VertexBuffer::gc;
 }

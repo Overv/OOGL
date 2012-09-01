@@ -46,6 +46,8 @@ namespace GL
 
 		void BindElements( const VertexBuffer& elements );
 
+		void BindTransformFeedback( uint index, const VertexBuffer& buffer );
+
 	private:
 		static GC gc;
 		GLuint obj;
