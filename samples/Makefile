@@ -1,4 +1,4 @@
-all: ../bin ../bin/Triangle ../bin/StencilReflection ../bin/ShadowMapping
+all: ../bin ../bin/Triangle ../bin/StencilReflection ../bin/ShadowMapping ../bin/TransformFeedback
 
 ../bin/Triangle: Triangle/main.cpp
 	g++ Triangle/main.cpp -o ../bin/Triangle -I ../include ../lib/OOGL.a -lX11 -lXrandr -lGL -std=c++0x
