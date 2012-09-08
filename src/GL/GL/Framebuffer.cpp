@@ -63,7 +63,7 @@ namespace GL
 		// Create renderbuffer to hold depth buffer
 		if ( depth > 0 ) {
 			glBindTexture( GL_TEXTURE_2D, texDepth );
-			glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0 );
+			glTexImage2D( GL_TEXTURE_2D, 0, depthFormat, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0 );
 			texDepth.SetWrapping( GL::Wrapping::ClampEdge, GL::Wrapping::ClampEdge );
 			texDepth.SetFilters( GL::Filter::Nearest, GL::Filter::Nearest );
 			glFramebufferTexture2D( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texDepth, 0 );
