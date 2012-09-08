@@ -88,7 +88,7 @@ int main()
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		program.SetUniform( program.GetUniform( "tex" ), 0 );
 		program.SetUniform( program.GetUniform( "transparency" ), 1.0f );
-		gl.DrawArrays( vaoTank, GL::Primitive::Triangle, 0, meshTank.VertexCount() );
+		gl.DrawArrays( vaoTank, GL::Primitive::Triangles, 0, meshTank.VertexCount() );
 
 		// Draw platform
 		gl.Enable( GL::Capability::StencilTest );
@@ -100,7 +100,7 @@ int main()
 
 		program.SetUniform( program.GetUniform( "tex" ), 1 );
 		program.SetUniform( program.GetUniform( "transparency" ), 1.0f );
-		gl.DrawArrays( vaoPlatform, GL::Primitive::Triangle, 0, meshPlatform.VertexCount() );
+		gl.DrawArrays( vaoPlatform, GL::Primitive::Triangles, 0, meshPlatform.VertexCount() );
 		
 		// Draw upside down tank
 		model.Scale( GL::Vec3( 1, 1, -1 ) );
@@ -112,7 +112,7 @@ int main()
 
 		program.SetUniform( program.GetUniform( "tex" ), 0 );
 		program.SetUniform( program.GetUniform( "transparency" ), 0.4f );
-		gl.DrawArrays( vaoTank, GL::Primitive::Triangle, 0, meshTank.VertexCount() );
+		gl.DrawArrays( vaoTank, GL::Primitive::Triangles, 0, meshTank.VertexCount() );
 
 		gl.Disable( GL::Capability::StencilTest );
 		

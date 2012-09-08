@@ -34,11 +34,29 @@ namespace GL
 		gc.Copy( other.obj, obj );
 	}
 
+	Program::Program( const Shader& vertex )
+	{
+		obj = gc.Create( glCreateProgram(), glDeleteProgram );
+		Attach( vertex );
+		Link();
+		glUseProgram( obj );
+	}
+
 	Program::Program( const Shader& vertex, const Shader& fragment )
 	{
 		obj = gc.Create( glCreateProgram(), glDeleteProgram );
 		Attach( vertex );
 		Attach( fragment );
+		Link();
+		glUseProgram( obj );
+	}
+
+	Program::Program( const Shader& vertex, const Shader& fragment, const Shader& geometry )
+	{
+		obj = gc.Create( glCreateProgram(), glDeleteProgram );
+		Attach( vertex );
+		Attach( fragment );
+		Attach( geometry );
 		Link();
 		glUseProgram( obj );
 	}
@@ -62,6 +80,11 @@ namespace GL
 	void Program::Attach( const Shader& shader )
 	{
 		glAttachShader( obj, shader );
+	}
+
+	void Program::TransformFeedbackVaryings( const char** varyings, uint count )
+	{
+		glTransformFeedbackVaryings( obj, count, varyings, GL_INTERLEAVED_ATTRIBS );
 	}
 
 	void Program::Link()

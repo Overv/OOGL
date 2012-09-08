@@ -63,5 +63,11 @@ namespace GL
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, elements );
 	}
 
+	void VertexArray::BindTransformFeedback( uint index, const VertexBuffer& buffer )
+	{
+		glBindVertexArray( obj );
+		glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, index, buffer );
+	}
+
 	GC VertexArray::gc;
 }

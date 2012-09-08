@@ -13,11 +13,11 @@ int main()
 	// Setup scene drawing
 	GL::Mesh sceneMesh("scene.obj");
 	GL::VertexBuffer sceneBuffer(sceneMesh, GL::BufferUsage::StaticDraw, [] (const GL::Vertex& v, GL::VertexDataBuffer& data)
-                                 {
-                                     data.Vec3(v.Pos);
-                                     data.Vec3(v.Normal);
-                                     data.Vec2(v.Tex);
-                                 });
+	{
+		data.Vec3(v.Pos);
+		data.Vec3(v.Normal);
+		data.Vec2(v.Tex);
+	});
     
 	GL::Image sceneImage("scene.png");
 	GL::Texture sceneTexture(sceneImage);
@@ -144,15 +144,16 @@ int main()
 		GL::Mat4 view = GL::Mat4::LookAt(lightPos, GL::Vec3(0, 0, 0), GL::Vec3(0, 0, 1));
 		GL::Mat4 proj = GL::Mat4::Perspective(GL::Rad(45), 1.0, 1.0f, 10.0f);
 		GL::Mat4 lightTrans = proj * view;
+
 		lightProgram.SetUniform(lightProgram.GetUniform("trans"), lightTrans);
         
 		gl.DrawArrays(lightVAO, GL::Primitive::Triangle, 0, sceneMesh.VertexCount());
-        
+
 		// Draw crate from eye view
 		gl.BindFramebuffer();
 		gl.ClearColor(GL::Color(10, 10, 10));
 		gl.Clear();
-        
+
 		gl.UseProgram(normalProgram);
         
 		view = GL::Mat4::LookAt(GL::Vec3(4, 3.8, 3.2), GL::Vec3(0, 0, -0.2), GL::Vec3(0, 0, 1));
@@ -163,7 +164,7 @@ int main()
 		normalProgram.SetUniform(normalProgram.GetUniform("lightPos"), lightPos);
         
 		gl.DrawArrays(normalVAO, GL::Primitive::Triangle, 0, sceneMesh.VertexCount());
-        
+
 		// Show result
 		window.Present();
 	}

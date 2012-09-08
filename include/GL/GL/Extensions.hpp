@@ -85,6 +85,7 @@
 
 #define GL_FRAGMENT_SHADER 0x8B30
 #define GL_VERTEX_SHADER 0x8B31
+#define GL_GEOMETRY_SHADER 0x8DD9
 #define GL_COMPILE_STATUS 0x8B81
 #define GL_INFO_LOG_LENGTH 0x8B84
 
@@ -220,6 +221,8 @@ typedef void ( APIENTRYP GLBUFFERDATA ) ( GLenum target, GLsizeiptr size, const 
 extern GLBUFFERDATA glBufferData;
 typedef void ( APIENTRYP GLBUFFERSUBDATA ) ( GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid* data );
 extern GLBUFFERSUBDATA glBufferSubData;
+typedef void ( APIENTRYP GLGETBUFFERSUBDATA ) ( GLenum target, GLintptr offset, GLsizeiptr size, GLvoid* data );
+extern GLGETBUFFERSUBDATA glGetBufferSubData;
 
 /*
 	VAOs
@@ -447,6 +450,25 @@ extern GLBINDRENDERBUFFER glBindRenderbuffer;
 
 #define GL_INCR_WRAP 0x8507
 #define GL_DECR_WRAP 0x8508
+
+/*
+	Transform feedback
+*/
+
+#define GL_INTERLEAVED_ATTRIBS 0x8C8C
+
+#define GL_RASTERIZER_DISCARD 0x8C89
+
+#define GL_TRANSFORM_FEEDBACK_BUFFER 0x8C8E
+
+typedef void ( APIENTRYP GLTRANSFORMFEEDBACKVARYINGS ) ( GLuint program, GLsizei count, const char** varyings, GLenum bufferMode );
+extern GLTRANSFORMFEEDBACKVARYINGS glTransformFeedbackVaryings;
+typedef void ( APIENTRYP GLBINDBUFFERBASE ) ( GLenum target, GLuint index, GLuint buffer );
+extern GLBINDBUFFERBASE glBindBufferBase;
+typedef void ( APIENTRYP GLBEGINTRANSFORMFEEDBACK ) ( GLenum primitiveMode );
+extern GLBEGINTRANSFORMFEEDBACK glBeginTransformFeedback;
+typedef void ( APIENTRYP GLENDTRANSFORMFEEDBACK ) ();
+extern GLENDTRANSFORMFEEDBACK glEndTransformFeedback;
 
 /*
 	Extension loader

@@ -277,8 +277,8 @@ namespace GL
 			mousey = GET_Y_LPARAM( lParam );
 
 			if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Left;
-			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Right;
-			else if ( msg == WM_LBUTTONUP ) ev.Mouse.Button = MouseButton::Middle;
+			else if ( msg == WM_RBUTTONUP ) ev.Mouse.Button = MouseButton::Right;
+			else if ( msg == WM_MBUTTONUP ) ev.Mouse.Button = MouseButton::Middle;
 			else break;
 
 			ev.Type = Event::MouseUp;

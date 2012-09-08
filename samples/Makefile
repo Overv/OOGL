@@ -14,6 +14,9 @@ all: ../bin ../bin/Triangle ../bin/StencilReflection ../bin/ShadowMapping
 	g++ ShadowMapping/main.cpp -o ../bin/ShadowMapping -I ../include ../lib/OOGL.a -lX11 -lXrandr -lGL -std=c++0x
 	cp ShadowMapping/scene.obj ../bin/scene.obj
 	cp ShadowMapping/scene.png ../bin/scene.png
+	
+../bin/TransformFeedback: TransformFeedback/main.cpp
+	g++ TransformFeedback/main.cpp -o ../bin/TransformFeedback -I ../include ../lib/OOGL.a -lX11 -lXrandr -lGL -std=c++0x
 
 ../bin:
 	mkdir ../bin

@@ -105,6 +105,16 @@ namespace GL
 		glViewport( defaultViewport[0], defaultViewport[1], defaultViewport[2], defaultViewport[3] );
 	}
 
+	void Context::BeginTransformFeedback( Primitive::primitive_t mode )
+	{
+		glBeginTransformFeedback( mode );
+	}
+
+	void Context::EndTransformFeedback()
+	{
+		glEndTransformFeedback();
+	}
+
 	void Context::DrawArrays( const VertexArray& vao, Primitive::primitive_t mode, uint offset, uint vertices )
 	{
 		glBindVertexArray( vao );
