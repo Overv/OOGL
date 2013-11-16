@@ -79,6 +79,18 @@ namespace GL
 		Attribute GetAttribute( const std::string& name );
 		Uniform GetUniform( const std::string& name );
 
+		template <typename T>
+		void SetUniform( const std::string& name, const T& value )
+		{
+			SetUniform( GetUniform( name ), value );
+		}
+
+		template <typename T>
+		void SetUniform( const std::string& name, const T* values, uint count)
+		{
+			SetUniform( GetUniform( name ), values, count );
+		}
+
 		void SetUniform( const Uniform& uniform, int value );
 		void SetUniform( const Uniform& uniform, float value );
 		void SetUniform( const Uniform& uniform, const Vec2& value );
