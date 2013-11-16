@@ -88,8 +88,8 @@ int main()
 	normalVAO.BindAttribute( normalProgram.GetAttribute( "normal" ), sceneBuffer, GL::Type::Float, 3, sizeof(float) * 8, sizeof(float) * 3 );
 	normalVAO.BindAttribute( normalProgram.GetAttribute( "texcoord" ), sceneBuffer, GL::Type::Float, 2, sizeof(float) * 8, sizeof(float) * 6 );
 
-	normalProgram.SetUniform( normalProgram.GetUniform( "texCrate" ), 0 );
-	normalProgram.SetUniform( normalProgram.GetUniform( "texLight" ), 1 );
+	normalProgram.SetUniform( "texCrate", 0 );
+	normalProgram.SetUniform( "texLight", 1 );
 
 	// Prepare rendering
 	GL::Framebuffer lightFBO( 4096, 4096 );
@@ -134,7 +134,7 @@ int main()
 		GL::Mat4 view = GL::Mat4::LookAt( lightPos, GL::Vec3( 0, 0, 0 ), GL::Vec3( 0, 0, 1 ) );
 		GL::Mat4 proj = GL::Mat4::Perspective( GL::Rad( 45 ), 1.0, 1.0f, 10.0f );
 		GL::Mat4 lightTrans = proj * view;
-		lightProgram.SetUniform( lightProgram.GetUniform( "trans" ), lightTrans );
+		lightProgram.SetUniform( "trans", lightTrans );
 		
 		gl.DrawArrays( lightVAO, GL::Primitive::Triangles, 0, sceneMesh.VertexCount() );
 
@@ -147,9 +147,9 @@ int main()
 		view = GL::Mat4::LookAt( GL::Vec3( 4, 3.8, 3.2 ), GL::Vec3( 0, 0, -0.2 ), GL::Vec3( 0, 0, 1 ) );
 		view.RotateZ( yaw );
 		proj = GL::Mat4::Perspective( GL::Rad( 45 ), 4.0f/3.0f, 1.0f, 10.0f );
-		normalProgram.SetUniform( normalProgram.GetUniform("trans"), proj * view );
-		normalProgram.SetUniform( normalProgram.GetUniform("lightTrans"), lightTrans );
-		normalProgram.SetUniform( normalProgram.GetUniform("lightPos"), lightPos );
+		normalProgram.SetUniform( "trans", proj * view );
+		normalProgram.SetUniform( "lightTrans", lightTrans );
+		normalProgram.SetUniform( "lightPos", lightPos );
 		
 		gl.DrawArrays( normalVAO, GL::Primitive::Triangles, 0, sceneMesh.VertexCount() );
 
