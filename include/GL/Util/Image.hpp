@@ -74,10 +74,12 @@ namespace GL
 
 		Image( ushort width, ushort height, const Color& background );
 		Image( ushort width, ushort height, uchar* pixels );
+		Image( uchar* pixels, uint size );
 		Image( const std::string& filename );
 
 		~Image();
 
+		void Load( uchar* pixels, uint size );
 		void Load( const std::string& filename );
 		void Save( const std::string& filename, ImageFileFormat::image_file_format_t format );
 

@@ -67,6 +67,12 @@ namespace GL
 		this->height = height;
 	}
 
+	Image::Image( uchar* pixels, uint size )
+	{
+		image = 0;
+		Load( pixels, size );
+	}
+
 	Image::Image( const std::string& filename )
 	{
 		image = 0;
@@ -76,6 +82,31 @@ namespace GL
 	Image::~Image()
 	{
 		if ( image ) delete [] image;
+	}
+
+	void Image::Load( uchar* pixels, uint size )
+	{
+		// Unload image
+		if ( image ) delete[] image;
+		image = 0;
+		width = 0;
+		height = 0;
+
+		// Load data from memory
+		ByteReader data( size, true );
+		std::memcpy( data.Data(), pixels, size );
+
+		// Determine format and process
+		if ( data.PeekByte( 0 ) == 'B' && data.PeekByte( 1 ) == 'M' )
+			LoadBMP( data );
+		else if ( data.Compare( data.Length() - 18, 18, (const uchar*)"TRUEVISION-XFILE." ) )
+			LoadTGA( data );
+		else if ( data.PeekByte( 0 ) == 0xFF && data.PeekByte( 1 ) == 0xD8 )
+			LoadJPEG( data );
+		else if ( data.Compare( 0, 4, (const uchar*)"\x89PNG" ) )
+			LoadPNG( data );
+		else
+			throw FormatException();
 	}
 
 	void Image::Load( const std::string& filename )
