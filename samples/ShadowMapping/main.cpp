@@ -70,7 +70,7 @@ int main()
 			lightCoord.y = ( lightCoord.y + 1.0 ) / 2.0;
 			lightCoord.z = ( lightCoord.z + 1.0 ) / 2.0;
 
-			float lightDepth = texture( texLight, lightCoord.xy ).z;
+			float lightDepth = texture( texLight, lightCoord.xy ).x;
 			
 			// Determine if fragment is in shadow or determine diffuse lighting
 			float diffuse = max( dot( Normal, normalize( lightPos - Pos ) ), 0 ) * 0.8 + 0.2;
