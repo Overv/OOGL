@@ -126,7 +126,7 @@ namespace GL
 	inline void* LoadExtension( const char* name )
 	{
 #if defined( OOGL_PLATFORM_WINDOWS )
-		return wglGetProcAddress( name );
+		return (void*)wglGetProcAddress( name );
 #elif defined( OOGL_PLATFORM_LINUX )
 		return (void*)glXGetProcAddress( (const GLubyte*)name );
 #endif
