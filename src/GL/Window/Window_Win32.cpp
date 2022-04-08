@@ -27,22 +27,16 @@ namespace GL
 {
 	Window::Window( uint width, uint height, const std::string& title, WindowStyle::window_style_t style )
 	{
-		// Call RegisterClass only once
-		static bool once = true;
-		if (once) {		
-			// Create class for OpenGL window
-			WNDCLASS wc = { 0 };
-			wc.lpfnWndProc = WindowEventHandler;
-			wc.hInstance = GetModuleHandle( NULL );
-			wc.hIcon = LoadIcon( NULL, IDI_APPLICATION );
-			wc.hCursor = LoadCursor( NULL, IDC_ARROW );
-			wc.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
-			wc.lpszClassName = "OOGL_WINDOW";
-			wc.style = CS_OWNDC;
-			RegisterClass( &wc );
-
-			once = false;
-		}
+		// Create class for OpenGL window
+		WNDCLASS wc = { 0 };
+		wc.lpfnWndProc = WindowEventHandler;
+		wc.hInstance = GetModuleHandle( NULL );
+		wc.hIcon = LoadIcon( NULL, IDI_APPLICATION );
+		wc.hCursor = LoadCursor( NULL, IDC_ARROW );
+		wc.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
+		wc.lpszClassName = "OOGL_WINDOW";
+		wc.style = CS_OWNDC;
+		RegisterClass( &wc );
 		
 		// Configure window style
 		ulong windowStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_VISIBLE;
